@@ -42,7 +42,6 @@ BOOL CPacket::init()
 			Adapters[nAdapterCount].mask = inet_addr(Adapters[nAdapterCount].mask_str);
 			Adapters[nAdapterCount].gateway_str = pAdInfo->GatewayList.IpAddress.String;
 			nAdapterCount++;
-		//} while (pAdInfo->Next != NULL);
 		} while ((pAdInfo = pAdInfo->Next) != NULL);
 	}
 	else
@@ -123,7 +122,7 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 	if ( (Adapters[nActiveAdapter].pAdapter = pcap_open(d->name,          // name of the device
 														65536,            // portion of the packet to capture
 														// 65536 guarantees that the whole packet will be captured on all the link layers
-														PCAP_OPENFLAG_PROMISCUOUS,    // promiscuous mode
+														0,				  // no promiscuous mode
 														1000,             // read timeout
 														NULL,             // authentication on the remote machine
 														errbuf            // error buffer
@@ -177,6 +176,7 @@ void CPacket::CloseAdapter(int i)
 {
 	if (Adapters[i].pAdapter != NULL)
 	{
+		pcap_breakloop(Adapters[i].pAdapter);
 		Adapters[i].pAdapter = NULL;
 	}
 }

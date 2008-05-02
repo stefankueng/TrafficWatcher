@@ -30,8 +30,6 @@ CMainSheet::~CMainSheet()
 {
 	delete m_pTrafficPage;
 	delete m_pDetailPage;
-	delete m_pHistoryPage;
-	delete m_pToolPage;
 	delete m_pOptionsPage;
 	delete m_pAboutPage;
 }
@@ -52,15 +50,11 @@ void CMainSheet::AddPropPages( )
 {
 	m_pTrafficPage = new CTrafficPage;
 	m_pDetailPage = new CDetailPage;
-	m_pHistoryPage = new CHistoryPage;
-	m_pToolPage = new CToolPage;
 	m_pOptionsPage = new COptionsPage;
 	m_pAboutPage = new CAboutPage;
 
 	AddPage( m_pTrafficPage );
 	AddPage( m_pDetailPage );
-	AddPage( m_pHistoryPage );
-	AddPage( m_pToolPage );
 	AddPage( m_pOptionsPage );
 	AddPage( m_pAboutPage );
 
@@ -280,6 +274,4 @@ void CMainSheet::OnClose()
 	CPropertySheet::OnClose();
 	delete this;
 	m_pTheApp->m_wnd.m_pDialog = 0;
-	delete m_pTheApp->m_wnd.m_pWorldview;
-	m_pTheApp->m_wnd.m_pWorldview = 0;
 }

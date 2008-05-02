@@ -3,8 +3,6 @@
 
 #include	"trafficpage.h"
 #include	"detailpage.h"
-#include	"historypage.h"
-#include	"toolpage.h"
 #include	"optionspage.h"
 #include	"aboutpage.h"
 
@@ -27,8 +25,6 @@ public:
 public:
 	CTrafficPage*		m_pTrafficPage;
 	CDetailPage*		m_pDetailPage;
-	CHistoryPage*		m_pHistoryPage;
-	CToolPage*			m_pToolPage;
 	COptionsPage*		m_pOptionsPage;
 	CAboutPage*			m_pAboutPage;
 
