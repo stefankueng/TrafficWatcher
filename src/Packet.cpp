@@ -66,17 +66,16 @@ BOOL CPacket::Close()
 			delete Adapters[i].pBuffer;
 			Adapters[i].pBuffer = NULL;
 		}
-		if (Adapters[i].pPacket != NULL)
-		{
-			PacketFreePacket(Adapters[i].pPacket);
-			Adapters[i].pPacket = NULL;
-		}
 	}
 	return TRUE;
 }
 
 BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 {
+	pcap_if_t *alldevs;
+	pcap_if_t *d;
+	char errbuf[PCAP_ERRBUF_SIZE];
+
 	if (i<0)
 	{
 		//search for a adapter and use the first valid found
@@ -87,79 +86,65 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 	//check if given Adapter is available
 	if (i>=nAdapterCount)
 	{
-		AfxMessageBox("no valid adapter found!");
+		AfxMessageBox(_T("no valid adapter found!"));
 		return FALSE;						//invalid adapter number or not initialized yet
 	}
 	nActiveAdapter = i;						//save the number of the selected adapter
 
-	//try to open the adapter
-	Adapters[nActiveAdapter].pAdapter = OpenAdapter(nActiveAdapter);			//open the adapter
-	if (Adapters[nActiveAdapter].pAdapter == NULL)
+	// list all available adapters
+	if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
 	{
-		AfxMessageBox("could not open Adapter in CPacket::Open()");
-		return FALSE;						//could not open adapter
-	}
-	
-	//set the size of the kernel buffer
-	if ( PacketSetBuff(Adapters[nActiveAdapter].pAdapter, kernelbuf)==FALSE )
-	{
-		AfxMessageBox("not enough memory for kernel buffer!");
-		return FALSE;						//not enough memory to allocate kernel buffer
+		AfxMessageBox(errbuf);
+		return FALSE;
 	}
 
-	if (promiscuous)
-		PacketSetHwFilter(Adapters[nActiveAdapter].pAdapter, NDIS_PACKET_TYPE_PROMISCUOUS);
-	else
-		PacketSetHwFilter(Adapters[nActiveAdapter].pAdapter, NDIS_PACKET_TYPE_DIRECTED);
-	PacketSetReadTimeout(Adapters[nActiveAdapter].pAdapter, 500);
-
-	//allocate and initialize the application buffer (packet buffer)
-	Adapters[nActiveAdapter].pPacket = PacketAllocatePacket();
-	if (Adapters[nActiveAdapter].pPacket == NULL)
+	for(d=alldevs; d; d=d->next)
 	{
-		AfxMessageBox("not enough memory for packet structure");
-		return FALSE;						//could not allocate packet structure
+		if (d->description)
+			TRACE(" (%s)\n", d->description);
+		else
+			TRACE(" (No description available)\n");
 	}
 
-	Adapters[nActiveAdapter].pBuffer = new CHAR[bufsize];
-	if (Adapters[nActiveAdapter].pBuffer == NULL)
+	// Jump to the selected adapter
+	int j = 0;
+	for(d=alldevs, j=0; j<i;d=d->next, j++);
+
+	// Open the device
+	if ( (Adapters[nActiveAdapter].pAdapter = pcap_open(d->name,          // name of the device
+														65536,            // portion of the packet to capture
+														// 65536 guarantees that the whole packet will be captured on all the link layers
+														PCAP_OPENFLAG_PROMISCUOUS,    // promiscuous mode
+														1000,             // read timeout
+														NULL,             // authentication on the remote machine
+														errbuf            // error buffer
+														) ) == NULL)
 	{
-		AfxMessageBox("not enough memory for packet buffer");
-		return FALSE;						//could not allocate enough memory
+		AfxMessageBox(_T("Unable to open the adapter."));
+		// Free the device list
+		pcap_freealldevs(alldevs);
+		return FALSE;
 	}
 
-	PacketInitPacket(Adapters[nActiveAdapter].pPacket, Adapters[nActiveAdapter].pBuffer, bufsize);
+	// At this point, we don't need any more the device list. Free it
+	pcap_freealldevs(alldevs);
 
-	//start the thread which read data from the adapter
 	Start();								//method of the base class CThread
 
 
 	return TRUE;
 }
 
-LPADAPTER CPacket::OpenAdapter(int i)
-{
-	return PacketOpenAdapter((char*)(LPCTSTR)Adapters[i].AdapterString);
-}
-
 void CPacket::CloseAdapter(int i)
 {
 	if (Adapters[i].pAdapter != NULL)
 	{
-		PacketCloseAdapter(Adapters[i].pAdapter);
+		//PacketCloseAdapter(Adapters[i].pAdapter);
 		Adapters[i].pAdapter = NULL;
 	}
 }
 
 
-//BOOL CPacket::GetNetInfo(int i)
-//{
-//	BOOL s;
-//	s = PacketGetNetInfo((char*)(LPCTSTR)Adapters[i].AdapterString, &Adapters[i].ip, &Adapters[i].mask);
-//
-//	return s;
-//}
-//
 BOOL CPacket::IsValidIPAdapter(int i)
 {
 	//to be valid, an adapter must have an ip address other than 0.0.0.0
@@ -173,34 +158,15 @@ BOOL CPacket::IsValidIPAdapter(int i)
  */
 DWORD CPacket::ThreadMethod()
 {
-#define BPF_ALIGNMENT sizeof(long)
-#define BPF_WORDALIGN(x) (((x)+(BPF_ALIGNMENT-1))&~(BPF_ALIGNMENT-1))
+	pcap_loop(Adapters[nActiveAdapter].pAdapter, 0, packet_handler, (u_char *)this);
 
-	while ((m_runthread)&&(nActiveAdapter>=0))				//member of the base class!
-	{
-		WaitForSingleObject(Adapters[nActiveAdapter].pAdapter->ReadEvent,500);
-		if (PacketReceivePacket(Adapters[nActiveAdapter].pAdapter,
-								Adapters[nActiveAdapter].pPacket, TRUE) )
-		{
-			if (Adapters[nActiveAdapter].pPacket->ulBytesReceived != 0)
-			{
-				int packetlength;
-				packetbegin = (unsigned char *)Adapters[nActiveAdapter].pPacket->Buffer;
-				packetlength = Adapters[nActiveAdapter].pPacket->ulBytesReceived;
-
-				packetend = packetbegin + packetlength;
-				while ( packetbegin < packetend )
-				{
-					int caplen, hdrlen;
-					caplen = ((struct bpf_hdr *)packetbegin)->bh_caplen;
-					hdrlen = ((struct bpf_hdr *)packetbegin)->bh_hdrlen;
-					AnalyzePackets(packetbegin, packetbegin + hdrlen);		//call the virtual method
-					packetbegin += BPF_WORDALIGN(caplen + hdrlen);
-				}
-			}
-		}
-	}
 	return 0;
+}
+
+void CPacket::packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data)
+{
+	CPacket * pThis = (CPacket*)param;
+	pThis->AnalyzePackets(pkt_data, pkt_data + header->len);
 }
 
 

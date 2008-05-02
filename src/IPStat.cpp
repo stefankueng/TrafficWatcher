@@ -203,7 +203,7 @@ void	CIPStat::Save()
 }
 
 //this method is called from the thread in the base class (CPacket)
-void CIPStat::AnalyzePackets(UCHAR *buffer, UCHAR *packet)
+void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 {
 	#define PROT_TCP		6
 	#define	PROT_UDP		17

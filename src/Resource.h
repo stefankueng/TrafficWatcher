@@ -16,7 +16,6 @@
 #define IDR_WORLDPIC                    145
 #define IDD_ABOUT                       151
 #define IDR_BMP1                        173
-#define IDB_ABOUTPIC                    173
 #define IDC_DL_BAR                      1003
 #define IDC_DL_BYTESPEED                1007
 #define IDC_UL_BAR                      1008

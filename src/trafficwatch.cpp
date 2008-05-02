@@ -1,8 +1,7 @@
-// trafficwatch.cpp : Defines the class behaviors for the application.
-//
-
 #include "stdafx.h"
 #include "trafficwatch.h"
+
+#pragma comment(linker, "\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 //private message for the taskbar
 extern UINT TaskbarCallbackMsg;
@@ -30,8 +29,6 @@ END_MESSAGE_MAP()
 
 CTrafficwatchApp::CTrafficwatchApp()
 {
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 	m_pTheApp = this;
 	m_mutex = NULL;
 }
@@ -51,25 +48,19 @@ CTrafficwatchApp theApp;
 CTrafficwatchApp* m_pTheApp;
 
 
-/*!
+/**
  * Initializes the application. Also checks if another instance of this application
  * is already running. if so, just bring the window of the running instance to front
  * and don't start another instance.
  *
- * @return BOOL  : TRUE if instance is running, FALSE if Instance was cancelled.
+ * \return BOOL  : TRUE if instance is running, FALSE if Instance was canceled.
  */
 BOOL CTrafficwatchApp::InitInstance()
 {
-	// Standard initialization
-	// If you are not using these features and wish to reduce the size
-	//  of your final executable, you should remove from the following
-	//  the specific initialization routines you do not need.
-
-
 
 #ifndef DEBUG
 	
-	//only one instance of this application allowed
+	// only one instance of this application allowed
 	m_mutex = ::CreateMutex(NULL, FALSE, M_APPNAME);
 	
 	if( m_mutex != NULL )
@@ -89,7 +80,7 @@ BOOL CTrafficwatchApp::InitInstance()
 #endif
 
 	
-	//check if winsock2.x is available	
+	// check if winsock2.x is available	
     WSADATA WinsockData;
     if( WSAStartup(MAKEWORD(2,2), &WinsockData) != 0) 
     {
@@ -98,12 +89,12 @@ BOOL CTrafficwatchApp::InitInstance()
     }
 	
 	
-    //create a hidden window to receive system tray messages
+    // create a hidden window to receive system tray messages
     LPCTSTR pClass = AfxRegisterWndClass( 0 ); 
     CRect rc;
    	rc.SetRectEmpty( );
 
-	if( m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, M_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0 )
+	if (m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, M_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
 	{
 		AfxMessageBox( "could not create window", MB_OK | MB_ICONHAND );
 		return FALSE;	//quit program
@@ -112,7 +103,5 @@ BOOL CTrafficwatchApp::InitInstance()
     m_pMainWnd = &m_wnd;
     m_wnd.StartUp( );
 
-
-	return TRUE;
-	
+	return TRUE;	
 }

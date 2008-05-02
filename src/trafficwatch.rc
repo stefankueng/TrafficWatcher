@@ -81,12 +81,10 @@ STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Current Traffic"
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Progress3",IDC_DL_BAR,"msctls_progress32",WS_BORDER | 
-                    WS_GROUP | 0x5,5,15,10,181
+    CONTROL         "Progress3",IDC_DL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,5,15,10,181
     RTEXT           "0 kBit/s",IDC_UL_MAXSPEED,85,165,60,8
     RTEXT           "0 kByte/s",IDC_DL_BYTESPEED,90,20,55,10,NOT WS_GROUP
-    CONTROL         "Progress1",IDC_UL_BAR,"msctls_progress32",WS_BORDER | 
-                    WS_GROUP | 0x5,25,15,10,181
+    CONTROL         "Progress1",IDC_UL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,25,15,10,181
     LTEXT           "Up",IDC_STATIC,25,5,15,10
     LTEXT           "Down",IDC_STATIC,0,5,20,10
     GROUPBOX        "Download",IDC_COLLAPSE,50,5,100,60
@@ -133,10 +131,8 @@ BEGIN
     GROUPBOX        "News",IDC_STATIC,205,5,95,95
     GROUPBOX        "UDP",IDC_STATIC,105,105,95,95
     GROUPBOX        "Other",IDC_STATIC,205,105,95,95
-    CONTROL         "Progress1",IDC_PROGRESS_WEB_DL,"msctls_progress32",
-                    WS_BORDER,30,15,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_WEB_UL,"msctls_progress32",
-                    WS_BORDER,30,50,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_WEB_DL,"msctls_progress32",WS_BORDER,30,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_WEB_UL,"msctls_progress32",WS_BORDER,30,50,65,6
     LTEXT           "DL",IDC_STATIC,10,15,10,8
     LTEXT           "UL",IDC_STATIC,10,50,10,8
     RTEXT           "0 kByte/s",IDC_WEB_DL_SPEED,15,25,80,8
@@ -145,10 +141,8 @@ BEGIN
     RTEXT           "0 kByte",IDC_WEB_DL_DATA,15,35,75,8
     LTEXT           "Total:",IDC_STATIC,10,85,19,8
     RTEXT           "0 kByte",IDC_WEB_TOTAL_DATA,35,85,55,8
-    CONTROL         "Progress1",IDC_PROGRESS_MAIL_DL,"msctls_progress32",
-                    WS_BORDER,130,15,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_MAIL_UL,"msctls_progress32",
-                    WS_BORDER,130,50,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_MAIL_DL,"msctls_progress32",WS_BORDER,130,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_MAIL_UL,"msctls_progress32",WS_BORDER,130,50,65,6
     LTEXT           "DL",IDC_STATIC,110,15,10,8
     LTEXT           "UL",IDC_STATIC,110,50,10,8
     RTEXT           "0 kByte/s",IDC_MAIL_DL_SPEED,115,25,80,8
@@ -157,10 +151,8 @@ BEGIN
     RTEXT           "0 kByte",IDC_MAIL_DL_DATA,115,35,75,8
     LTEXT           "Total:",IDC_STATIC,110,85,19,8
     RTEXT           "0 kByte",IDC_MAIL_TOTAL_DATA,135,85,55,8
-    CONTROL         "Progress1",IDC_PROGRESS_NEWS_DL,"msctls_progress32",
-                    WS_BORDER,230,15,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_NEWS_UL,"msctls_progress32",
-                    WS_BORDER,230,50,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_NEWS_DL,"msctls_progress32",WS_BORDER,230,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_NEWS_UL,"msctls_progress32",WS_BORDER,230,50,65,6
     LTEXT           "DL",IDC_STATIC,210,15,10,8
     LTEXT           "UL",IDC_STATIC,210,50,10,8
     RTEXT           "0 kByte/s",IDC_NEWS_DL_SPEED,215,25,80,8
@@ -169,10 +161,8 @@ BEGIN
     RTEXT           "0 kByte",IDC_NEWS_DL_DATA,215,35,75,8
     LTEXT           "Total:",IDC_STATIC,210,85,19,8
     RTEXT           "0 kByte",IDC_NEWS_TOTAL_DATA,235,85,55,8
-    CONTROL         "Progress1",IDC_PROGRESS_SHARE_DL,"msctls_progress32",
-                    WS_BORDER,30,115,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_SHARE_UL,"msctls_progress32",
-                    WS_BORDER,30,150,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_SHARE_DL,"msctls_progress32",WS_BORDER,30,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_SHARE_UL,"msctls_progress32",WS_BORDER,30,150,65,6
     LTEXT           "DL",IDC_STATIC,10,115,10,8
     LTEXT           "UL",IDC_STATIC,10,150,10,8
     RTEXT           "0 kByte/s",IDC_SHARE_DL_SPEED,15,126,80,8
@@ -181,10 +171,8 @@ BEGIN
     RTEXT           "0 kByte",IDC_SHARE_DL_DATA,15,135,75,8
     LTEXT           "Total:",IDC_STATIC,10,185,19,8
     RTEXT           "0 kByte",IDC_SHARE_TOTAL_DATA,35,185,55,8
-    CONTROL         "Progress1",IDC_PROGRESS_UDP_DL,"msctls_progress32",
-                    WS_BORDER,130,115,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_UDP_UL,"msctls_progress32",
-                    WS_BORDER,130,150,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_UDP_DL,"msctls_progress32",WS_BORDER,130,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_UDP_UL,"msctls_progress32",WS_BORDER,130,150,65,6
     LTEXT           "DL",IDC_STATIC,110,115,10,8
     LTEXT           "UL",IDC_STATIC,110,150,10,8
     RTEXT           "0 kByte/s",IDC_UDP_DL_SPEED,115,126,80,8
@@ -193,10 +181,8 @@ BEGIN
     RTEXT           "0 kByte",IDC_UDP_DL_DATA,115,135,75,8
     LTEXT           "Total:",IDC_STATIC,110,185,19,8
     RTEXT           "0 kByte",IDC_UDP_TOTAL_DATA,135,185,55,8
-    CONTROL         "Progress1",IDC_PROGRESS_OTHER_DL,"msctls_progress32",
-                    WS_BORDER,230,115,65,6
-    CONTROL         "Progress2",IDC_PROGRESS_OTHER_UL,"msctls_progress32",
-                    WS_BORDER,230,150,65,6
+    CONTROL         "Progress1",IDC_PROGRESS_OTHER_DL,"msctls_progress32",WS_BORDER,230,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_OTHER_UL,"msctls_progress32",WS_BORDER,230,150,65,6
     LTEXT           "DL",IDC_STATIC,210,115,10,8
     LTEXT           "UL",IDC_STATIC,210,150,10,8
     RTEXT           "0 kByte/s",IDC_OTHER_DL_SPEED,215,126,80,8
@@ -221,8 +207,7 @@ BEGIN
     LTEXT           "Other",IDC_STATIC,15,145,25,8
     RTEXT           "Upload",IDC_STATIC,155,80,24,8
     RTEXT           "Download",IDC_STATIC,255,80,33,8
-    LTEXT           "_______________________________________________________________________",
-                    IDC_STATIC,10,155,285,8
+    LTEXT           "_______________________________________________________________________",IDC_STATIC,10,155,285,8
     RTEXT           "Static",IDC_UL_WEB,90,95,89,8
     RTEXT           "Static",IDC_UL_MAIL,90,105,89,8
     RTEXT           "Static",IDC_UL_NEWS,85,115,94,8
@@ -239,14 +224,12 @@ BEGIN
     RTEXT           "Static",IDC_DL_TOT,190,170,100,8
     RTEXT           "Static",IDC_TOTAL,180,185,109,8
     GROUPBOX        "",IDC_STATIC,5,0,295,200
-    CONTROL         "",IDC_MONTHDIAGRAM,"Static",SS_ETCHEDFRAME,10,15,75,50,
-                    WS_EX_TRANSPARENT
+    CONTROL         "",IDC_MONTHDIAGRAM,"Static",SS_ETCHEDFRAME,10,15,75,50,WS_EX_TRANSPARENT
     CONTROL         "",IDC_DAYDIAGRAM,"Static",SS_ETCHEDFRAME,90,15,205,50
     LTEXT           "Date:",IDC_DATE,15,65,160,15,NOT WS_GROUP
     LTEXT           "last months",IDC_STATIC,10,5,36,8
     LTEXT           "last days",IDC_STATIC,90,5,28,8
-    CONTROL         "log view",IDC_LOGCHECK,"Button",BS_AUTOCHECKBOX | 
-                    BS_LEFTTEXT | BS_RIGHT,240,5,55,10
+    CONTROL         "log view",IDC_LOGCHECK,"Button",BS_AUTOCHECKBOX | BS_LEFTTEXT | BS_RIGHT,240,5,55,10
 END
 
 IDD_OPTIONS DIALOGEX 0, 0, 307, 206
@@ -254,44 +237,27 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Options"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "show bits instead of bytes",IDC_SHOWBITS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,95,105,97,10
-    CONTROL         "show values in IEC format",IDC_SHOWIEC,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,195,105,97,10
+    CONTROL         "show bits instead of bytes",IDC_SHOWBITS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,95,105,97,10
+    CONTROL         "show values in IEC format",IDC_SHOWIEC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,195,105,97,10
     GROUPBOX        "max. speed",IDC_STATIC,5,5,295,80
     GROUPBOX        "startup && lifetime",IDC_STATIC,5,90,295,35
-    CONTROL         "start with windows",IDC_AUTOSTART_CHECK,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,105,73,10
+    CONTROL         "start with windows",IDC_AUTOSTART_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,105,73,10
     GROUPBOX        "Download",IDC_STATIC,15,20,130,55
     GROUPBOX        "Upload",IDC_STATIC,160,20,130,55
-    CONTROL         "256 kBit/s",IDC_DL_R256,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,20,30,49,10
-    CONTROL         "512 kBit/s",IDC_DL_R512,"Button",BS_AUTORADIOBUTTON,20,
-                    40,49,10
-    CONTROL         "768 kBit/s",IDC_DL_R768,"Button",BS_AUTORADIOBUTTON,20,
-                    50,49,10
-    CONTROL         "1 MBit/s",IDC_DL_R1000,"Button",BS_AUTORADIOBUTTON,20,
-                    60,43,10
-    CONTROL         "2 MBit/s",IDC_DL_R2000,"Button",BS_AUTORADIOBUTTON,80,
-                    30,43,10
-    CONTROL         "5 MBit/s",IDC_DL_R5000,"Button",BS_AUTORADIOBUTTON,80,
-                    40,43,10
-    CONTROL         "10 MBit/s",IDC_DL_R10000,"Button",BS_AUTORADIOBUTTON,80,
-                    50,47,10
-    CONTROL         "256 kBit/s",IDC_UL_R256,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,165,30,49,10
-    CONTROL         "512 kBit/s",IDC_UL_R512,"Button",BS_AUTORADIOBUTTON,165,
-                    40,49,10
-    CONTROL         "768 kBit/s",IDC_UL_R768,"Button",BS_AUTORADIOBUTTON,165,
-                    50,49,10
-    CONTROL         "1 MBit/s",IDC_UL_R1000,"Button",BS_AUTORADIOBUTTON,165,
-                    60,43,10
-    CONTROL         "2 MBit/s",IDC_UL_R2000,"Button",BS_AUTORADIOBUTTON,225,
-                    30,43,10
-    CONTROL         "5 MBit/s",IDC_UL_R5000,"Button",BS_AUTORADIOBUTTON,225,
-                    40,43,10
-    CONTROL         "10 MBit/s",IDC_UL_R10000,"Button",BS_AUTORADIOBUTTON,
-                    225,50,47,10
+    CONTROL         "256 kBit/s",IDC_DL_R256,"Button",BS_AUTORADIOBUTTON | WS_GROUP,20,30,49,10
+    CONTROL         "512 kBit/s",IDC_DL_R512,"Button",BS_AUTORADIOBUTTON,20,40,49,10
+    CONTROL         "768 kBit/s",IDC_DL_R768,"Button",BS_AUTORADIOBUTTON,20,50,49,10
+    CONTROL         "1 MBit/s",IDC_DL_R1000,"Button",BS_AUTORADIOBUTTON,20,60,43,10
+    CONTROL         "2 MBit/s",IDC_DL_R2000,"Button",BS_AUTORADIOBUTTON,80,30,43,10
+    CONTROL         "5 MBit/s",IDC_DL_R5000,"Button",BS_AUTORADIOBUTTON,80,40,43,10
+    CONTROL         "10 MBit/s",IDC_DL_R10000,"Button",BS_AUTORADIOBUTTON,80,50,47,10
+    CONTROL         "256 kBit/s",IDC_UL_R256,"Button",BS_AUTORADIOBUTTON | WS_GROUP,165,30,49,10
+    CONTROL         "512 kBit/s",IDC_UL_R512,"Button",BS_AUTORADIOBUTTON,165,40,49,10
+    CONTROL         "768 kBit/s",IDC_UL_R768,"Button",BS_AUTORADIOBUTTON,165,50,49,10
+    CONTROL         "1 MBit/s",IDC_UL_R1000,"Button",BS_AUTORADIOBUTTON,165,60,43,10
+    CONTROL         "2 MBit/s",IDC_UL_R2000,"Button",BS_AUTORADIOBUTTON,225,30,43,10
+    CONTROL         "5 MBit/s",IDC_UL_R5000,"Button",BS_AUTORADIOBUTTON,225,40,43,10
+    CONTROL         "10 MBit/s",IDC_UL_R10000,"Button",BS_AUTORADIOBUTTON,225,50,47,10
     GROUPBOX        "select adapter",IDC_STATIC,5,130,295,30
     COMBOBOX        IDC_ADAPTER,10,140,285,30,CBS_DROPDOWNLIST | WS_VSCROLL
 END
@@ -301,33 +267,27 @@ STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Tools"
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | WS_BORDER | 
-                    WS_TABSTOP,0,55,305,150
+    CONTROL         "List1",IDC_LIST,"SysListView32",LVS_REPORT | WS_BORDER | WS_TABSTOP,0,55,305,150
     PUSHBUTTON      "TCP",IDC_GETTCP,25,15,50,14,NOT WS_TABSTOP
     GROUPBOX        "connections",IDC_STATIC,5,5,90,45
     PUSHBUTTON      "UDP",IDC_GETUDP,25,30,50,14
     GROUPBOX        "Traceroute / Whois",IDC_STATIC,100,5,200,45
-    EDITTEXT        IDC_IADR_EDIT,105,15,185,12,ES_AUTOHSCROLL | NOT 
-                    WS_TABSTOP
+    EDITTEXT        IDC_IADR_EDIT,105,15,185,12,ES_AUTOHSCROLL | NOT WS_TABSTOP
     PUSHBUTTON      "WHOIS",IDC_WHOISBUTTON,170,30,50,14,NOT WS_TABSTOP
     PUSHBUTTON      "TraceRoute",IDC_TRACEBUTTON,235,30,50,14
     PUSHBUTTON      "Ping",IDC_PINGBUTTON,110,30,50,14,NOT WS_TABSTOP
 END
 
 IDD_VIEW DIALOG  0, 0, 26, 225
-STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | 
-    WS_VISIBLE | WS_CLIPCHILDREN
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "Progress1",IDC_ULBAR,"msctls_progress32",WS_BORDER | 
-                    0x4,15,0,10,225
-    CONTROL         "Progress2",IDC_DLBAR,"msctls_progress32",WS_BORDER | 
-                    0x4,0,0,10,225
+    CONTROL         "Progress1",IDC_ULBAR,"msctls_progress32",PBS_VERTICAL | WS_BORDER,15,0,10,225
+    CONTROL         "Progress2",IDC_DLBAR,"msctls_progress32",PBS_VERTICAL | WS_BORDER,0,0,10,225
 END
 
 IDD_WORLDVIEW DIALOGEX 0, 0, 480, 198
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | 
-    WS_THICKFRAME
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 EXSTYLE WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_APPWINDOW
 CAPTION "Graphical Traceroute"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
@@ -423,13 +383,6 @@ END
 //
 
 IDR_WORLDPIC            JPG                     "earth.jpg"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// BMP
-//
-
-IDB_ABOUTPIC            BMP                     "tw.bmp"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -480,13 +433,6 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// RT_MANIFEST
-//
-
-1                       RT_MANIFEST             "res\\default1.bin"
 #endif    // German (Switzerland) resources
 /////////////////////////////////////////////////////////////////////////////
 
