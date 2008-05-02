@@ -38,13 +38,11 @@ CMainSheet::~CMainSheet()
 
 
 BEGIN_MESSAGE_MAP(CMainSheet, CPropertySheet)
-	//{{AFX_MSG_MAP(CMainSheet)
 	ON_WM_DESTROY()
 	ON_WM_CREATE()
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_CLOSE()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -209,9 +207,6 @@ int CMainSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CPropertySheet::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	
-//    ModifyStyle( DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX );    
-//    ModifyStyle( DS_CONTEXTHELP | DS_MODALFRAME, 0 );    
-
 	ModifyStyleEx(WS_EX_TOOLWINDOW, WS_EX_APPWINDOW);
 
 	

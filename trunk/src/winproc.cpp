@@ -47,10 +47,8 @@ void CWinproc::OnClose()
 /////////////////////////////////////////////////////////////////////////////
 // CWinproc
 BEGIN_MESSAGE_MAP(CWinproc, CWnd)
-	//{{AFX_MSG_MAP(CWinproc)
 	ON_WM_CLOSE()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
     ON_REGISTERED_MESSAGE(TaskbarCallbackMsg, OnTaskbarNotify)	
 END_MESSAGE_MAP()
 
@@ -82,12 +80,9 @@ void CWinproc::StartUp( )
 		if (m_ipStat.init(value) == FALSE)
 		{
 			AfxMessageBox("failed to initialize network adapter!", MB_ICONHAND );
-			//m_pTheApp->m_wnd.PostMessage(WM_CLOSE);
 		}
 	}
 	RegCloseKey(hKey);
-
-
 
 
 	dwTotalRec = m_ipStat.GetTotalReceived();

@@ -1,6 +1,3 @@
-// TrafficPage.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "trafficwatch.h"
 #include "TrafficPage.h"
@@ -19,7 +16,6 @@ IMPLEMENT_DYNCREATE(CTrafficPage, CPropertyPage)
 
 CTrafficPage::CTrafficPage() : CPropertyPage(CTrafficPage::IDD)
 {
-	//{{AFX_DATA_INIT(CTrafficPage)
 	m_dlMaxSpeed = _T("");
 	m_ulMaxSpeed = _T("");
 	m_connections = _T("");
@@ -35,7 +31,6 @@ CTrafficPage::CTrafficPage() : CPropertyPage(CTrafficPage::IDD)
 	m_ulData = _T("");
 	m_adaptDesc = _T("");
 	m_macaddress = _T("");
-	//}}AFX_DATA_INIT
 }
 
 CTrafficPage::~CTrafficPage()
@@ -45,7 +40,6 @@ CTrafficPage::~CTrafficPage()
 void CTrafficPage::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CTrafficPage)
 	DDX_Control(pDX, IDC_UL_BAR, m_ul_bar);
 	DDX_Control(pDX, IDC_DL_BAR, m_dl_bar);
 	DDX_Text(pDX, IDC_DL_MAXSPEED, m_dlMaxSpeed);
@@ -63,14 +57,11 @@ void CTrafficPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_UL_DATA, m_ulData);
 	DDX_Text(pDX, IDC_ADAPT_DESC, m_adaptDesc);
 	DDX_Text(pDX, IDC_MACADDR, m_macaddress);
-	//}}AFX_DATA_MAP
 }
 
 
 BEGIN_MESSAGE_MAP(CTrafficPage, CPropertyPage)
-	//{{AFX_MSG_MAP(CTrafficPage)
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

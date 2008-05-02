@@ -1,6 +1,3 @@
-// TrafficView.cpp : implementation file
-//
-
 #include "stdafx.h"
 #include "trafficwatch.h"
 #include "TrafficView.h"
@@ -19,29 +16,23 @@ static char THIS_FILE[] = __FILE__;
 CTrafficView::CTrafficView(CWnd* pParent /*=NULL*/)
 	: CDialog(CTrafficView::IDD, pParent)
 {
-	//{{AFX_DATA_INIT(CTrafficView)
-	//}}AFX_DATA_INIT
 }
 
 
 void CTrafficView::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CTrafficView)
 	DDX_Control(pDX, IDC_ULBAR, m_ulbar);
 	DDX_Control(pDX, IDC_DLBAR, m_dlbar);
-	//}}AFX_DATA_MAP
 }
 
 
 BEGIN_MESSAGE_MAP(CTrafficView, CDialog)
-	//{{AFX_MSG_MAP(CTrafficView)
 	ON_WM_CLOSE()
 	ON_WM_TIMER()
 	ON_WM_MOUSEMOVE()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_WM_DESTROY()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

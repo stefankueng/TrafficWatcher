@@ -9,44 +9,11 @@
 #include	"iphlpapi.h"
 #include	"ipstructs.h"
 
-#define MAX_ADAPTERS				100
-#define	MAX_ADAPTERNAME_LENGTH		512
+#include "pcap.h"
+#include "remote-ext.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define MAX_ADAPTERS 100
 
-BOOLEAN PacketSetMinToCopy(LPADAPTER AdapterObject,int nbytes);
-BOOLEAN PacketSetNumWrites(LPADAPTER AdapterObject,int nwrites);
-BOOLEAN PacketSetMode(LPADAPTER AdapterObject,int mode);
-BOOLEAN PacketSetMaxLookaheadsize (LPADAPTER AdapterObject);
-BOOLEAN PacketSetReadTimeout(LPADAPTER AdapterObject,int timeout);
-BOOLEAN PacketSetBpf(LPADAPTER AdapterObject,struct bpf_program *fp);
-BOOLEAN PacketGetStats(LPADAPTER AdapterObject,struct bpf_stat *s);
-BOOLEAN PacketSetBuff(LPADAPTER AdapterObject,int dim);
-BOOLEAN PacketGetNetType (LPADAPTER AdapterObject,NetType *type);
-LPADAPTER PacketOpenAdapter(LPTSTR AdapterName);
-BOOLEAN PacketSendPacket(LPADAPTER AdapterObject,LPPACKET pPacket,BOOLEAN Sync);
-LPPACKET PacketAllocatePacket(void);
-LPPACKET PacketAllocateNPacket(UINT n);
-VOID PacketInitPacket(LPPACKET lpPacket,PVOID  Buffer,UINT  Length);
-VOID PacketFreePacket(LPPACKET lpPacket);
-BOOLEAN PacketResetAdapter(LPADAPTER AdapterObject);
-BOOLEAN PacketWaitPacket(LPADAPTER AdapterObject,LPPACKET lpPacket);
-BOOLEAN PacketReceiveNPacket(LPADAPTER AdapterObject,LPPACKET headLPacket,UINT n,UINT length,BYTE* buffer,BOOLEAN Sync);
-BOOLEAN PacketReceivePacket(LPADAPTER AdapterObject,LPPACKET lpPacket,BOOLEAN Sync);
-VOID PacketCloseAdapter(LPADAPTER lpAdapter);
-BOOLEAN PacketSetHwFilter(LPADAPTER AdapterObject,ULONG Filter);
-BOOLEAN PacketGetAdapterNames(PTSTR pStr,PULONG  BufferSize);
-BOOLEAN PacketGetNetInfo(LPTSTR AdapterName, PULONG netp, PULONG maskp);
-BOOLEAN PacketRequest(LPADAPTER  AdapterObject,BOOLEAN Set,PPACKET_OID_DATA  OidData);
-VOID PacketSetNextPacket(LPPACKET lpPacket, LPPACKET next);
-VOID PacketSetLengthBuffer(LPPACKET lpPacket, UINT dim);
-VOID PacketSetLengthPacket(LPPACKET lpPacket, UINT numBytes);
-LPPACKET PacketGetNextPacket(LPPACKET lpPacket);
-#ifdef __cplusplus
-}
-#endif 
 
 /*!
  * class which holds all necessary information and data of a network adapter.
@@ -54,7 +21,7 @@ LPPACKET PacketGetNextPacket(LPPACKET lpPacket);
 class CNetAdapter
 {
 public:
-	LPADAPTER	pAdapter;				///< pointer to an ADAPTER struct. needed for packet.dll
+	pcap_t *	pAdapter;				///< pointer to a pcap_t struct.
 	UINT		Type;					///< holds the type of the adapter
 	CString		AdapterString;			///< the name of the adapter as found in the registry
 	CString		AdapterDescription;		///< the description of the adapter (readable name)
@@ -63,8 +30,7 @@ public:
 	ULONG		mask;					///< the netmask of the adapter
 	CString		mask_str;				///< the netmask of the adapter as a string (format: ddd.ddd.ddd.ddd)
 	CString		gateway_str;			///< the ip of the main gateway
-	LPPACKET	pPacket;				///< pointer to PACKET structure which hold the captured data
-	CHAR		*pBuffer;				///< pointer to the captured data
+	CHAR *		pBuffer;				///< pointer to the captured data
 	UINT		AddressLength;			///< length of the hardware address
 	CString		Address;				///< specifies the hardware address for the adapter
 
@@ -187,17 +153,8 @@ protected://methods
 	 * @param *buffer		pointer to a PACKET structure
 	 * @param *packet		pointer to the start of the packet data
 	 */
-	void virtual	AnalyzePackets(UCHAR *buffer, UCHAR *packet) = 0;
+	void virtual	AnalyzePackets(const UCHAR *buffer, const UCHAR *packet) = 0;
 
-
-    /*!
-     * Opens the specified adapter for further use
-     *
-     * @param i : the number of the adapter (zero based)
-     *
-     * @return  : a pointer to an ADAPTER structure assigned to this adapter
-     */
-	LPADAPTER		OpenAdapter(int i);
 
     /*!
      * closes the specified adapter and releases the assigned ADAPTER structure
@@ -225,17 +182,11 @@ private://methods
 	 */
 	DWORD			ThreadMethod();
 
-	/*! retrieves all adapters from the system registry */
-	//BOOL			GetAdapterNames();
 
-    /*!
-     * reads out some information about the adapter like ip address, netmask, ...
-     * and fills this information into the NetAdapter structure
-     * @param i : the number of the adapter (zero based)
-     *
-     * @return  : TRUE if methods succeeds
-     */
-	//BOOL			GetNetInfo(int i);
+	/** 
+	 * Callback function invoked by libpcap for every incoming packet 
+	 */
+	static void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
 
 
 private://members

@@ -76,7 +76,7 @@ private://methods
      * @param *buffer : see CPacket::AnalyzePackets()
      * @param *packet : see CPacket::AnalyzePackets()
      */
-	void		AnalyzePackets(UCHAR *buffer, UCHAR *packet);
+	void		AnalyzePackets(const UCHAR *buffer, const UCHAR *packet);
 
 
 private://members
