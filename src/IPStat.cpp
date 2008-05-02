@@ -214,9 +214,9 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 	if (nActiveAdapter==(-1))
 		return;
 
-	ethernet = (struct sniff_ethernet*)(packet);
-	ip = (struct sniff_ip*)(packet + 14);
-	tcp = (struct sniff_tcp*)(packet + 14 + 20);		//since port numbers are at the same position in tcp and udp header, just use tcp
+	ethernet = (struct sniff_ethernet*)(buffer);
+	ip = (struct sniff_ip*)(buffer + 14);
+	tcp = (struct sniff_tcp*)(buffer + 14 + 20);		//since port numbers are at the same position in tcp and udp header, just use tcp
 
 	now = CTime::GetCurrentTime();
 
@@ -234,7 +234,7 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 	}
 
 	//0x0800 is IP
-	if (htons(ethernet->ether_type) == 0x0800)
+	//if (htons(ethernet->ether_type) == 0x0800)
 	{
 		//YES! this is an ip packet
 		USHORT len;
@@ -345,6 +345,7 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 		else
 		{
 			//if here, then something went terribly wrong!
+			int jjkhlkjh = 0;
 		}
 	}
 }
