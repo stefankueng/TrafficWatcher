@@ -75,6 +75,7 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 	pcap_if_t *alldevs;
 	pcap_if_t *d;
 	char errbuf[PCAP_ERRBUF_SIZE];
+	struct bpf_program fcode;
 
 	if (i<0)
 	{
@@ -126,6 +127,28 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 		return FALSE;
 	}
 
+	u_int netmask;
+	if (d->addresses != NULL)
+		// Retrieve the mask of the first address of the interface
+		netmask=((struct sockaddr_in *)(d->addresses->netmask))->sin_addr.S_un.S_addr;
+	else
+		// If the interface is without an address we suppose to be in a C class network
+		netmask=0xffffff; 
+
+	if (pcap_compile(Adapters[nActiveAdapter].pAdapter, &fcode, "ip and tcp", 1, netmask) < 0)
+	{
+		AfxMessageBox(_T("Unable to compile the packet filter. Check the syntax."));
+		pcap_freealldevs(alldevs);
+		return FALSE;
+	}
+
+	if (pcap_setfilter(Adapters[nActiveAdapter].pAdapter, &fcode) < 0)
+	{
+		AfxMessageBox(_T("Error setting the filter."));
+		pcap_freealldevs(alldevs);
+		return FALSE;
+	}
+
 	// At this point, we don't need any more the device list. Free it
 	pcap_freealldevs(alldevs);
 
@@ -139,7 +162,6 @@ void CPacket::CloseAdapter(int i)
 {
 	if (Adapters[i].pAdapter != NULL)
 	{
-		//PacketCloseAdapter(Adapters[i].pAdapter);
 		Adapters[i].pAdapter = NULL;
 	}
 }
