@@ -5,7 +5,6 @@
 #include "MainSheet.h"
 #include "trafficview.h"
 #include "ipstat.h"
-#include "worldview.h"
 
 #define IDT_STATISTICS 103
 
@@ -31,7 +30,6 @@ public:
 public:
     CMainSheet*	m_pDialog;
 	CTrafficView* m_pTView;
-	CWorldView* m_pWorldview;
 
 	CIPStat		m_ipStat;
 

@@ -223,10 +223,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\HistoryPage.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\IPStat.cpp"
 				>
 			</File>
@@ -235,23 +231,11 @@
 				>
 			</File>
 			<File
-				RelativePath="NetGeoClient.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\OptionsPage.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Packet.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Picture.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ping.cpp"
 				>
 			</File>
 			<File
@@ -283,10 +267,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ToolPage.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\TrafficPage.cpp"
 				>
 			</File>
@@ -299,15 +279,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\WhoIs.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\winproc.cpp"
-				>
-			</File>
-			<File
-				RelativePath="WorldView.cpp"
 				>
 			</File>
 		</Filter>
@@ -332,10 +304,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\HistoryPage.h"
-				>
-			</File>
-			<File
 				RelativePath=".\IPStat.h"
 				>
 			</File>
@@ -344,23 +312,11 @@
 				>
 			</File>
 			<File
-				RelativePath="NetGeoClient.h"
-				>
-			</File>
-			<File
 				RelativePath=".\OptionsPage.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Packet.h"
-				>
-			</File>
-			<File
-				RelativePath="Picture.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ping.h"
 				>
 			</File>
 			<File
@@ -384,10 +340,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ToolPage.h"
-				>
-			</File>
-			<File
 				RelativePath=".\TrafficPage.h"
 				>
 			</File>
@@ -404,15 +356,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\WhoIs.h"
-				>
-			</File>
-			<File
 				RelativePath=".\winproc.h"
-				>
-			</File>
-			<File
-				RelativePath="WorldView.h"
 				>
 			</File>
 		</Filter>

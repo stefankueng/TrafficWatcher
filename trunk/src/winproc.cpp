@@ -120,9 +120,6 @@ void CWinproc::ShowDialog( )
 		m_pDialog->DestroyWindow();
 		delete m_pDialog;
 		m_pDialog = 0;
-		m_pWorldview->DestroyWindow();
-		delete m_pWorldview;
-		m_pWorldview = 0;
 	}
 	else
 	{
@@ -132,11 +129,6 @@ void CWinproc::ShowDialog( )
 		m_pDialog->m_psh.dwFlags |= PSH_NOAPPLYNOW;
 		m_pDialog->m_psh.dwFlags |= PSH_MODELESS;
 
-		if (!m_pWorldview)
-		{
-			m_pWorldview = new CWorldView();
-			m_pWorldview->Create(IDD_WORLDVIEW, NULL);
-		}
 		m_pDialog->ShowWindow(SW_SHOW);
 	}
 
@@ -226,12 +218,6 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 						m_pTView->DestroyWindow();
 						delete m_pTView;
 						m_pTView = 0;
-					}
-					if (m_pWorldview)
-					{
-						m_pWorldview->DestroyWindow();
-						delete m_pWorldview;
-						m_pWorldview = 0;
 					}
                     m_pTheApp->m_wnd.PostMessage(WM_CLOSE);
                     break;

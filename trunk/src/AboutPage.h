@@ -1,8 +1,6 @@
 #pragma once
 
 
-//#include "texture.h"
-#include "picture.h"
 
 // CAboutPage dialog
 
