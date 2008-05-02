@@ -99,17 +99,25 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 		return FALSE;
 	}
 
+	int pcapAdapterNr = i;
+	int count = 0;
 	for(d=alldevs; d; d=d->next)
 	{
+		// +8 to skip the rpcap:// part of the string
+		if (Adapters[i].AdapterString.Compare(d->name+8) == 0)
+		{
+			pcapAdapterNr = count;
+		}
 		if (d->description)
 			TRACE(" (%s)\n", d->description);
 		else
 			TRACE(" (No description available)\n");
+		count++;
 	}
 
 	// Jump to the selected adapter
 	int j = 0;
-	for(d=alldevs, j=0; j<i;d=d->next, j++);
+	for(d=alldevs, j=0; j<pcapAdapterNr;d=d->next, j++);
 
 	// Open the device
 	if ( (Adapters[nActiveAdapter].pAdapter = pcap_open(d->name,          // name of the device
@@ -149,10 +157,17 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 		return FALSE;
 	}
 
+	if (pcap_datalink(Adapters[nActiveAdapter].pAdapter) != DLT_EN10MB)
+	{
+		AfxMessageBox(_T("This program works only on Ethernet networks."));
+		pcap_freealldevs(alldevs);
+		return FALSE;
+	}
+
 	// At this point, we don't need any more the device list. Free it
 	pcap_freealldevs(alldevs);
 
-	Start();								//method of the base class CThread
+	Start(); //method of the base class CThread
 
 
 	return TRUE;
