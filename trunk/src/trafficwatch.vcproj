@@ -227,6 +227,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Filter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IPStat.cpp"
 				>
 			</File>
@@ -305,6 +309,10 @@
 			</File>
 			<File
 				RelativePath=".\DetailPage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Filter.h"
 				>
 			</File>
 			<File

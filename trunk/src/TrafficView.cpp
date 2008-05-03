@@ -85,10 +85,12 @@ BOOL CTrafficView::OnInitDialog()
 	m_ulbarlan.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
 
 
-	dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
-	dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
-	dwTotalRecOld = dwTotalRec;
-	dwTotalSentOld = dwTotalSent;
+	DWORD ticks = GetTickCount();
+	m_sentFilter.Filter(ticks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+	m_receivedFilter.Filter(ticks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+	m_sentLANFilter.Filter(ticks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+	m_receivedLANFilter.Filter(ticks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
+
 	SetTimer( IDT_TRAFFIC, 1000, NULL );
 	
 	UpdateData(FALSE);
@@ -179,36 +181,14 @@ void CTrafficView::OnTimer(UINT nIDEvent)
 	if (nIDEvent == IDT_TRAFFIC)
 	{
 		KillTimer(IDT_TRAFFIC);
-		DWORD ulSpeed, dlSpeed;
-		DWORD ulSpeedLAN, dlSpeedLAN;
+		DWORD dwTicks = GetTickCount();
+
+		DWORD ulSpeed = (DWORD)m_sentFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+		DWORD dlSpeed = (DWORD)m_receivedFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+		DWORD ulLANSpeed = (DWORD)m_sentLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+		DWORD dlLANSpeed = (DWORD)m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
+
 		
-		dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
-		dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
-		dwRecDiff = dwTotalRec - dwTotalRecOld;
-		dwSentDiff = dwTotalSent - dwTotalSentOld;
-		dwTotalRecOld = dwTotalRec;
-		dwTotalSentOld = dwTotalSent;
-
-		dwTotalRecLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN();
-		dwTotalSentLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN();
-		dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
-		dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
-		dwTotalRecOldLAN = dwTotalRecLAN;
-		dwTotalSentOldLAN = dwTotalSentLAN;
-
-
-		dwTime = GetTickCount();
-		dwElapsed = dwTime - dwOldTime;
-		//check for wrap
-		if (dwElapsed > 0x8000)
-		{
-			dwElapsed = dwTime + (0 - dwOldTime);
-		}
-		dwOldTime = dwTime;
-		
-		dlSpeed = DWORD(dwRecDiff * (DWORD64)1000 / dwElapsed);
-		ulSpeed = DWORD(dwSentDiff * (DWORD64)1000 / dwElapsed);
-
 		m_dlbar.SetText(CUtil::GetNumberString(dlSpeed)+"/s");
 		m_ulbar.SetText(CUtil::GetNumberString(ulSpeed)+"/s");
 
@@ -216,14 +196,11 @@ void CTrafficView::OnTimer(UINT nIDEvent)
 		m_ulbar.SetPos(ulSpeed/1000);
 
 
-		dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
-		ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
+		m_dlbarlan.SetText(CUtil::GetNumberString(dlLANSpeed)+"/s");
+		m_ulbarlan.SetText(CUtil::GetNumberString(ulLANSpeed)+"/s");
 
-		m_dlbarlan.SetText(CUtil::GetNumberString(dlSpeedLAN)+"/s");
-		m_ulbarlan.SetText(CUtil::GetNumberString(ulSpeedLAN)+"/s");
-
-		m_dlbarlan.SetPos(dlSpeedLAN/1000);
-		m_ulbarlan.SetPos(ulSpeedLAN/1000);
+		m_dlbarlan.SetPos(dlLANSpeed/1000);
+		m_ulbarlan.SetPos(ulLANSpeed/1000);
 
 
 		UpdateData(FALSE);

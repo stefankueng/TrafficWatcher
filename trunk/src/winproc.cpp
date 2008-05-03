@@ -84,11 +84,12 @@ void CWinproc::StartUp( )
 	RegCloseKey(hKey);
 
 
-	dwTotalRec = m_ipStat.GetTotalReceived();
-	dwTotalSent = m_ipStat.GetTotalSent();
-	dwTotalRecOld = dwTotalRec;
-	dwTotalSentOld = dwTotalSent;
-	dwOldTime = GetTickCount();
+	DWORD dwTicks = GetTickCount();
+
+	m_sentFilter.Filter(dwTicks, m_ipStat.GetTotalSent());
+	m_receivedFilter.Filter(dwTicks, m_ipStat.GetTotalReceived());
+	m_sentLANFilter.Filter(dwTicks, m_ipStat.GetTotalSentLAN());
+	m_receivedLANFilter.Filter(dwTicks, m_ipStat.GetTotalReceivedLAN());
 
 	m_AppIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDR_MAINFRAME ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
 
@@ -262,39 +263,12 @@ void CWinproc::OnTimer(UINT nIDEvent)
 	{
 		KillTimer(nIDEvent);
 
-		dwTotalRec = m_ipStat.GetTotalReceived();
-		dwTotalSent = m_ipStat.GetTotalSent();
-		dwRecDiff = dwTotalRec - dwTotalRecOld;
-		dwSentDiff = dwTotalSent - dwTotalSentOld;
-		dwTotalRecOld = dwTotalRec;
-		dwTotalSentOld = dwTotalSent;
-		dwTime = GetTickCount();
-		dwElapsed = dwTime - dwOldTime;
-		//check for wrap
-		if (dwElapsed > 0x8000)
-		{
-			dwElapsed = dwTime + (0 - dwOldTime);
-		}
-		dwOldTime = dwTime;
+		DWORD dwTicks = GetTickCount();
 
-		dlSpeed = DWORD(dwRecDiff * (DWORD64)1000 / dwElapsed);
-		if (dlSpeed > dwDlMax)
-			dwDlMax = dlSpeed;
-		if (ulSpeed > dwUlMax)
-			dwUlMax = ulSpeed;
-		ulSpeed = DWORD(dwSentDiff * (DWORD64)1000 / dwElapsed);
-
-		//
-
-		dwTotalRecLAN = m_ipStat.GetTotalReceivedLAN();
-		dwTotalSentLAN = m_ipStat.GetTotalSentLAN();
-		dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
-		dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
-		dwTotalRecOldLAN = dwTotalRecLAN;
-		dwTotalSentOldLAN = dwTotalSentLAN;
-
-		dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
-		ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
+		ulSpeed = (DWORD)m_sentFilter.Filter(dwTicks, m_ipStat.GetTotalSent());
+		dlSpeed = (DWORD)m_receivedFilter.Filter(dwTicks, m_ipStat.GetTotalReceived());
+		ulSpeedLAN = (DWORD)m_sentLANFilter.Filter(dwTicks, m_ipStat.GetTotalSentLAN());
+		dlSpeedLAN = (DWORD)m_receivedLANFilter.Filter(dwTicks, m_ipStat.GetTotalReceivedLAN());
 
 		HICON hIcon = GetTaskBarIcon();
 		UpdateTrayIcon( hIcon );    

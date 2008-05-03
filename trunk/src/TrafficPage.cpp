@@ -98,7 +98,13 @@ BOOL CTrafficPage::OnInitDialog()
 	}
 
 	
-	
+	DWORD dwTicks = GetTickCount();
+
+	m_sentFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+	m_receivedFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+	m_sentLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+	m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
+
 	UpdateData(FALSE);
 	
 	return TRUE;
@@ -111,48 +117,34 @@ void CTrafficPage::OnTimer(UINT nIDEvent)
 		if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() > -1)
 		{
 			KillTimer(IDT_TRAFFIC);
-			DWORD ulSpeed, dlSpeed;
-			DWORD ulSpeedLAN, dlSpeedLAN;
-			
-			dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
-			dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
-			dwTotalRecLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN();
-			dwTotalSentLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN();
 
-			dwRecDiff = dwTotalRec - dwTotalRecOld;
-			dwSentDiff = dwTotalSent - dwTotalSentOld;
-			dwTotalRecOld = dwTotalRec;
-			dwTotalSentOld = dwTotalSent;
+			DWORD dwTicks = GetTickCount();
 
-			dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
-			dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
-			dwTotalRecOldLAN = dwTotalRecLAN;
-			dwTotalSentOldLAN = dwTotalSentLAN;
+			DWORD ulSpeed = (DWORD)m_sentFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+			DWORD dlSpeed = (DWORD)m_receivedFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+			DWORD ulLANSpeed = (DWORD)m_sentLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+			DWORD dlLANSpeed = (DWORD)m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
 
-			dwTime = GetTickCount();
-			dwElapsed = dwTime - dwOldTime;
-			//check for wrap
-			if (dwElapsed > 0x8000)
-			{
-				dwElapsed = dwTime + (0 - dwOldTime);
-			}
-			dwOldTime = dwTime;
-			
-			dlSpeed = DWORD(dwRecDiff * (DWORD64)1000 / dwElapsed);
-			ulSpeed = DWORD(dwSentDiff * (DWORD64)1000 / dwElapsed);
-			dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
-			ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
+
+			m_dl_bar.SetText(CUtil::GetNumberString(dlSpeed)+"/s");
+			m_ul_bar.SetText(CUtil::GetNumberString(ulSpeed)+"/s");
+
+			m_dl_bar.SetPos(dlSpeed/1000);		//range is in kbytes/s, not bytes/s!
+			m_ul_bar.SetPos(ulSpeed/1000);
+
+
+			m_dl_barlan.SetText(CUtil::GetNumberString(dlLANSpeed)+"/s");
+			m_ul_barlan.SetText(CUtil::GetNumberString(ulLANSpeed)+"/s");
+
+			m_dl_barlan.SetPos(dlLANSpeed/1000);
+			m_ul_barlan.SetPos(ulLANSpeed/1000);
+
 
 			m_dlByteSpeed = CUtil::GetNumberString(dlSpeed)+"/s";
 			m_ulByteSpeed = CUtil::GetNumberString(ulSpeed)+"/s";
-			m_dlLANSpeed = CUtil::GetNumberString(dlSpeedLAN)+"/s";
-			m_ulLANSpeed = CUtil::GetNumberString(ulSpeedLAN)+"/s";
+			m_dlLANSpeed = CUtil::GetNumberString(dlLANSpeed)+"/s";
+			m_ulLANSpeed = CUtil::GetNumberString(ulLANSpeed)+"/s";
 
-			m_dl_bar.SetPos(dlSpeed/1000);		//range is in kbytes/s, not bit/s!
-			m_ul_bar.SetPos(ulSpeed/1000);
-
-			m_dl_barlan.SetPos(dlSpeedLAN/1000);
-			m_ul_barlan.SetPos(ulSpeedLAN/1000);
 
 			GetTcpStatistics(&m_tcpstats);
 

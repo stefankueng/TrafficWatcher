@@ -2,6 +2,7 @@
 
 #include "databar.h"
 #include "util.h"
+#include "Filter.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CTrafficView dialog
@@ -34,23 +35,11 @@ protected:
 	afx_msg void OnDestroy();
 	DECLARE_MESSAGE_MAP()
 protected:
-	DWORD64		dwTotalRec;
-	DWORD64		dwTotalSent;
-	DWORD64		dwRecDiff;
-	DWORD64		dwSentDiff;
-	DWORD64		dwTotalRecOld;
-	DWORD64		dwTotalSentOld;
+	CFilter		m_sentFilter;
+	CFilter		m_receivedFilter;
+	CFilter		m_sentLANFilter;
+	CFilter		m_receivedLANFilter;
 
-	DWORD64		dwTotalRecLAN;
-	DWORD64		dwTotalSentLAN;
-	DWORD64		dwRecDiffLAN;
-	DWORD64		dwSentDiffLAN;
-	DWORD64		dwTotalRecOldLAN;
-	DWORD64		dwTotalSentOldLAN;
-
-	DWORD		dwTime;
-	DWORD		dwElapsed;
-	DWORD		dwOldTime;
 private:
 	void		LoadWindowPosition(CRect *rc);
 	void		SaveWindowPosition(CRect *rc);
