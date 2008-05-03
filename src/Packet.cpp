@@ -6,11 +6,16 @@ CPacket::~CPacket()
 	Close();
 }
 
+#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x)) 
+#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
+
+
 BOOL CPacket::init()
 {
 	ULONG	buflen;
 	PIP_ADAPTER_INFO	pAdInfo;
 
+	// we first get the adapters info for ipv4
 	buflen = 0;
 	pAdInfo = (struct _IP_ADAPTER_INFO *)new UCHAR[1000];
 	GetAdaptersInfo(pAdInfo, &buflen);
@@ -36,8 +41,8 @@ BOOL CPacket::init()
 					Adapters[nAdapterCount].Address += temp;
 				}
 			}
-			Adapters[nAdapterCount].ip_str = pAdInfo->IpAddressList.IpAddress.String;
-			Adapters[nAdapterCount].ip = inet_addr(Adapters[nAdapterCount].ip_str);
+			Adapters[nAdapterCount].ip4_str = pAdInfo->IpAddressList.IpAddress.String;
+			Adapters[nAdapterCount].ip4 = inet_addr(Adapters[nAdapterCount].ip4_str);
 			Adapters[nAdapterCount].mask_str = pAdInfo->IpAddressList.IpMask.String;
 			Adapters[nAdapterCount].mask = inet_addr(Adapters[nAdapterCount].mask_str);
 			Adapters[nAdapterCount].gateway_str = pAdInfo->GatewayList.IpAddress.String;
@@ -50,6 +55,76 @@ BOOL CPacket::init()
 	}
 	delete pAdInfo;
 
+	PIP_ADAPTER_ADDRESSES AdapterAddresses = NULL;
+	ULONG OutBufferLength = 0;
+	ULONG RetVal = 0, i;    
+
+	for (i = 0; i < 5; i++) 
+	{
+		RetVal = GetAdaptersAddresses(AF_UNSPEC, 0, NULL, AdapterAddresses, &OutBufferLength);
+
+		if (RetVal != ERROR_BUFFER_OVERFLOW) 
+			break;
+
+		if (AdapterAddresses != NULL)
+			FREE(AdapterAddresses);
+
+		AdapterAddresses = (PIP_ADAPTER_ADDRESSES)MALLOC(OutBufferLength);
+		if (AdapterAddresses == NULL) 
+		{
+			RetVal = GetLastError();
+			break;
+		}
+	}
+
+	if (RetVal == NO_ERROR) 
+	{
+		// If successful, output some information from the data we received
+		PIP_ADAPTER_ADDRESSES AdapterList = AdapterAddresses;
+		while (AdapterList) 
+		{
+			// find the ip addresses
+			IP_ADAPTER_UNICAST_ADDRESS * unicast = AdapterList->FirstUnicastAddress;
+			int nIp4Adapter = -1;
+			while (unicast)
+			{
+				if (unicast->Address.lpSockaddr->sa_family == AF_INET)
+				{
+					sockaddr_in * s_in = (sockaddr_in*)unicast->Address.lpSockaddr;
+					for (int k = 0; k < nAdapterCount; ++k)
+					{
+						if (s_in->sin_addr.S_un.S_addr == Adapters[k].ip4)
+						{
+							nIp4Adapter = k;
+							break;
+						}
+					}
+				}
+				unicast = unicast->Next;
+			}
+			unicast = AdapterList->FirstUnicastAddress;
+			if (nIp4Adapter >= 0)
+			{
+				while (unicast)
+				{
+					if (unicast->Address.lpSockaddr->sa_family == AF_INET6)
+					{
+						memcpy_s(&Adapters[nIp4Adapter].ip6, sizeof(SOCKADDR), unicast->Address.lpSockaddr, sizeof(SOCKADDR));
+						break;
+					}
+					unicast = unicast->Next;
+				}
+			}
+			AdapterList = AdapterList->Next;
+		}
+	}
+	else 
+	{ 
+	}  
+
+	if (AdapterAddresses != NULL)
+		FREE(AdapterAddresses);
+
 
 	return TRUE;
 }
@@ -60,11 +135,6 @@ BOOL CPacket::Close()
 	for (i=0; i<nAdapterCount; i++)
 	{
 		CloseAdapter(i);
-		if (Adapters[i].pBuffer != NULL)
-		{
-			delete Adapters[i].pBuffer;
-			Adapters[i].pBuffer = NULL;
-		}
 	}
 	return TRUE;
 }
@@ -142,7 +212,8 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 		// If the interface is without an address we suppose to be in a C class network
 		netmask=0xffffff; 
 
-	if (pcap_compile(Adapters[nActiveAdapter].pAdapter, &fcode, "ip and tcp", 1, netmask) < 0)
+	netmask=0; 
+	if (pcap_compile(Adapters[nActiveAdapter].pAdapter, &fcode, "ip or ip6", 1, netmask) < 0)
 	{
 		AfxMessageBox(_T("Unable to compile the packet filter. Check the syntax."));
 		pcap_freealldevs(alldevs);
@@ -186,7 +257,7 @@ BOOL CPacket::IsValidIPAdapter(int i)
 {
 	//to be valid, an adapter must have an ip address other than 0.0.0.0
 	//and must not be a loopback device (127.0.0.1)
-	return ((Adapters[i].ip != 0)&&(Adapters[i].ip != 0x7f000001));
+	return ((Adapters[i].ip4 != 0)&&(Adapters[i].ip4 != 0x7f000001));
 }
 
 /**

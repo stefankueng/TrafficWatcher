@@ -21,19 +21,18 @@
 class CNetAdapter
 {
 public:
-	pcap_t *	pAdapter;				///< pointer to a pcap_t struct.
-	UINT		Type;					///< holds the type of the adapter
-	CString		AdapterString;			///< the name of the adapter as found in the registry
-	CString		AdapterDescription;		///< the description of the adapter (readable name)
-	ULONG		ip;						///< the ip address of the adapter
-	CString		ip_str;					///< the ip address of the adapter as a string (format: ddd.ddd.ddd.ddd)
-	ULONG		mask;					///< the netmask of the adapter
-	CString		mask_str;				///< the netmask of the adapter as a string (format: ddd.ddd.ddd.ddd)
-	CString		gateway_str;			///< the ip of the main gateway
-	CHAR *		pBuffer;				///< pointer to the captured data
-	UINT		AddressLength;			///< length of the hardware address
-	CString		Address;				///< specifies the hardware address for the adapter
-
+	pcap_t *		pAdapter;				///< pointer to a pcap_t struct.
+	UINT			Type;					///< holds the type of the adapter
+	CString			AdapterString;			///< the name of the adapter as found in the registry
+	CString			AdapterDescription;		///< the description of the adapter (readable name)
+	CString			ip4_str;				///< the ip address of the adapter as a string (format: ddd.ddd.ddd.ddd)
+	ULONG			ip4;					///< the ip address of the adapter
+	SOCKADDR		ip6;					///< the ipv6 address of the adapter (if available)
+	CString			mask_str;				///< the netmask of the adapter as a string (format: ddd.ddd.ddd.ddd)
+	ULONG			mask;					///< the netmask of the adapter
+	CString			gateway_str;			///< the ip of the main gateway
+	UINT			AddressLength;			///< length of the hardware address
+	CString			Address;				///< specifies the hardware address for the adapter
 };
 
 
@@ -106,8 +105,8 @@ public:
 	BOOL			init();
 	int				GetNumberOfAdapters() {return nAdapterCount;};
 	int				GetActiveAdapterNumber() {return nActiveAdapter;};
-	CString			GetIP() {if (nActiveAdapter < 0) {return "127.0.0.1";} else return Adapters[nActiveAdapter].ip_str;};
-	CString			GetIP(int adapter) {return Adapters[adapter].ip_str;};
+	CString			GetIP() {if (nActiveAdapter < 0) {return "127.0.0.1";} else return Adapters[nActiveAdapter].ip4_str;};
+	CString			GetIP(int adapter) {return Adapters[adapter].ip4_str;};
 	CString			GetMask() {if (nActiveAdapter < 0) {return "255.255.255.255";} else return Adapters[nActiveAdapter].mask_str;};
 	CString			GetGateway() {if (nActiveAdapter < 0) {return "127.0.0.1";} else return Adapters[nActiveAdapter].gateway_str;};
 	CString			GetDescription() {if (nActiveAdapter < 0) {return "nothing";} else return Adapters[nActiveAdapter].AdapterDescription;};
