@@ -5,6 +5,8 @@
 #include "MainSheet.h"
 #include "trafficview.h"
 #include "ipstat.h"
+#include "Filter.h"
+
 
 #define IDT_STATISTICS 103
 
@@ -41,11 +43,14 @@ public:
 protected:
 	HICON		GetTaskBarIcon();
 protected:
-	DWORD64		dwRecDiff, dwSentDiff, dwTotalRec, dwTotalRecOld, dwTotalSent, dwTotalSentOld;		
-	DWORD64		dwRecDiffLAN, dwSentDiffLAN, dwTotalRecLAN, dwTotalRecOldLAN, dwTotalSentLAN, dwTotalSentOldLAN;		
-	DWORD		dwTime, dwOldTime;
-	DWORD		ulSpeed, dlSpeed, dwElapsed;
+	DWORD		ulSpeed, dlSpeed;
 	DWORD		ulSpeedLAN, dlSpeedLAN;
+
+	CFilter		m_sentFilter;
+	CFilter		m_receivedFilter;
+	CFilter		m_sentLANFilter;
+	CFilter		m_receivedLANFilter;
+
 	int			internaltimer;
 	HICON		m_AppIcon;
 	HICON		m_TaskBarIcon;

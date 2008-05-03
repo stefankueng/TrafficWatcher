@@ -4,6 +4,7 @@
 #include "trafficwatch.h"
 #include "DataBar.h"
 #include "iphlpapi.h"
+#include "Filter.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CTrafficPage dialog
@@ -44,23 +45,10 @@ protected:
 	afx_msg void OnTimer(UINT nIDEvent);
 	DECLARE_MESSAGE_MAP()
 private:
-	DWORD64	dwTotalRec;
-	DWORD64	dwRecDiff;
-	DWORD64	dwTotalRecOld;
-	DWORD64	dwTotalSent;
-	DWORD64	dwSentDiff;
-	DWORD64	dwTotalSentOld;
-
-	DWORD64	dwTotalRecLAN;
-	DWORD64	dwRecDiffLAN;
-	DWORD64	dwTotalRecOldLAN;
-	DWORD64	dwTotalSentLAN;
-	DWORD64	dwSentDiffLAN;
-	DWORD64	dwTotalSentOldLAN;
-
-	DWORD64	dwTime;
-	DWORD64	dwElapsed;
-	DWORD64	dwOldTime;
+	CFilter		m_sentFilter;
+	CFilter		m_receivedFilter;
+	CFilter		m_sentLANFilter;
+	CFilter		m_receivedLANFilter;
 
 	MIB_TCPSTATS	m_tcpstats;
 
