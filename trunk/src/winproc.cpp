@@ -164,7 +164,8 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 		{
 			CString s,sRecvBPS,sRecvAVE;
 				
-            s = "Upload: "+CUtil::GetNumberString(ulSpeed)+"/s\nDownload: "+CUtil::GetNumberString(dlSpeed)+"/s";
+            s = "Internet-Upload: "+CUtil::GetNumberString(ulSpeed)+"/s\nInternet-Download: "+CUtil::GetNumberString(dlSpeed)+"/s\n"
+				+"LAN-Upload: "+CUtil::GetNumberString(ulSpeedLAN)+"/s\nLAN-Download: "+CUtil::GetNumberString(dlSpeedLAN)+"/s";
 
 			m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
 			m_SystemTray.hWnd   = GetSafeHwnd( );
