@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "trafficwatch.h"
+#include "CmdLineParser.h"
 
 #pragma comment(linker, "\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
@@ -41,8 +42,6 @@ CTrafficwatchApp::~CTrafficwatchApp()
 
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// The one and only CNetPerSecApp object
 
 CTrafficwatchApp theApp;
 CTrafficwatchApp* m_pTheApp;
@@ -57,6 +56,21 @@ CTrafficwatchApp* m_pTheApp;
  */
 BOOL CTrafficwatchApp::InitInstance()
 {
+	pcap_if_t *alldevs;
+	char errbuf[PCAP_ERRBUF_SIZE];
+
+	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
+	if (parser.HasKey(_T("initwpcap")))
+	{
+		// list all available adapters
+		if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
+		{
+			AfxMessageBox(errbuf);
+			return FALSE;
+		}
+		pcap_freealldevs(alldevs);
+		return FALSE;
+	}
 
 #ifndef DEBUG
 	

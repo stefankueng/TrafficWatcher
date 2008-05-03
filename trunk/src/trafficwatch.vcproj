@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CmdLineParser.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DataBar.cpp"
 				>
 			</File>
@@ -289,6 +293,10 @@
 			>
 			<File
 				RelativePath="AboutPage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CmdLineParser.h"
 				>
 			</File>
 			<File

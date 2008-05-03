@@ -162,8 +162,43 @@ BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
 	// list all available adapters
 	if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
 	{
-		AfxMessageBox(errbuf);
-		return FALSE;
+		// maybe the npf service isn't running yet
+		// start our own exe with elevated privileges to get the service started
+		TCHAR szFilePath[MAX_PATH*2] = {0};
+		int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
+
+		int timeout = 0;
+		if (len < (MAX_PATH*2))
+		{
+			SHELLEXECUTEINFO TempInfo = {0};
+			TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+			TempInfo.fMask = 0;
+			TempInfo.hwnd = NULL;
+			TempInfo.lpVerb = _T("runas");
+			TempInfo.lpFile = szFilePath;
+			TempInfo.lpParameters = _T("/initwpcap");
+			TempInfo.lpDirectory = NULL;
+			TempInfo.nShow = SW_NORMAL;
+			::ShellExecuteEx(&TempInfo);
+			// now wait for about 10 seconds to give our elevated process time
+			// to start the npf service. If it isn't started after that time, we throw the error anyway.
+			while (timeout < 100)
+			{
+				if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
+				{
+					Sleep(100);
+				}
+				else
+					timeout = 200;
+				timeout++;
+			}
+		}
+
+		if (timeout != 201)
+		{
+			AfxMessageBox(errbuf);
+			return FALSE;
+		}
 	}
 
 	int pcapAdapterNr = i;
