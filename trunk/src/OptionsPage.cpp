@@ -31,21 +31,17 @@ COptionsPage::COptionsPage() : CPropertyPage(COptionsPage::IDD)
 void COptionsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(COptionsPage)
 	DDX_Control(pDX, IDC_ADAPTER, m_cAdapter);
 	DDX_Check(pDX, IDC_AUTOSTART_CHECK, m_autostart);
 	DDX_Radio(pDX, IDC_DL_R256, m_dlSpeed);
 	DDX_Radio(pDX, IDC_UL_R256, m_ulSpeed);
 	DDX_Check(pDX, IDC_SHOWBITS, m_showbits);
 	DDX_Check(pDX, IDC_SHOWIEC, m_showiec);
-	//}}AFX_DATA_MAP
 }
 
 
 BEGIN_MESSAGE_MAP(COptionsPage, CPropertyPage)
-	//{{AFX_MSG_MAP(COptionsPage)
 	ON_BN_CLICKED(IDC_AUTOSTART_CHECK, OnAutostartCheck)
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -54,33 +50,13 @@ END_MESSAGE_MAP()
 
 void COptionsPage::OnAutostartCheck() 
 {
-	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
-	
 }
 
 BOOL COptionsPage::OnSetActive() 
 {
-	// TODO: Add your specialized code here and/or call the base class
-
-	//check if an autostart entry is in the registry
-	HKEY hKey;
-	DWORD type;
-	LONG lnRes = RegOpenKeyEx( 
-			   HKEY_CURRENT_USER,  // handle of open key
-				 // The following is the address of name of subkey to open
-			   "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
-			   0L,KEY_READ,
-			   &hKey            // address of handle of open key 
-				); 
-	if (lnRes == ERROR_SUCCESS)
-	{
-		if (RegQueryValueEx(hKey, LPCTSTR ( M_APPNAME ), NULL, &type, NULL, 0) == ERROR_SUCCESS)
-			m_autostart = TRUE;
-		else
-			m_autostart = FALSE;
-		RegCloseKey(hKey);
-	}
+	CRegString regRun = CRegString(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch"));
+	m_autostart = !CString(regRun).IsEmpty();
 
 	m_dlSpeed = GetRegValue("dlSpeed");
 	m_ulSpeed = GetRegValue("ulSpeed");
@@ -106,36 +82,15 @@ BOOL COptionsPage::OnSetActive()
 
 BOOL COptionsPage::OnKillActive() 
 {
-	// TODO: Add your specialized code here and/or call the base class
 	UpdateData(TRUE);
-	HKEY hKey;
-	LONG lnRes;
+	CRegString regRun = CRegString(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch"));
 	if (m_autostart)
 	{
-		CString sKeyName;
-		char szFilePath[512];
-		lnRes = RegOpenKeyEx( 
-				   HKEY_CURRENT_USER,  // handle of open key
-					 // The following is the address of name of subkey to open
-				   "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
-				   0L,KEY_WRITE,
-				   &hKey            // address of handle of open key 
-			   ); 
-
-		// now add program path to the RUN key
+		TCHAR szFilePath[512];
 		int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
 
-		if( ERROR_SUCCESS == lnRes )
-		{
-		   lnRes = RegSetValueEx(hKey,
-								 LPCTSTR( M_APPNAME ),  // handle of the opened 
-													   // key to set value for 
-								 0,      
-								 REG_SZ,    
-								 (const BYTE *)szFilePath,   //value data
-								 len+1 ); 
-			RegCloseKey(hKey);
-		}
+		regRun = szFilePath;
+
 
 		CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
 		if (DWORD(regService) == 3)
@@ -161,19 +116,11 @@ BOOL COptionsPage::OnKillActive()
 	}
 	else
 	{
-		lnRes = RegOpenKeyEx( 
-				   HKEY_CURRENT_USER,  // handle of open key
-					 // The following is the address of name of subkey to open
-				   "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 
-				   0L,KEY_WRITE,
-				   &hKey            // address of handle of open key 
-			   ); 
-
-		// now delete the registry key
-		RegDeleteValue(hKey, LPCTSTR( M_APPNAME ));
+		regRun.removeKey();
 	}
 
-
+	HKEY hKey;
+	LONG lnRes;
 	CString key;
 	key = "SOFTWARE\\";
 	key += LPCTSTR( M_APPNAME );
