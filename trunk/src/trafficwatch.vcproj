@@ -271,10 +271,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\TitleMenu.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\TrafficPage.cpp"
 				>
 			</File>
@@ -349,10 +345,6 @@
 			</File>
 			<File
 				RelativePath=".\Thread.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TitleMenu.h"
 				>
 			</File>
 			<File
