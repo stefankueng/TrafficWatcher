@@ -301,9 +301,9 @@ HICON	CWinproc::GetTaskBarIcon()
 	CBitmap* pOld = dcMem.SelectObject( &m_bmpIcon );
 
     //offsets for the left and right halves of the icon
-	CRect rcRecv(1,1,3,15);
-	CRect rcSent(4,1,7,15);
-	CRect rcRecvLAN(8,1,11,15);
+	CRect rcRecv(1,1,4,15);
+	CRect rcSent(4,1,8,15);
+	CRect rcRecvLAN(8,1,12,15);
 	CRect rcSentLAN(12,1,15,15);
 
     CBrush back( RGB(255,255,255) );
