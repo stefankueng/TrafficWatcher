@@ -81,8 +81,8 @@ BOOL CTrafficView::OnInitDialog()
 	m_ulbarlan.SetMaximumTime(50);
 	m_ulbarlan.SetFontColor(RGB(255, 0, 0));
 	m_ulbarlan.SetColor(COLORUP);
-	m_dlbarlan.SetRange(0, (short)(COptionsPage::GetDownloadSpeed()));
-	m_ulbarlan.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
+	m_dlbarlan.SetRange(0, (short)(COptionsPage::GetDownloadSpeedLAN()));
+	m_ulbarlan.SetRange(0, (short)(COptionsPage::GetUploadSpeedLAN()));
 
 
 	DWORD ticks = GetTickCount();
