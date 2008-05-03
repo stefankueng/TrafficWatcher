@@ -1,5 +1,6 @@
 #pragma once
 
+#define FILTER_MEAN_DEPTH 3
 class CFilter
 {
 public:
@@ -11,4 +12,5 @@ private:
 
 	DWORD		dwPrevTicks;
 
+	DWORD64		diffs[FILTER_MEAN_DEPTH];
 };
