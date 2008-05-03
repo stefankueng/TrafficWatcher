@@ -12,12 +12,10 @@ class CTrafficPage : public CPropertyPage
 {
 	DECLARE_DYNCREATE(CTrafficPage)
 
-// Construction
 public:
 	CTrafficPage();
 	~CTrafficPage();
 
-// Dialog Data
 	enum { IDD = IDD_MAINPAGE };
 	CDataBar	m_ul_bar;
 	CDataBar	m_dl_bar;
@@ -41,13 +39,11 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
-// Implementation
 protected:
-	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnTimer(UINT nIDEvent);
 	DECLARE_MESSAGE_MAP()
-private://members
+private:
 	DWORD64	dwTotalRec;
 	DWORD64	dwRecDiff;
 	DWORD64	dwTotalRecOld;

@@ -38,9 +38,9 @@ public:
 	DWORD		dwUlMax, dwDlMax;
 	BOOL		m_bView;
 
-protected://methods
+protected:
 	HICON		GetTaskBarIcon();
-protected://members
+protected:
 	DWORD64		dwRecDiff, dwSentDiff, dwTotalRec, dwTotalRecOld, dwTotalSent, dwTotalSentOld;		
 	DWORD64		dwRecDiffLAN, dwSentDiffLAN, dwTotalRecLAN, dwTotalRecOldLAN, dwTotalSentLAN, dwTotalSentOldLAN;		
 	DWORD		dwTime, dwOldTime;

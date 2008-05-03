@@ -1,6 +1,4 @@
-#ifndef __PACKET_H__
-#define __PACKET_H__
-
+#pragma once
 
 #include	"stdafx.h"
 #include	"thread.h"
@@ -204,5 +202,3 @@ private://members
 
 };
 
-
-#endif

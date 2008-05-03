@@ -87,7 +87,7 @@ BOOL COptionsPage::OnKillActive()
 	if (m_autostart)
 	{
 		TCHAR szFilePath[512];
-		int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
+		GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
 
 		regRun = szFilePath;
 
@@ -204,7 +204,7 @@ DWORD	COptionsPage::GetUploadSpeed()
 		default:
 			return 32;
 	}
-	return 32;
+	//return 32;
 }
 
 DWORD	COptionsPage::GetDownloadSpeed()
@@ -230,5 +230,5 @@ DWORD	COptionsPage::GetDownloadSpeed()
 		default:
 			return 32;
 	}
-	return 32;
+	//return 32;
 }

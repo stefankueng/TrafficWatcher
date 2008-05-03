@@ -27,7 +27,7 @@ static char THIS_FILE[] = __FILE__;
 
 #define	IDT_ANIMATE		100
 
-// Funtion prototypes.
+// Function prototypes.
 COLORREF LightenColor(const COLORREF crColor, BYTE byIncreaseVal);
 COLORREF DarkenColor(const COLORREF crColor, BYTE byReduceVal);
 
@@ -61,7 +61,7 @@ COLORREF DarkenColor(const COLORREF crColor, BYTE byReduceVal)
 		byBlue = BYTE(byBlue - byReduceVal);
 
 	return RGB(byRed, byGreen, byBlue);
-}	// DarkenColorref
+}
 
 CDataBar::CDataBar()
 {
@@ -75,20 +75,18 @@ CDataBar::CDataBar()
 	m_nMaximumTimeTemp = 0;
 	GetColors();
 	CreatePens();
-}	// CDataBar
+}
 
 CDataBar::~CDataBar()
 {
 	DeletePens();
-}	// ~CDataBar
+}
 
 
 BEGIN_MESSAGE_MAP(CDataBar, CProgressCtrl)
-	//{{AFX_MSG_MAP(CDataBar)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_ERASEBKGND()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 void CDataBar::OnPaint() 
@@ -149,7 +147,7 @@ void CDataBar::OnPaint()
 	dc.SelectObject(pOldBmp);
 	dc.RestoreDC(nSavedDC);
 	dc.DeleteDC();
-}	// OnPaint	
+}	
 
 void CDataBar::DrawHorizontalBar(CDC *pDC, const CRect rect)
 {
@@ -211,7 +209,7 @@ void CDataBar::DrawHorizontalBar(CDC *pDC, const CRect rect)
 	pDC->LineTo(nRight + 1, nBottom);
 
 	pDC->SelectObject(pOldPen);
-}	// DrawHorizontalBar
+}
 
 void CDataBar::DrawVerticalBar(CDC *pDC, const CRect rect)
 {
@@ -276,12 +274,12 @@ void CDataBar::DrawVerticalBar(CDC *pDC, const CRect rect)
 	}
 
 	pDC->SelectObject(pOldPen);
-}	// DrawVerticalBar
+}
 
-BOOL CDataBar::OnEraseBkgnd(CDC* pDC) 
+BOOL CDataBar::OnEraseBkgnd(CDC* /*pDC*/) 
 {
-		return TRUE;
-}	// OnEraseBkgnd
+	return TRUE;
+}
 
 void CDataBar::GetColors()
 {
@@ -304,7 +302,7 @@ void CDataBar::GetColors()
 	m_crShadow = RGB(byRed3DLiteShadow + ((byRed3DDkShadow - byRed3DLiteShadow) >> 1),
 						  byGreen3DLiteShadow + ((byGreen3DDkShadow - byGreen3DLiteShadow) >> 1),
 						  byBlue3DLiteShadow + ((byBlue3DDkShadow - byBlue3DLiteShadow) >> 1));
-}	// GetColors
+}
 
 void CDataBar::SetColor(COLORREF crColor)
 {
@@ -312,12 +310,12 @@ void CDataBar::SetColor(COLORREF crColor)
 	GetColors();
 	CreatePens();
 	RedrawWindow();
-}	// SetColor
+}
 
 COLORREF CDataBar::GetColor()
 {
 	return m_crColor;
-}	// GetColor
+}
 
 void CDataBar::SetShowMaximum(BOOL b)
 {
@@ -357,7 +355,7 @@ void CDataBar::CreatePens()
 	m_penDkShadow.CreatePen(PS_SOLID, 1, m_crDkShadow);
 	m_penShadow.CreatePen(PS_SOLID, 1, m_crShadow);
 	m_penLiteShadow.CreatePen(PS_SOLID, 1, m_crLiteShadow);
-}	// CreatePens
+}
 
 void CDataBar::DeletePens()
 {
@@ -377,7 +375,7 @@ void CDataBar::DeletePens()
 		m_penShadow.DeleteObject();
 	if (m_penLiteShadow.m_hObject)
 		m_penLiteShadow.DeleteObject();
-}	// DeletePens
+}
 
 void CDataBar::SetAnimated(BOOL bAnimated)
 {
@@ -458,10 +456,7 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 
 	BOOL bVertical = GetStyle() & PBS_VERTICAL;
 
-	CFont* pFont = GetFont();
-	
-
-	CFont	m_fontText;
+	CFont m_fontText;
 	int x,y;
 	
 
@@ -487,8 +482,6 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 	pDC->TextOut(x+1,y+1,m_text);
 	pDC->SetTextColor( m_fontColor);
 	// draw text in DC
-	//pDC->DrawText(m_text, (CRect)rect , DT_SINGLELINE | DT_LEFT | DT_VCENTER);
-
 	pDC->TextOut(x,y,m_text);
 
 	// restore old font

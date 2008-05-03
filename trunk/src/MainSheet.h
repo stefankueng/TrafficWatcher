@@ -16,12 +16,10 @@ class CMainSheet : public CPropertySheet
 {
 	DECLARE_DYNAMIC(CMainSheet)
 
-// Construction
 public:
 	CMainSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 	CMainSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 
-// Attributes
 public:
 	CTrafficPage*		m_pTrafficPage;
 	CDetailPage*		m_pDetailPage;
@@ -29,19 +27,16 @@ public:
 	CAboutPage*			m_pAboutPage;
 
   
-// Operations
 public:
-void  AddPropPages( );
+	void  AddPropPages( );
 
-// Overrides
-	public:
+public:
 	virtual BOOL OnInitDialog();
 	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
-	protected:
+protected:
 	virtual void PostNcDestroy();
 	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
-// Implementation
 public:
 	virtual ~CMainSheet();
 

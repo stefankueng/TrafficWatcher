@@ -1,5 +1,4 @@
-#ifndef __CUtil_h__
-#define __CUtil_h__
+#pragma once
 
 /**
  * CUtil.
@@ -292,8 +291,6 @@ public:
 		else if(rect.Height() <=0)
 			rect.top-=2;
 
-		BOOL backHori = IsHori;
-		//IsHori = true;
 
 		/* 
 		 * draw first 1/3 part;
@@ -433,4 +430,3 @@ private:
 
 };
 
-#endif
