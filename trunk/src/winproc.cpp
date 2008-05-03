@@ -302,7 +302,6 @@ void CWinproc::OnTimer(UINT nIDEvent)
 		if (internaltimer > 120)
 		{
 			internaltimer = 0;
-			m_ipStat.Save();
 		}
 
 	}
