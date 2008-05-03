@@ -79,7 +79,6 @@ BOOL CPacket::init()
 
 	if (RetVal == NO_ERROR) 
 	{
-		// If successful, output some information from the data we received
 		PIP_ADAPTER_ADDRESSES AdapterList = AdapterAddresses;
 		while (AdapterList) 
 		{
@@ -109,8 +108,7 @@ BOOL CPacket::init()
 				{
 					if (unicast->Address.lpSockaddr->sa_family == AF_INET6)
 					{
-						memcpy_s(&Adapters[nIp4Adapter].ip6, sizeof(SOCKADDR), unicast->Address.lpSockaddr, sizeof(SOCKADDR));
-						break;
+						memcpy_s(&Adapters[nIp4Adapter].ip6, sizeof(SOCKADDRIPV6), unicast->Address.lpSockaddr, sizeof(SOCKADDRIPV6));
 					}
 					unicast = unicast->Next;
 				}
