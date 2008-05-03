@@ -76,7 +76,7 @@ void CWinproc::StartUp( )
 		ULONG type;
 		valuesize = sizeof(value);
 		if (!RegQueryValueEx(hKey, "adapter", 0, &type, (unsigned char *)&value, &valuesize) == ERROR_SUCCESS)
-			value = -1;
+			value = (DWORD)-1;
 		if (m_ipStat.init(value) == FALSE)
 		{
 			AfxMessageBox("failed to initialize network adapter!", MB_ICONHAND );
@@ -171,7 +171,7 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 			m_SystemTray.hWnd   = GetSafeHwnd( );
 			m_SystemTray.uID    = 1;
 			m_SystemTray.uFlags = NIF_TIP;
-			strncpy( m_SystemTray.szTip, s, sizeof( m_SystemTray.szTip ) );
+			strncpy_s( m_SystemTray.szTip, sizeof( m_SystemTray.szTip ), s, sizeof( m_SystemTray.szTip ) );
 			Shell_NotifyIcon( NIM_MODIFY, &m_SystemTray );		
 		}
 		break;

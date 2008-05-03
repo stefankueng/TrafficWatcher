@@ -137,7 +137,7 @@ BOOL CPacket::Close()
 	return TRUE;
 }
 
-BOOL CPacket::Open(int i, DWORD bufsize, DWORD kernelbuf, BOOL promiscuous)
+BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promiscuous*/)
 {
 	pcap_if_t *alldevs;
 	pcap_if_t *d;

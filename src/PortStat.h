@@ -1,13 +1,4 @@
-// PortStat.h: interface for the CPortStat class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_PORTSTAT_H__F96E24ED_47B0_4567_AC8F_2377F6450BE1__INCLUDED_)
-#define AFX_PORTSTAT_H__F96E24ED_47B0_4567_AC8F_2377F6450BE1__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 
 
 /**
@@ -68,4 +59,3 @@ public://members
 	DWORD64	m_services[LASTSERVICE];				//place for different services
 };
 
-#endif // !defined(AFX_PORTSTAT_H__F96E24ED_47B0_4567_AC8F_2377F6450BE1__INCLUDED_)

@@ -1,5 +1,4 @@
-#ifndef __THREAD_H__
-#define __THREAD_H__
+#pragma once
 
 /**
  * CThread.
@@ -188,4 +187,3 @@ protected:
 	BOOL	m_runthread;				///<indicates if thread should be running
 };
 
-#endif //__THREAD_H__

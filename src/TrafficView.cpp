@@ -87,8 +87,6 @@ BOOL CTrafficView::OnInitDialog()
     if( rc.top < 0 || ( rc.bottom ) > GetSystemMetrics(SM_CYSCREEN) )
         bCenter = TRUE;
 
-	int temp = GetSystemMetrics(SM_CYFULLSCREEN);
-
     if( bCenter ) 
     {
 		GetClientRect( rc );
@@ -145,7 +143,6 @@ void CTrafficView::SaveWindowPosition(CRect *rc)
 
 void CTrafficView::PostNcDestroy() 
 {
-	// TODO: Add your specialized code here and/or call the base class
     m_pTheApp->m_pMainWnd = &m_pTheApp->m_wnd;
 	CDialog::PostNcDestroy();
 }

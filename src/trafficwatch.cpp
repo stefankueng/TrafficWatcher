@@ -20,10 +20,6 @@ static char THIS_FILE[] = __FILE__;
 // CTrafficwatchApp
 
 BEGIN_MESSAGE_MAP(CTrafficwatchApp, CWinApp)
-	//{{AFX_MSG_MAP(CTrafficwatchApp)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
-	//}}AFX_MSG
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

@@ -1,9 +1,4 @@
-#if !defined(AFX_MACPROGRESSCTRL_H__603BBF44_B19C_11D3_90FA_0020AFBC499D__INCLUDED_)
-#define AFX_MACPROGRESSCTRL_H__603BBF44_B19C_11D3_90FA_0020AFBC499D__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 
 /** 
  * CDataBar.
@@ -14,17 +9,9 @@
  */
 class CDataBar : public CProgressCtrl
 {
-// Construction
 public:
 	CDataBar();
 
-// Attributes
-public:
-
-// Operations
-public:
-
-// Implementation
 public:
 
     // checks if the bar is animated or not.
@@ -90,11 +77,9 @@ public:
 
 	// Generated message map functions
 protected:
-	//{{AFX_MSG(CDataBar)
 	afx_msg void OnPaint();
 	afx_msg void OnTimer(UINT nIDEvent);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
 private:
@@ -133,9 +118,3 @@ private:
 	COLORREF m_crLiteShadow;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_MACPROGRESSCTRL_H__603BBF44_B19C_11D3_90FA_0020AFBC499D__INCLUDED_)
