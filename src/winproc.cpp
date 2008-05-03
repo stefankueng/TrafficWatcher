@@ -2,7 +2,6 @@
 #include "Trafficwatch.h"
 #include "winproc.h"
 #include "resource.h"
-#include "TitleMenu.h"
 #include "util.h"
 
 
@@ -186,9 +185,8 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 			
             GetCursorPos( &pt );
 
-			CTitleMenu menu;
+			CMenu menu;
 			menu.CreatePopupMenu();
-			menu.AddMenuTitle( M_APPNAME );
 			if (m_pTView)
 				menu.AppendMenu(MF_STRING | MF_CHECKED, ID_SHOWONTOP, "View");
 			else
@@ -196,8 +194,6 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 			menu.AppendMenu(MF_STRING,ID_SHOWDIALOG,"Open");
 			menu.AppendMenu(MF_STRING,ID_CLOSE,"Exit");
 			menu.SetDefaultItem(ID_SHOWDIALOG, FALSE);
-			menu.SetColor(RGB(150,0,0));
-			menu.SetGradientColor(RGB(0,0,150));
 
 			SetForegroundWindow( );
 			int cmd = menu.TrackPopupMenu( TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY , pt.x, pt.y,this );
