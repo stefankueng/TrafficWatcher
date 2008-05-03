@@ -24,6 +24,8 @@ void CTrafficView::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_ULBAR, m_ulbar);
 	DDX_Control(pDX, IDC_DLBAR, m_dlbar);
+	DDX_Control(pDX, IDC_ULBARLAN, m_ulbarlan);
+	DDX_Control(pDX, IDC_DLBARLAN, m_dlbarlan);
 }
 
 
@@ -66,6 +68,22 @@ BOOL CTrafficView::OnInitDialog()
 	m_ulbar.SetColor(COLORUP);
 	m_dlbar.SetRange(0, (short)(COptionsPage::GetDownloadSpeed()));
 	m_ulbar.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
+
+	m_dlbarlan.SetAnimated();
+	m_dlbarlan.SetMaximumTime();
+	m_dlbarlan.SetShowMaximum();
+	m_dlbarlan.SetMaximumTime(50);
+	m_dlbarlan.SetFontColor(RGB(255, 0, 0));
+	m_dlbarlan.SetColor(COLORDOWN);
+	m_ulbarlan.SetAnimated();
+	m_ulbarlan.SetMaximumTime();
+	m_ulbarlan.SetShowMaximum();
+	m_ulbarlan.SetMaximumTime(50);
+	m_ulbarlan.SetFontColor(RGB(255, 0, 0));
+	m_ulbarlan.SetColor(COLORUP);
+	m_dlbarlan.SetRange(0, (short)(COptionsPage::GetDownloadSpeed()));
+	m_ulbarlan.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
+
 
 	dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
 	dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
@@ -162,6 +180,7 @@ void CTrafficView::OnTimer(UINT nIDEvent)
 	{
 		KillTimer(IDT_TRAFFIC);
 		DWORD ulSpeed, dlSpeed;
+		DWORD ulSpeedLAN, dlSpeedLAN;
 		
 		dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
 		dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
@@ -169,6 +188,15 @@ void CTrafficView::OnTimer(UINT nIDEvent)
 		dwSentDiff = dwTotalSent - dwTotalSentOld;
 		dwTotalRecOld = dwTotalRec;
 		dwTotalSentOld = dwTotalSent;
+
+		dwTotalRecLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN();
+		dwTotalSentLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN();
+		dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
+		dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
+		dwTotalRecOldLAN = dwTotalRecLAN;
+		dwTotalSentOldLAN = dwTotalSentLAN;
+
+
 		dwTime = GetTickCount();
 		dwElapsed = dwTime - dwOldTime;
 		//check for wrap
@@ -186,6 +214,16 @@ void CTrafficView::OnTimer(UINT nIDEvent)
 
 		m_dlbar.SetPos(dlSpeed/1000);		//range is in kbytes/s, not bytes/s!
 		m_ulbar.SetPos(ulSpeed/1000);
+
+
+		dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
+		ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
+
+		m_dlbarlan.SetText(CUtil::GetNumberString(dlSpeedLAN)+"/s");
+		m_ulbarlan.SetText(CUtil::GetNumberString(ulSpeedLAN)+"/s");
+
+		m_dlbarlan.SetPos(dlSpeedLAN/1000);
+		m_ulbarlan.SetPos(ulSpeedLAN/1000);
 
 
 		UpdateData(FALSE);
