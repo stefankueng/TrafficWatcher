@@ -134,6 +134,12 @@ private://members
 		u_short th_urp;						///<urgent pointer
 	};
 
+	typedef struct SOCKADDRIPV6
+	{
+		__int64 sa_family;		// address family
+		unsigned char sa_data[16];
+	};
+
 
 	const sniff_ethernet *ethernet;				///< The ethernet header
 	const sniff_ip *ip;							///< The IP header

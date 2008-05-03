@@ -71,12 +71,13 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 	if (htons(ethernet->ether_type) == 0x86dd)	// IPv6
 	{
 		ULONG len;
-		len = /*htonl*/(ip6->ip6_ctlun.ip6_un1.ip6_un1_plen);
-		if (memcmp(ip6->ip6_src.u.Byte, &Adapters[nActiveAdapter].ip6.sa_data[6], 8) == 0)
+		len = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
+		SOCKADDRIPV6 * sock6 = (SOCKADDRIPV6 *)&Adapters[nActiveAdapter].ip6;
+		if (memcmp(ip6->ip6_src.u.Byte, sock6->sa_data, 16) == 0)
 		{
 			m_sent.AddDataTCP((tcp6->th_dport), (tcp6->th_sport), len);
 		}
-		if (memcmp(ip6->ip6_dst.u.Byte, &Adapters[nActiveAdapter].ip6.sa_data[6], 8) == 0)
+		else if (memcmp(ip6->ip6_dst.u.Byte, sock6->sa_data, 16) == 0)
 		{
 			m_received.AddDataTCP((tcp6->th_sport), (tcp6->th_dport), len);
 		}

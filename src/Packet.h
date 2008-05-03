@@ -15,6 +15,13 @@
 #define MAX_ADAPTERS 100
 
 
+typedef struct SOCKADDRIPV6
+{
+	__int64 sa_family;		// address family
+	unsigned char sa_data[16];
+};
+
+
 /*!
  * class which holds all necessary information and data of a network adapter.
  */
@@ -27,7 +34,7 @@ public:
 	CString			AdapterDescription;		///< the description of the adapter (readable name)
 	CString			ip4_str;				///< the ip address of the adapter as a string (format: ddd.ddd.ddd.ddd)
 	ULONG			ip4;					///< the ip address of the adapter
-	SOCKADDR		ip6;					///< the ipv6 address of the adapter (if available)
+	SOCKADDRIPV6	ip6;					///< the ipv6 address of the adapter (if available)
 	CString			mask_str;				///< the netmask of the adapter as a string (format: ddd.ddd.ddd.ddd)
 	ULONG			mask;					///< the netmask of the adapter
 	CString			gateway_str;			///< the ip of the main gateway
