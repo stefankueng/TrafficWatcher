@@ -322,12 +322,12 @@ HICON	CWinproc::GetTaskBarIcon()
     CBrush brush1( COLORUP );
     dcMem.FillRect( rcSent, &brush1 );
 
-	nIcon =  MulDiv(16, ulSpeedLAN/1000, 10000);
+	nIcon =  MulDiv(16, ulSpeedLAN/1000, COptionsPage::GetDownloadSpeedLAN());
 	rcSentLAN.top =  rcSentLAN.bottom - nIcon;
 	CBrush brush2( COLORUP );
 	dcMem.FillRect( rcSentLAN, &brush2 );
 
-	nIcon =  MulDiv(16, dlSpeedLAN/1000, 10000);
+	nIcon =  MulDiv(16, dlSpeedLAN/1000, COptionsPage::GetUploadSpeedLAN());
 	rcRecvLAN.top =  rcRecvLAN.bottom - nIcon;
 	CBrush brush3( COLORDOWN );
 	dcMem.FillRect( rcRecvLAN, &brush3 );

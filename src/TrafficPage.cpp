@@ -160,6 +160,8 @@ BOOL CTrafficPage::OnSetActive()
 {
 	m_dl_bar.SetRange(0, (short)(COptionsPage::GetDownloadSpeed()));
 	m_ul_bar.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
+	m_dl_barlan.SetRange(0, (short)(COptionsPage::GetDownloadSpeedLAN()));
+	m_ul_barlan.SetRange(0, (short)(COptionsPage::GetUploadSpeedLAN()));
 	SetTimer( IDT_TRAFFIC, 10, NULL );
 	return CPropertyPage::OnSetActive();
 }

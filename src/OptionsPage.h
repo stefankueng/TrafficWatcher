@@ -13,12 +13,16 @@ public:
 	DWORD	static GetRegValue(CString entry);
 	DWORD	static GetDownloadSpeed();
 	DWORD	static GetUploadSpeed();
+	DWORD	static GetDownloadSpeedLAN();
+	DWORD	static GetUploadSpeedLAN();
 
 	enum { IDD = IDD_OPTIONS };
 	CComboBox	m_cAdapter;
 	BOOL	m_autostart;
 	int		m_dlSpeed;
 	int		m_ulSpeed;
+	int		m_dlSpeedLAN;
+	int		m_ulSpeedLAN;
 	BOOL	m_showbits;
 	BOOL	m_showiec;
 

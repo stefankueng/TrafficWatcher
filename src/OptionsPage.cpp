@@ -25,6 +25,8 @@ COptionsPage::COptionsPage() : CPropertyPage(COptionsPage::IDD)
 	m_showiec = FALSE;
 	m_dlSpeed = 1;
 	m_ulSpeed = 1;
+	m_dlSpeedLAN = 1;
+	m_ulSpeedLAN = 1;
 }
 
 
@@ -35,6 +37,8 @@ void COptionsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_AUTOSTART_CHECK, m_autostart);
 	DDX_Radio(pDX, IDC_DL_R256, m_dlSpeed);
 	DDX_Radio(pDX, IDC_UL_R256, m_ulSpeed);
+	DDX_Radio(pDX, IDC_DLAN_1M, m_dlSpeedLAN);
+	DDX_Radio(pDX, IDC_ULAN_1M, m_ulSpeedLAN);
 	DDX_Check(pDX, IDC_SHOWBITS, m_showbits);
 	DDX_Check(pDX, IDC_SHOWIEC, m_showiec);
 }
@@ -60,6 +64,8 @@ BOOL COptionsPage::OnSetActive()
 
 	m_dlSpeed = GetRegValue("dlSpeed");
 	m_ulSpeed = GetRegValue("ulSpeed");
+	m_dlSpeedLAN = GetRegValue("dlSpeedlan");
+	m_ulSpeedLAN = GetRegValue("ulSpeedlan");
 
 	m_showbits = CUtil::IsBits();
 	m_showiec = CUtil::IsIEC();
@@ -83,6 +89,11 @@ BOOL COptionsPage::OnSetActive()
 BOOL COptionsPage::OnKillActive() 
 {
 	UpdateData(TRUE);
+	TRACE("m_dlSpeed = %d\n", m_dlSpeed);
+	TRACE("m_ulSpeed = %d\n", m_ulSpeed);
+	TRACE("m_dlSpeedLAN = %d\n", m_dlSpeedLAN);
+	TRACE("m_ulSpeedLAN = %d\n", m_ulSpeedLAN);
+
 	CRegString regRun = CRegString(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch"));
 	if (m_autostart)
 	{
@@ -135,6 +146,14 @@ BOOL COptionsPage::OnKillActive()
 		value = m_ulSpeed;
 		valuesize = sizeof(valuesize);
 		RegSetValueEx(hKey, "ulSpeed", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+
+		value = m_dlSpeedLAN;
+		valuesize = sizeof(valuesize);
+		RegSetValueEx(hKey, "dlSpeedlan", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+		value = m_ulSpeedLAN;
+		valuesize = sizeof(valuesize);
+		RegSetValueEx(hKey, "ulSpeedlan", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+
 		value = m_cAdapter.GetCurSel();
 		valuesize = sizeof(valuesize);
 		RegSetValueEx(hKey, "adapter", 0, REG_DWORD, (unsigned char *)&value, valuesize);
@@ -187,22 +206,22 @@ DWORD	COptionsPage::GetUploadSpeed()
 	temp = GetRegValue("ulSpeed");
 	switch ((int)temp)
 	{
-		case 1:
-			return 32;
-		case 2:
-			return 64;
-		case 3:
-			return 96;
-		case 4:
-			return 128;
-		case 5:
-			return 256;
-		case 6:
-			return 640;
-		case 7:
-			return 1280;
-		default:
-			return 32;
+	case 0:
+		return 32;
+	case 1:
+		return 64;
+	case 2:
+		return 96;
+	case 3:
+		return 128;
+	case 4:
+		return 256;
+	case 5:
+		return 640;
+	case 6:
+		return 1280;
+	default:
+		return 32;
 	}
 	//return 32;
 }
@@ -213,22 +232,74 @@ DWORD	COptionsPage::GetDownloadSpeed()
 	temp = GetRegValue("dlSpeed");
 	switch ((int)temp)
 	{
-		case 1:
-			return 32;
-		case 2:
-			return 64;
-		case 3:
-			return 96;
-		case 4:
-			return 128;
-		case 5:
-			return 256;
-		case 6:
-			return 640;
-		case 7:
-			return 1280;
-		default:
-			return 32;
+	case 0:
+		return 32;
+	case 1:
+		return 64;
+	case 2:
+		return 96;
+	case 3:
+		return 128;
+	case 4:
+		return 256;
+	case 5:
+		return 640;
+	case 6:
+		return 1280;
+	default:
+		return 32;
 	}
 	//return 32;
+}
+
+DWORD	COptionsPage::GetUploadSpeedLAN()
+{
+	DWORD temp;
+	temp = GetRegValue("ulSpeedlan");
+	switch ((int)temp)
+	{
+	case 0:
+		return 128;
+	case 1:
+		return 640;
+	case 2:
+		return 1280;
+	case 3:
+		return 6912;
+	case 4:
+		return 12800;
+	case 5:
+		return 128000;
+	case 6:
+		return 1280000;
+	default:
+		return 1280;
+	}
+	//return 1280;
+}
+
+DWORD	COptionsPage::GetDownloadSpeedLAN()
+{
+	DWORD temp;
+	temp = GetRegValue("dlSpeedlan");
+	switch ((int)temp)
+	{
+	case 0:
+		return 128;
+	case 1:
+		return 640;
+	case 2:
+		return 1280;
+	case 3:
+		return 6912;
+	case 4:
+		return 12800;
+	case 5:
+		return 128000;
+	case 6:
+		return 1280000;
+	default:
+		return 1280;
+	}
+	//return 1280;
 }
