@@ -18,30 +18,19 @@ public:
 	CIPStat();
 	virtual ~CIPStat();
 	DWORD64	GetTotal();
-	DWORD64	GetTotalReceived() {return m_received.GetTotal();};
+	DWORD64	GetTotalReceived() {return m_received.GetTotal();}
+	DWORD64	GetTotalSent() {return m_sent.GetTotal();}
 
-	DWORD64	GetTotalSent() {return m_sent.GetTotal();};
+	DWORD64	GetTotalReceivedLAN() {return m_receivedLAN.GetTotal();}
+	DWORD64	GetTotalSentLAN() {return m_sentLAN.GetTotal();}
 
-	DWORD64	GetIndexReceived(int i) {return m_received.GetIndexRec(i);};
+
+	DWORD64	GetIndexReceived(int i) {return m_received.GetIndexRec(i);}
 
 	DWORD64	GetIndexSent(int i) {return m_sent.GetIndexSent(i);};
 
 	BOOL	init(int ind = -1);
 	BOOL	close();
-    /*!
-     * set this to TRUE if you want watch only traffic from and to the local host/adapter. if set to FALSE, all
-	 * traffic on the LAN will be watched and used for the statistics
-     *
-     * @param b : TRUE to watch only local traffic, FALSE to watch all LAN traffic
-     */
-	void	SetLocal(BOOL b = TRUE) {m_local = b;};
-
-    /*!
-     * checks if the statistics is built only for local traffic or for the whole LAN traffic.
-     *
-     * @return  : TRUE for loacal, FALSE for LAN traffic
-     */
-	BOOL	GetLocal() {return m_local;};
 
 private://methods
 
@@ -61,9 +50,10 @@ private://members
 	CPortStat	m_sent;
 	CPortStat	m_received;
 
-	int			m_ver;
+	CPortStat	m_sentLAN;
+	CPortStat	m_receivedLAN;
 
-	BOOL		m_local;
+	int			m_ver;
 
 
     //! structure of the ethernet packet header

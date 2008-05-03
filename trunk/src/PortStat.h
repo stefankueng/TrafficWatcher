@@ -26,7 +26,7 @@ public:
      * @param port : specifies from wich ip-port the data was sent or received
      * @param len : the length of the datapacket
      */
-	void	AddDataTCP(USHORT awayport, USHORT localport, USHORT len);
+	void	AddDataTCP(USHORT awayport, USHORT localport, ULONG len);
 
     /*!
      * add new data and builds statistics
@@ -34,15 +34,15 @@ public:
      * @param port : specifies from wich ip-port the data was sent or received
      * @param len : the length of the datapacket
      */
-	void	AddDataUDP(USHORT awayport, USHORT localport, USHORT len);
+	void	AddDataUDP(USHORT awayport, USHORT localport, ULONG len);
 
-	    /*!
+	/*!
      * add new data and builds statistics
      *
      * @param port : specifies from wich ip-port the data was sent or received
      * @param len : the length of the datapacket
      */
-	void	AddData(USHORT awayport, USHORT localport, USHORT len);
+	void	AddData(USHORT awayport, USHORT localport, ULONG len);
 
 	/*!
      * returns the total amount of data from all ports.

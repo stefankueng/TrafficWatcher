@@ -20,8 +20,10 @@
 #define IDC_DL_BYTESPEED                1007
 #define IDC_UL_BAR                      1008
 #define IDC_UL_MAXSPEED                 1009
+#define IDC_UL_LANSPEED                 1009
 #define IDC_DL_DATA                     1010
 #define IDC_DL_MAXSPEED                 1011
+#define IDC_DL_LANSPEED                 1011
 #define IDC_UL_BYTESPEED                1012
 #define IDC_UL_DATA                     1013
 #define IDC_TOT_BYTESPEED               1014
@@ -124,6 +126,8 @@
 #define IDC_DLBAR                       1138
 #define IDC_ULSTR                       1140
 #define IDC_ADAPTER                     1141
+#define IDC_UL_BARLAN                   1142
+#define IDC_DL_BARLAN                   1143
 
 // Next default values for new objects
 // 
@@ -131,7 +135,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        174
 #define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1142
+#define _APS_NEXT_CONTROL_VALUE         1144
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

@@ -19,7 +19,7 @@ typedef struct SOCKADDRIPV6
 {
 	__int64 sa_family;		// address family
 	unsigned char sa_data[16];
-};
+} SOCKADDRIPV6;
 
 
 /*!
