@@ -16,19 +16,14 @@ IMPLEMENT_DYNCREATE(CTrafficPage, CPropertyPage)
 
 CTrafficPage::CTrafficPage() : CPropertyPage(CTrafficPage::IDD)
 {
-	m_dlMaxSpeed = _T("");
-	m_ulMaxSpeed = _T("");
+	m_dlLANSpeed = _T("");
+	m_ulLANSpeed = _T("");
 	m_connections = _T("");
 	m_dlByteSpeed = _T("");
-	m_dlData = _T("");
 	m_gateway = _T("");
 	m_ip = _T("");
 	m_mask = _T("");
-	m_totMaxSpeed = _T("");
-	m_totByteSpeed = _T("");
-	m_totData = _T("");
 	m_ulByteSpeed = _T("");
-	m_ulData = _T("");
 	m_adaptDesc = _T("");
 	m_macaddress = _T("");
 }
@@ -42,19 +37,16 @@ void CTrafficPage::DoDataExchange(CDataExchange* pDX)
 	CPropertyPage::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_UL_BAR, m_ul_bar);
 	DDX_Control(pDX, IDC_DL_BAR, m_dl_bar);
-	DDX_Text(pDX, IDC_DL_MAXSPEED, m_dlMaxSpeed);
-	DDX_Text(pDX, IDC_UL_MAXSPEED, m_ulMaxSpeed);
+	DDX_Control(pDX, IDC_UL_BARLAN, m_ul_barlan);
+	DDX_Control(pDX, IDC_DL_BARLAN, m_dl_barlan);
+	DDX_Text(pDX, IDC_DL_LANSPEED, m_dlLANSpeed);
+	DDX_Text(pDX, IDC_UL_LANSPEED, m_ulLANSpeed);
 	DDX_Text(pDX, IDC_CONNECTIONS, m_connections);
 	DDX_Text(pDX, IDC_DL_BYTESPEED, m_dlByteSpeed);
-	DDX_Text(pDX, IDC_DL_DATA, m_dlData);
 	DDX_Text(pDX, IDC_GATEWAY, m_gateway);
 	DDX_Text(pDX, IDC_IP, m_ip);
 	DDX_Text(pDX, IDC_MASK, m_mask);
-	DDX_Text(pDX, IDC_TOT_MAXSPEED, m_totMaxSpeed);
-	DDX_Text(pDX, IDC_TOT_BYTESPEED, m_totByteSpeed);
-	DDX_Text(pDX, IDC_TOT_DATA, m_totData);
 	DDX_Text(pDX, IDC_UL_BYTESPEED, m_ulByteSpeed);
-	DDX_Text(pDX, IDC_UL_DATA, m_ulData);
 	DDX_Text(pDX, IDC_ADAPT_DESC, m_adaptDesc);
 	DDX_Text(pDX, IDC_MACADDR, m_macaddress);
 }
@@ -84,6 +76,17 @@ BOOL CTrafficPage::OnInitDialog()
 	m_ul_bar.SetMaximumTime(50);
 	m_ul_bar.SetColor(COLORUP);
 
+	m_dl_barlan.SetAnimated();
+	m_dl_barlan.SetMaximumTime();
+	m_dl_barlan.SetShowMaximum();
+	m_dl_barlan.SetMaximumTime(50);
+	m_dl_barlan.SetColor(COLORDOWN);
+	m_ul_barlan.SetAnimated();
+	m_ul_barlan.SetMaximumTime();
+	m_ul_barlan.SetShowMaximum();
+	m_ul_barlan.SetMaximumTime(50);
+	m_ul_barlan.SetColor(COLORUP);
+
 
 	if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() > (-1))
 	{
@@ -109,13 +112,23 @@ void CTrafficPage::OnTimer(UINT nIDEvent)
 		{
 			KillTimer(IDT_TRAFFIC);
 			DWORD ulSpeed, dlSpeed;
+			DWORD ulSpeedLAN, dlSpeedLAN;
 			
 			dwTotalRec = m_pTheApp->m_wnd.m_ipStat.GetTotalReceived();
 			dwTotalSent = m_pTheApp->m_wnd.m_ipStat.GetTotalSent();
+			dwTotalRecLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN();
+			dwTotalSentLAN = m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN();
+
 			dwRecDiff = dwTotalRec - dwTotalRecOld;
 			dwSentDiff = dwTotalSent - dwTotalSentOld;
 			dwTotalRecOld = dwTotalRec;
 			dwTotalSentOld = dwTotalSent;
+
+			dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
+			dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
+			dwTotalRecOldLAN = dwTotalRecLAN;
+			dwTotalSentOldLAN = dwTotalSentLAN;
+
 			dwTime = GetTickCount();
 			dwElapsed = dwTime - dwOldTime;
 			//check for wrap
@@ -127,30 +140,28 @@ void CTrafficPage::OnTimer(UINT nIDEvent)
 			
 			dlSpeed = DWORD(dwRecDiff * (DWORD64)1000 / dwElapsed);
 			ulSpeed = DWORD(dwSentDiff * (DWORD64)1000 / dwElapsed);
+			dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
+			ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
 
 			m_dlByteSpeed = CUtil::GetNumberString(dlSpeed)+"/s";
 			m_ulByteSpeed = CUtil::GetNumberString(ulSpeed)+"/s";
-			m_totByteSpeed = CUtil::GetNumberString(dlSpeed+ulSpeed)+"/s";
-
-			m_dlData = CUtil::GetNumberString(dwTotalRec);
-			m_ulData = CUtil::GetNumberString(dwTotalSent);
-			m_totData = CUtil::GetNumberString(dwTotalRec + dwTotalSent);
-
-			m_dlMaxSpeed = CUtil::GetNumberString(m_pTheApp->m_wnd.dwDlMax);
-			m_ulMaxSpeed = CUtil::GetNumberString(m_pTheApp->m_wnd.dwUlMax);
-			m_totMaxSpeed = CUtil::GetNumberString(m_pTheApp->m_wnd.dwDlMax+m_pTheApp->m_wnd.dwUlMax);
+			m_dlLANSpeed = CUtil::GetNumberString(dlSpeedLAN)+"/s";
+			m_ulLANSpeed = CUtil::GetNumberString(ulSpeedLAN)+"/s";
 
 			m_dl_bar.SetPos(dlSpeed/1000);		//range is in kbytes/s, not bit/s!
 			m_ul_bar.SetPos(ulSpeed/1000);
+
+			m_dl_barlan.SetPos(dlSpeedLAN/1000);
+			m_ul_barlan.SetPos(ulSpeedLAN/1000);
 
 			GetTcpStatistics(&m_tcpstats);
 
 			m_connections.Format("%d", m_tcpstats.dwCurrEstab);
 
 			UpdateData(FALSE);
-		} // if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() > -1){ 
+		} 
 		SetTimer(IDT_TRAFFIC, 1000, NULL);
-	} // if (nIDEvent == IDT_TRAFFIC){ 		
+	}
 }
 
 BOOL CTrafficPage::OnSetActive() 

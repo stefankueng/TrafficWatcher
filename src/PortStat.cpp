@@ -26,11 +26,11 @@ CPortStat::~CPortStat()
 
 }
 
-void	CPortStat::AddData(USHORT awayport, USHORT localport, USHORT len)
+void	CPortStat::AddData(USHORT awayport, USHORT localport, ULONG len)
 {
 	AddDataTCP(0, 0, len);
 }
-void	CPortStat::AddDataTCP(USHORT awayport, USHORT localport, USHORT len)
+void	CPortStat::AddDataTCP(USHORT awayport, USHORT localport, ULONG len)
 {
 	awayport = ntohs(awayport);
 	localport = ntohs(localport);
@@ -108,7 +108,7 @@ void	CPortStat::AddDataTCP(USHORT awayport, USHORT localport, USHORT len)
 	}
 }
 
-void	CPortStat::AddDataUDP(USHORT awayport, USHORT localport, USHORT len)
+void	CPortStat::AddDataUDP(USHORT awayport, USHORT localport, ULONG len)
 {
 	m_services[S_UDP] += (DWORD)len;
 }

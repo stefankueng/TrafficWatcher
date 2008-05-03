@@ -76,48 +76,43 @@ END
 // Dialog
 //
 
-IDD_MAINPAGE DIALOG  0, 0, 307, 206
+IDD_MAINPAGE DIALOGEX 0, 0, 364, 206
 STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "Current Traffic"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
-    CONTROL         "Progress3",IDC_DL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,5,15,10,181
-    RTEXT           "0 kBit/s",IDC_UL_MAXSPEED,85,165,60,8
-    RTEXT           "0 kByte/s",IDC_DL_BYTESPEED,90,20,55,10,NOT WS_GROUP
-    CONTROL         "Progress1",IDC_UL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,25,15,10,181
-    LTEXT           "Up",IDC_STATIC,25,5,15,10
-    LTEXT           "Down",IDC_STATIC,0,5,20,10
-    GROUPBOX        "Download",IDC_COLLAPSE,50,5,100,60
-    GROUPBOX        "Upload",IDC_STATIC,50,135,100,60
-    LTEXT           "Data:",IDC_STATIC,55,50,25,8,NOT WS_GROUP
-    RTEXT           "0 kByte",IDC_DL_DATA,75,50,70,8,NOT WS_GROUP
-    LTEXT           "Max:",IDC_STATIC,55,35,16,8
-    RTEXT           "0 kBit/s",IDC_DL_MAXSPEED,95,35,50,10
-    RTEXT           "0 kBit/s",IDC_UL_BYTESPEED,90,150,55,10
-    LTEXT           "Speed:",IDC_STATIC,55,150,24,8
-    LTEXT           "Max:",IDC_STATIC,55,165,16,8
-    LTEXT           "Data:",IDC_STATIC,55,180,18,8
-    RTEXT           "0 kByte",IDC_UL_DATA,80,180,65,10
-    GROUPBOX        "Total",IDC_STATIC,50,70,100,60
-    LTEXT           "Speed:",IDC_STATIC,55,85,24,8
-    LTEXT           "Max:",IDC_STATIC,55,100,16,8
-    LTEXT           "Data:",IDC_STATIC,55,115,18,8
-    RTEXT           "0 kByte/s",IDC_TOT_BYTESPEED,90,85,55,8
-    RTEXT           "0 kBit/s",IDC_TOT_MAXSPEED,95,100,50,8
-    RTEXT           "0 kByte",IDC_TOT_DATA,75,115,70,8
-    GROUPBOX        "Info",IDC_STATIC,165,5,130,190
-    LTEXT           "IP:",IDC_STATIC,170,65,10,8
-    LTEXT           "Mask:",IDC_STATIC,170,81,20,8
-    LTEXT           "Gateway:",IDC_STATIC,170,94,31,8
-    LTEXT           "open connections:",IDC_STATIC,170,110,60,8
-    RTEXT           "888.888.888.888",IDC_IP,235,65,55,8
-    RTEXT           "888.888.888.888",IDC_MASK,235,80,55,8
-    RTEXT           "888.888.888.888",IDC_GATEWAY,235,94,55,8
-    RTEXT           "0",IDC_CONNECTIONS,245,110,44,8
-    LTEXT           "Speed:",IDC_STATIC,55,20,24,8
-    LTEXT           "",IDC_ADAPT_DESC,171,17,119,28
-    LTEXT           "MAC-Address:",IDC_STATIC,170,50,46,8
-    RTEXT           "",IDC_MACADDR,220,50,70,8
+    CONTROL         "Progress3",IDC_DL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,17,33,10,158
+    RTEXT           "0 kBit/s",IDC_UL_LANSPEED,138,148,69,8
+    RTEXT           "0 kBit/s",IDC_DL_BYTESPEED,153,33,55,10,NOT WS_GROUP
+    CONTROL         "Progress1",IDC_UL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,33,33,10,158
+    LTEXT           "Up",IDC_STATIC,35,16,15,10
+    LTEXT           "Down",IDC_STATIC,14,16,20,10
+    GROUPBOX        "Download",IDC_COLLAPSE,112,7,100,84
+    GROUPBOX        "Upload",IDC_STATIC,112,101,100,96
+    LTEXT           "LAN:",IDC_STATIC,118,48,17,8
+    RTEXT           "0 kBit/s",IDC_DL_LANSPEED,144,48,64,10
+    RTEXT           "0 kBit/s",IDC_UL_BYTESPEED,152,133,55,10
+    LTEXT           "Internet:",IDC_STATIC,117,133,27,8
+    LTEXT           "LAN:",IDC_STATIC,117,148,17,8
+    GROUPBOX        "Info",IDC_STATIC,227,7,130,190
+    LTEXT           "IP:",IDC_STATIC,232,67,10,8
+    LTEXT           "Mask:",IDC_STATIC,232,83,20,8
+    LTEXT           "Gateway:",IDC_STATIC,232,96,31,8
+    LTEXT           "open connections:",IDC_STATIC,232,112,60,8
+    RTEXT           "888.888.888.888",IDC_IP,297,67,55,8
+    RTEXT           "888.888.888.888",IDC_MASK,297,82,55,8
+    RTEXT           "888.888.888.888",IDC_GATEWAY,297,96,55,8
+    RTEXT           "0",IDC_CONNECTIONS,307,112,44,8
+    LTEXT           "Internet:",IDC_STATIC,118,33,27,8
+    LTEXT           "",IDC_ADAPT_DESC,233,19,119,28
+    LTEXT           "MAC-Address:",IDC_STATIC,232,52,46,8
+    RTEXT           "",IDC_MACADDR,282,52,70,8
+    GROUPBOX        "LAN",IDC_STATIC,58,7,50,192
+    CONTROL         "",IDC_UL_BARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,85,33,10,158
+    CONTROL         "",IDC_DL_BARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,69,33,10,158
+    LTEXT           "Up",IDC_STATIC,87,16,15,10
+    LTEXT           "Down",IDC_STATIC,64,16,20,10
+    GROUPBOX        "Internet",IDC_STATIC,7,7,47,192
 END
 
 IDD_DETAILPAGE DIALOG  0, 0, 307, 206
@@ -313,9 +308,12 @@ BEGIN
     IDD_MAINPAGE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 300
+        RIGHTMARGIN, 357
         TOPMARGIN, 7
         BOTTOMMARGIN, 199
+        HORZGUIDE, 26
+        HORZGUIDE, 33
+        HORZGUIDE, 191
     END
 
     IDD_DETAILPAGE, DIALOG

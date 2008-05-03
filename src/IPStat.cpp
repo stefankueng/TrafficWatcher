@@ -18,8 +18,6 @@ CIPStat::CIPStat()
 {
 	m_sent.Clear();
 	m_received.Clear();
-
-	m_local = TRUE;						//only watch local traffic
 }
 
 CIPStat::~CIPStat()
@@ -73,13 +71,14 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 		ULONG len;
 		len = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
 		SOCKADDRIPV6 * sock6 = (SOCKADDRIPV6 *)&Adapters[nActiveAdapter].ip6;
+		// assume for now that ipv6 is only used inside the LAN
 		if (memcmp(ip6->ip6_src.u.Byte, sock6->sa_data, 16) == 0)
 		{
-			m_sent.AddDataTCP((tcp6->th_dport), (tcp6->th_sport), len);
+			m_sentLAN.AddDataTCP((tcp6->th_dport), (tcp6->th_sport), len);
 		}
 		else if (memcmp(ip6->ip6_dst.u.Byte, sock6->sa_data, 16) == 0)
 		{
-			m_received.AddDataTCP((tcp6->th_sport), (tcp6->th_dport), len);
+			m_receivedLAN.AddDataTCP((tcp6->th_sport), (tcp6->th_dport), len);
 		}
 	}
 	else if (htons(ethernet->ether_type) == 0x0800)	// IPv4
@@ -139,17 +138,17 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 				if (ip->ip_p == PROT_TCP)
 				{
 					//tcp protocol
-					if (m_local == FALSE) m_sent.AddDataTCP((tcp->th_dport), (tcp->th_sport), len);
+					m_sentLAN.AddDataTCP((tcp->th_dport), (tcp->th_sport), len);
 				}
 				else if (ip->ip_p == PROT_UDP)
 				{
 					//udp protocol
-					if (m_local == FALSE) m_sent.AddDataUDP((tcp->th_dport), (tcp->th_sport), len);
+					m_sentLAN.AddDataUDP((tcp->th_dport), (tcp->th_sport), len);
 				}
 				else
 				{
 					//other protocol like ICMP, ...
-					if (m_local == FALSE) m_sent.AddData(0, 0, len);
+					m_sentLAN.AddData(0, 0, len);
 				}
 			}
 		}
@@ -161,17 +160,17 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR *packet)
 				if (ip->ip_p == PROT_TCP)
 				{
 					//tcp protocol
-					if (m_local == FALSE) m_received.AddDataTCP((tcp->th_sport), (tcp->th_dport), len);
+					m_receivedLAN.AddDataTCP((tcp->th_sport), (tcp->th_dport), len);
 				}
 				else if (ip->ip_p == PROT_UDP)
 				{
 					//udp protocol
-					if (m_local == FALSE) m_received.AddDataUDP((tcp->th_sport), (tcp->th_dport), len);
+					m_receivedLAN.AddDataUDP((tcp->th_sport), (tcp->th_dport), len);
 				}
 				else
 				{
 					//other protocol like ICMP, ...
-					if (m_local == FALSE) m_received.AddData(0, 0, len);
+					m_receivedLAN.AddData(0, 0, len);
 				}
 			}
 		}
