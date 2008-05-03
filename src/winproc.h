@@ -42,8 +42,10 @@ protected://methods
 	HICON		GetTaskBarIcon();
 protected://members
 	DWORD64		dwRecDiff, dwSentDiff, dwTotalRec, dwTotalRecOld, dwTotalSent, dwTotalSentOld;		
+	DWORD64		dwRecDiffLAN, dwSentDiffLAN, dwTotalRecLAN, dwTotalRecOldLAN, dwTotalSentLAN, dwTotalSentOldLAN;		
 	DWORD		dwTime, dwOldTime;
 	DWORD		ulSpeed, dlSpeed, dwElapsed;
+	DWORD		ulSpeedLAN, dlSpeedLAN;
 	int			internaltimer;
 	HICON		m_AppIcon;
 	HICON		m_TaskBarIcon;

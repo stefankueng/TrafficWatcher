@@ -279,7 +279,7 @@ void CWinproc::OnTimer(UINT nIDEvent)
 			dwElapsed = dwTime + (0 - dwOldTime);
 		}
 		dwOldTime = dwTime;
-		
+
 		dlSpeed = DWORD(dwRecDiff * (DWORD64)1000 / dwElapsed);
 		if (dlSpeed > dwDlMax)
 			dwDlMax = dlSpeed;
@@ -287,17 +287,22 @@ void CWinproc::OnTimer(UINT nIDEvent)
 			dwUlMax = ulSpeed;
 		ulSpeed = DWORD(dwSentDiff * (DWORD64)1000 / dwElapsed);
 
-		//get the icon for the system tray
-		if (((dlSpeed/1000) == 0)&&((ulSpeed/1000) == 0))
-		{
-			UpdateTrayIcon( m_AppIcon );
-		}
-		else
-		{
-			HICON hIcon = GetTaskBarIcon();
-			UpdateTrayIcon( hIcon );    
-			DestroyIcon( hIcon );
-		}
+		//
+
+		dwTotalRecLAN = m_ipStat.GetTotalReceivedLAN();
+		dwTotalSentLAN = m_ipStat.GetTotalSentLAN();
+		dwRecDiffLAN = dwTotalRecLAN - dwTotalRecOldLAN;
+		dwSentDiffLAN = dwTotalSentLAN - dwTotalSentOldLAN;
+		dwTotalRecOldLAN = dwTotalRecLAN;
+		dwTotalSentOldLAN = dwTotalSentLAN;
+
+		dlSpeedLAN = DWORD(dwRecDiffLAN * (DWORD64)1000 / dwElapsed);
+		ulSpeedLAN = DWORD(dwSentDiffLAN * (DWORD64)1000 / dwElapsed);
+
+		HICON hIcon = GetTaskBarIcon();
+		UpdateTrayIcon( hIcon );    
+		DestroyIcon( hIcon );
+
 		internaltimer++;
 		if (internaltimer > 120)
 		{
@@ -325,25 +330,36 @@ HICON	CWinproc::GetTaskBarIcon()
 	CBitmap* pOld = dcMem.SelectObject( &m_bmpIcon );
 
     //offsets for the left and right halves of the icon
-    CRect rcRecv(1,1,7,15);
-    CRect rcSent(9,1,15,15);
+	CRect rcRecv(1,1,3,15);
+	CRect rcSent(4,1,7,15);
+	CRect rcRecvLAN(8,1,11,15);
+	CRect rcSentLAN(12,1,15,15);
 
     CBrush back( RGB(255,255,255) );
-    dcMem.FillRect( rcSent, &back );
-    dcMem.FillRect( rcRecv, &back );
+	dcMem.FillRect( rcSent, &back );
+	dcMem.FillRect( rcRecv, &back );
+	dcMem.FillRect( rcSentLAN, &back );
+	dcMem.FillRect( rcRecvLAN, &back );
 
     int nIcon =  MulDiv(16, dlSpeed/1000, COptionsPage::GetDownloadSpeed());
-
     rcRecv.top =  rcRecv.bottom - nIcon;
     CBrush brush( COLORDOWN );
     dcMem.FillRect( rcRecv, &brush );
 
     nIcon =  MulDiv(16, ulSpeed/1000, COptionsPage::GetUploadSpeed());
-
     rcSent.top =  rcSent.bottom - nIcon;
     CBrush brush1( COLORUP );
     dcMem.FillRect( rcSent, &brush1 );
 
+	nIcon =  MulDiv(16, ulSpeedLAN/1000, 10000);
+	rcSentLAN.top =  rcSentLAN.bottom - nIcon;
+	CBrush brush2( COLORUP );
+	dcMem.FillRect( rcSentLAN, &brush2 );
+
+	nIcon =  MulDiv(16, dlSpeedLAN/1000, 10000);
+	rcRecvLAN.top =  rcRecvLAN.bottom - nIcon;
+	CBrush brush3( COLORDOWN );
+	dcMem.FillRect( rcRecvLAN, &brush3 );
 
     dcMem.SelectObject( pOld );
 
