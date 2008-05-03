@@ -28,14 +28,14 @@ public:
 	static CString	GetNumberString(DWORD value) {return GetNumberString( (float)value );};
 	static CString	GetNumberString(SHORT value) {return GetNumberString( (float)value );};
 	static CString	GetNumberString(int value) {return GetNumberString( (float)value );};
-	/*!
+	/**
 	 * converts a number to a readable String. big numbers are shortened with
 	 * the SI prefix. the SI tells that "k" is 1000, "M" is 1'000'000 and so on.
 	 * if you want the readable string to be based on binary use the IEC-counterparts
 	 * of this method.
 	 * example: a number of 149670 will be converted to "149.67 k".
 	 * its now easy to add "bytes/s" or "Bytes" -> "149.67 kbytes/s" or "149.67 kBytes"
-	 * @param value : the number to convert into a readable string
+	 * \param value : the number to convert into a readable string
 	 */
 	static CString	GetNumberStringSI(float value)
 	{
@@ -95,14 +95,14 @@ public:
 	static CString	GetNumberStringSI(SHORT value) {return GetNumberStringSI( (float)value );};
 	static CString	GetNumberStringSI(int value) {return GetNumberStringSI( (float)value );};
 
-	/*!
+	/**
 	 * converts a number to a readable String. big numbers are shortened with
 	 * the IEC prefix. the IEC tells that "k" is 1024, "M" is 1'048'576 and so on.
 	 * if you want the readable string to be based on decimal use the SI-counterparts
 	 * of this method.
 	 * example: a number of 149670 will be converted to "146.16 ki".
 	 * its now is easy to add "bytes/s" or "Bytes" -> "1146.16 kibytes/s" or "146.16 kiBytes"
-	 * @param value : the number to convert into a readable string
+	 * \param value : the number to convert into a readable string
 	 */
 	static CString	GetNumberStringIEC(float value)
 	{
@@ -163,10 +163,10 @@ public:
 
 
 
-    /*!
+    /**
      * checks if the app should show speed and data as bits or bytes. read from the registry.
      *
-     * @return static BOOL  : TRUE for bits, FALSE for bytes
+     * \return static BOOL  : TRUE for bits, FALSE for bytes
      */
 	static BOOL IsBits()
 	{
@@ -188,10 +188,10 @@ public:
 		return bits;
 	}
 
-    /*!
+    /**
      * checks if the app should show speed and data in SI or IEC format. read from the registry.
      *
-     * @return static BOOL  : TRUE for IEC format, FALSE for SI format.
+     * \return static BOOL  : TRUE for IEC format, FALSE for SI format.
      */
 	static BOOL IsIEC()
 	{
@@ -214,10 +214,10 @@ public:
 	}
 	
 
-    /*!
+    /**
      * sets if the app should show speed and data as bits or bytes. written to the registry.
      *
-     * @param b : TRUE for bits, FALSE for bytes
+     * \param b : TRUE for bits, FALSE for bytes
      */
 	static void SetBits(BOOL b)
 	{
@@ -238,10 +238,10 @@ public:
 	}
 
 
-    /*!
+    /**
      * sets if the app should show speed and data in IEC or SI format. written to the registry.
      *
-     * @param b : TRUE for IEC format, FALSE for SI format.
+     * \param b : TRUE for IEC format, FALSE for SI format.
      */
 	static void SetIEC(BOOL b)
 	{
@@ -267,14 +267,14 @@ public:
 
 
 
-    /*!
+    /**
      * Draws a "good looking" data bar. the bar has a light effect.
      *
-     * @param pDC : the painting context
-     * @param rect : the rectangle for the bar.
-     * @param colorFrom : the actual color of the bar
-     * @param colorTo : the color to use for the light effect. default is white
-     * @param IsHori : TRUE to draw the bar horizontally, FALSE for vertically
+     * \param pDC : the painting context
+     * \param rect : the rectangle for the bar.
+     * \param colorFrom : the actual color of the bar
+     * \param colorTo : the color to use for the light effect. default is white
+     * \param IsHori : TRUE to draw the bar horizontally, FALSE for vertically
 	 * \image html "file" "caption"
      */
 	static void DrawColorCube(CDC* pDC, CRect& rect, COLORREF colorFrom, COLORREF colorTo = RGB(255,255,255), BOOL IsHori = true)
