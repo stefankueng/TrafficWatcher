@@ -13,6 +13,8 @@ public:
 	enum { IDD = IDD_VIEW };
 	CDataBar	m_ulbar;
 	CDataBar	m_dlbar;
+	CDataBar	m_ulbarlan;
+	CDataBar	m_dlbarlan;
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -38,6 +40,14 @@ protected:
 	DWORD64		dwSentDiff;
 	DWORD64		dwTotalRecOld;
 	DWORD64		dwTotalSentOld;
+
+	DWORD64		dwTotalRecLAN;
+	DWORD64		dwTotalSentLAN;
+	DWORD64		dwRecDiffLAN;
+	DWORD64		dwSentDiffLAN;
+	DWORD64		dwTotalRecOldLAN;
+	DWORD64		dwTotalSentOldLAN;
+
 	DWORD		dwTime;
 	DWORD		dwElapsed;
 	DWORD		dwOldTime;
