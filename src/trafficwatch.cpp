@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "trafficwatch.h"
 #include "CmdLineParser.h"
+#include "Registry.h"
 
 #pragma comment(linker, "\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
@@ -62,7 +63,7 @@ BOOL CTrafficwatchApp::InitInstance()
 	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
 	if (parser.HasKey(_T("initwpcap")))
 	{
-		// list all available adapters
+		// list all available adapters (this starts the NPF service which is what we want)
 		if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
 		{
 			AfxMessageBox(errbuf);
@@ -71,6 +72,21 @@ BOOL CTrafficwatchApp::InitInstance()
 		pcap_freealldevs(alldevs);
 		return FALSE;
 	}
+	if (parser.HasKey(_T("wpcapautostart")))
+	{
+		// list all available adapters (this starts the NPF service which is what we want)
+		if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
+		{
+			AfxMessageBox(errbuf);
+			return FALSE;
+		}
+		pcap_freealldevs(alldevs);
+		// now set the service to autostart
+		CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
+		regService = 2;	// SERVICE_AUTO_START (for SERVICE_SYSTEM_START, use a value of 1)
+		return FALSE;
+	}
+
 
 #ifndef DEBUG
 	

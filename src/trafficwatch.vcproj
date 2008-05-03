@@ -247,6 +247,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Registry.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\StdAfx.cpp"
 				>
 				<FileConfiguration
@@ -329,6 +333,10 @@
 			</File>
 			<File
 				RelativePath=".\PortStat.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Registry.h"
 				>
 			</File>
 			<File

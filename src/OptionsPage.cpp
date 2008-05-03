@@ -5,6 +5,7 @@
 #include "trafficwatch.h"
 #include "OptionsPage.h"
 #include "util.h"
+#include "Registry.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -112,7 +113,7 @@ BOOL COptionsPage::OnKillActive()
 	if (m_autostart)
 	{
 		CString sKeyName;
-		unsigned char szFilePath[512];
+		char szFilePath[512];
 		lnRes = RegOpenKeyEx( 
 				   HKEY_CURRENT_USER,  // handle of open key
 					 // The following is the address of name of subkey to open
@@ -122,7 +123,7 @@ BOOL COptionsPage::OnKillActive()
 			   ); 
 
 		// now add program path to the RUN key
-		int len = GetModuleFileName( AfxGetInstanceHandle( ), (char *)szFilePath, sizeof( szFilePath ) );
+		int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
 
 		if( ERROR_SUCCESS == lnRes )
 		{
@@ -131,9 +132,31 @@ BOOL COptionsPage::OnKillActive()
 													   // key to set value for 
 								 0,      
 								 REG_SZ,    
-								 szFilePath,   //value data
+								 (const BYTE *)szFilePath,   //value data
 								 len+1 ); 
 			RegCloseKey(hKey);
+		}
+
+		CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
+		if (DWORD(regService) == 3)
+		{
+			OSVERSIONINFO osinfo = {0};
+			osinfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+			GetVersionEx(&osinfo);
+			if (osinfo.dwMajorVersion >= 6)
+			{
+				// if Vista
+				SHELLEXECUTEINFO TempInfo = {0};
+				TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+				TempInfo.fMask = 0;
+				TempInfo.hwnd = NULL;
+				TempInfo.lpVerb = _T("runas");
+				TempInfo.lpFile = szFilePath;
+				TempInfo.lpParameters = _T("/wpcapautostart");
+				TempInfo.lpDirectory = NULL;
+				TempInfo.nShow = SW_NORMAL;
+				::ShellExecuteEx(&TempInfo);
+			}
 		}
 	}
 	else
