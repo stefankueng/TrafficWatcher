@@ -20,7 +20,7 @@ typedef struct SOCKADDRIPV6
 } SOCKADDRIPV6;
 
 
-/*!
+/**
  * class which holds all necessary information and data of a network adapter.
  */
 class CNetAdapter
@@ -57,7 +57,7 @@ public:
  * inherit your class from CPacket. then implement the method AnalyzePackets(). This method will be
  * called for every packet received.
  * see detailed documentation of each method.
- * @code
+ * \code
  * class CAnalyze : CPacket
  * {
  *		void start();
@@ -80,16 +80,16 @@ public:
  * {
  *		Stop();				//call Close() from the base class
  * }
- * @endcode
+ * \endcode
  * now you can instantiate CAnalyze in another class
- * @code
+ * \code
  * CAnalyze	m_analyze;
  * ...
  * m_analyze.start();
  * ...
  * m_analyze.stop();
  * ...
- * @endcode
+ * \endcode
  *
  */
 
@@ -100,12 +100,12 @@ public:
 	~CPacket();
 	
 
-    /*!
+    /**
      * initializes the CPacket object. you must call this class before
 	 * a call to any other method of this class. retrieves information
 	 * about all available network adapters on the local computer.
      *
-     * @return  :	TRUE if working adapters found, FALSE otherwise
+     * \return  :	TRUE if working adapters found, FALSE otherwise
      */
 	BOOL			init();
 	int				GetNumberOfAdapters() {return nAdapterCount;};
@@ -118,35 +118,35 @@ public:
 	CString			GetDescription(int adapter) {return Adapters[adapter].AdapterDescription;};
 	CString			GetMacAddr() {if (nActiveAdapter < 0) {return "none";} else return Adapters[nActiveAdapter].Address;};
 
-    /*!
+    /**
      * Opens an adapter, sets the size of the application and kernel buffer and starts the sniffing thread.
      *
-     * @param i : the number of the adapter to open. if i is -1, then a valid adapter is determined automatically.
-     * @param bufsize : the size of the application buffer to use. smaller buffer lead to increased CPU usage.
-     * @param kernelbuf : the size of the kernel mode buffer used by the capture driver itself. smaller buffer lead to increased CPU usage.
-     * @param promiscuous : set to FALSE if adapter should not work in promiscuous mode
+     * \param i : the number of the adapter to open. if i is -1, then a valid adapter is determined automatically.
+     * \param bufsize : the size of the application buffer to use. smaller buffer lead to increased CPU usage.
+     * \param kernelbuf : the size of the kernel mode buffer used by the capture driver itself. smaller buffer lead to increased CPU usage.
+     * \param promiscuous : set to FALSE if adapter should not work in promiscuous mode
 	 *
-     * @return  : TRUE if the adapter could be opened and thread could be started.
+     * \return  : TRUE if the adapter could be opened and thread could be started.
      */
 	BOOL			Open(int i = (-1), DWORD bufsize = 524288, DWORD kernelbuf = 524288, BOOL promiscuous = TRUE);
 
-    /*!
+    /**
      * Closes all adapters and frees all allocated memory
      *
-     * @return  : TRUE if successful
+     * \return  : TRUE if successful
      */
 	BOOL			Close();
 
 protected://members
 	
-    //! number of network adapters found. WARNING: also loopback devices are listed
+    /// number of network adapters found. WARNING: also loopback devices are listed
 	int				nAdapterCount;
 	
-    //! specifies the current adapter which is in use by this class
+    /// specifies the current adapter which is in use by this class
 	int				nActiveAdapter;
 
 	
-    //! array to hold the information about ALL found adapters
+    /// array to hold the information about ALL found adapters
 	CNetAdapter		Adapters[MAX_ADAPTERS];
 
 protected://methods
@@ -154,33 +154,33 @@ protected://methods
 	 * override this method.
 	 * this method is called whenever a packet is received. it is called once
 	 * for every packet, even if more than one packets were received at once.
-	 * @param *buffer		pointer to a PACKET structure
-	 * @param *packet		pointer to the start of the packet data
+	 * \param *buffer		pointer to a PACKET structure
+	 * \param *packet		pointer to the start of the packet data
 	 */
 	void virtual	AnalyzePackets(const UCHAR *buffer, const UCHAR *packet) = 0;
 
 
-    /*!
+    /**
      * closes the specified adapter and releases the assigned ADAPTER structure
      *
-     * @param i : the number of the adapter (zero based)
+     * \param i : the number of the adapter (zero based)
      */
 	void			CloseAdapter(int i);
 
-    /*!
+    /**
      * checks if a given adapter is valid. that means if the adapter has a 'good' ip address other than 0.0.0.0 
 	 * and also not the loopback ip of 127.0.0.1
      *
-     * @param i : the number of the adapter (zero based)
+     * \param i : the number of the adapter (zero based)
      *
-     * @return  : TRUE if the adapter is valid, FALSE otherwise
+     * \return  : TRUE if the adapter is valid, FALSE otherwise
      */
 	BOOL			IsValidIPAdapter(int i);
 
 
 private://methods
 
-	/*!
+	/**
 	 * reads the packets from the driver. calls AnalyzePackets() for every
 	 * packet received.
 	 */
@@ -194,9 +194,9 @@ private://methods
 
 
 private://members
-    //! marks the begin of a received packet
+    /// marks the begin of a received packet
 	UCHAR			*packetbegin;
-    //! marks the end of a received packet
+    /// marks the end of a received packet
 	UCHAR			*packetend;
 
 

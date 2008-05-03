@@ -6,7 +6,7 @@
  * just inherit your own class from CThread and implement the virtual method.
  *
  * Example:
- * @code
+ * \code
  * class CMyThreadClass : CThread
  * {
  *		...
@@ -34,14 +34,14 @@
  * //to ensure that the thread was stopped
  * if (m_mythread.Stop() == STILL_ACTIVE)
  *		m_mythread.Stop(true);			//this kills the thread
- * @endcode
+ * \endcode
  * instead of the last lines of code you can use for short the following:
- * @code
+ * \code
  * m_mythread.Start();
  * ...
  * m_mythread.Stop(1000);		//give the thread 1 second to stop itself
  * //now the thread either stopped itself or was killed after one second automatically.
- * @endcode
+ * \endcode
  */
 
 class CThread
@@ -66,7 +66,7 @@ public:
 		}
 		/**
 		 * Starts the thread.
-		 * @param dwCreationFlags		the flags to use for creating the thread. see CreateThread() in the windows sdk.
+		 * \param dwCreationFlags		the flags to use for creating the thread. see CreateThread() in the windows sdk.
 		 */
 		DWORD Start(DWORD dwCreationFlags = 0)
 		{
@@ -80,7 +80,7 @@ public:
 		/**
 		 * Stops the thread.
 		 *	
-		 * @param bForceKill		if true, the Thread is killed immediately
+		 * \param bForceKill		if true, the Thread is killed immediately
 		 */
 		DWORD Stop ( bool bForceKill = false )
 		{
@@ -103,7 +103,7 @@ public:
 		/**
 		 * Stops the thread. first tell the thread to stop itself and wait for the thread to stop itself.
 		 * if timeout occurs and the thread hasn't stopped yet, then the thread is killed.
-		 * @param timeout	milliseconds to wait for the thread to stop itself
+		 * \param timeout	milliseconds to wait for the thread to stop itself
 		 */
 		DWORD Stop ( WORD timeout )
 		{
@@ -130,8 +130,8 @@ public:
 
 		/**
 		 * sets the priority of the thread.
-		 * @param priority	the priority. see SetThreadPriority() in windows sdk for possible values.
-		 * @return true if successful
+		 * \param priority	the priority. see SetThreadPriority() in windows sdk for possible values.
+		 * \return true if successful
 		 */
 		BOOL SetPriority(int priority)
 		{
@@ -140,7 +140,7 @@ public:
 
 		/**
 		 * gets the current priority value of the thread.
-		 * @return the current priority value
+		 * \return the current priority value
 		 */
 		int GetPriority()
 		{

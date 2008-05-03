@@ -34,14 +34,14 @@ public:
 
 private://methods
 
-    /*!
+    /**
      * this method is called from the thread in the base class CPacket whenever a packet
 	 * was received from the network adapter.
 	 * this methods analyzes the packet and gathers information about type, port and size
 	 * of the ip packets sent or received by the adapter
      *
-     * @param *buffer : see CPacket::AnalyzePackets()
-     * @param *packet : see CPacket::AnalyzePackets()
+     * \param *buffer : see CPacket::AnalyzePackets()
+     * \param *packet : see CPacket::AnalyzePackets()
      */
 	void		AnalyzePackets(const UCHAR *buffer, const UCHAR *packet);
 
@@ -56,7 +56,7 @@ private://members
 	int			m_ver;
 
 
-    //! structure of the ethernet packet header
+    /// structure of the ethernet packet header
 	typedef struct sniff_ethernet
 	{
 		u_char ether_dhost[ETHER_ADDR_LEN];	///<Destination host address
@@ -64,7 +64,7 @@ private://members
 		u_short ether_type;					///<IP? ARP? RARP? etc
 	};
 
-    //! structure of the ip packet header
+    /// structure of the ip packet header
 	typedef	struct sniff_ip
 	{
 		u_char ip_hl:4,						///<header length
@@ -100,7 +100,7 @@ private://members
 		struct in6_addr ip6_dst;	// destination address
 	};
 
-    //! structure of the tcp packet header
+    /// structure of the tcp packet header
 	typedef	struct sniff_tcp
 	{
 		u_short th_sport;					///<source port

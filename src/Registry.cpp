@@ -35,10 +35,10 @@ CRegDWORD::CRegDWORD(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegDWORD::CRegDWORD(const CString& key, DWORD def, BOOL force, HKEY base)
 {
@@ -150,10 +150,10 @@ CRegString::CRegString(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegString::CRegString(const CString& key, const CString& def, BOOL force, HKEY base)
 {
@@ -271,10 +271,10 @@ CRegRect::CRegRect(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegRect::CRegRect(const CString& key, CRect def, BOOL force, HKEY base)
 {
@@ -389,10 +389,10 @@ CRegPoint::CRegPoint(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegPoint::CRegPoint(const CString& key, CPoint def, BOOL force, HKEY base)
 {
@@ -584,10 +584,10 @@ CRegStdString::CRegStdString(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegStdString::CRegStdString(const stdstring& key, const stdstring& def, BOOL force, HKEY base)
 {
@@ -708,10 +708,10 @@ CRegStdWORD::CRegStdWORD(void)
 
 /**
  * Constructor.
- * @param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
- * @param def the default value used when the key does not exist or a read error occured
- * @param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
- * @param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
+ * \param key the path to the key, including the key. example: "Software\\Company\\SubKey\\MyValue"
+ * \param def the default value used when the key does not exist or a read error occured
+ * \param force set to TRUE if no cache should be used, i.e. always read and write directly from/to registry
+ * \param base a predefined base key like HKEY_LOCAL_MACHINE. see the SDK documentation for more information.
  */
 CRegStdWORD::CRegStdWORD(const stdstring& key, DWORD def, BOOL force, HKEY base)
 {
