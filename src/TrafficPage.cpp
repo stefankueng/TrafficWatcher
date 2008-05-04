@@ -166,6 +166,16 @@ BOOL CTrafficPage::OnSetActive()
 	m_ul_bar.SetRange(0, (short)(log((double)COptionsPage::GetUploadSpeed())));
 	m_dl_barlan.SetRange(0, (short)(log((double)COptionsPage::GetDownloadSpeedLAN())));
 	m_ul_barlan.SetRange(0, (short)(log((double)COptionsPage::GetUploadSpeedLAN())));
+
+	if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() > (-1))
+	{
+		m_ip = m_pTheApp->m_wnd.m_ipStat.GetIP();
+		m_mask = m_pTheApp->m_wnd.m_ipStat.GetMask();
+		m_gateway = m_pTheApp->m_wnd.m_ipStat.GetGateway();
+		m_macaddress = m_pTheApp->m_wnd.m_ipStat.GetMacAddr();
+		m_adaptDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription();
+	}
+
 	SetTimer( IDT_TRAFFIC, 10, NULL );
 	return CPropertyPage::OnSetActive();
 }
