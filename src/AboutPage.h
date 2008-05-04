@@ -1,5 +1,6 @@
 #pragma once
-
+#include "afxwin.h"
+#include "hyperlink.h"
 
 
 // CAboutPage dialog
@@ -17,9 +18,10 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
-public:
-
-public:
+private:
+	CHyperLink m_sourceLink;
+	CHyperLink m_webLink;
 };
