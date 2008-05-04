@@ -462,13 +462,13 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 
 	if (bVertical)
 	{
-		m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_NORMAL, false, false,0,0,0,0,0,0, "Arial");
+		m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, "Courier New");
 		x = rect.left;
 		y = (rect.Height()-(pDC->GetTextExtent(m_text)).cy)/2 + (pDC->GetTextExtent(m_text)).cy;
 	}
 	else
 	{
-		m_fontText.CreateFont(rect.Height(), 0, 0, 0, FW_NORMAL, false, false,0,0,0,0,0,0, "Arial");
+		m_fontText.CreateFont(rect.Width(), 0, 0, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, "Courier New");
 		x = (rect.Width()-(pDC->GetTextExtent(m_text)).cx)/2 + (pDC->GetTextExtent(m_text)).cx;
 		y = rect.top;
 	}
@@ -478,15 +478,12 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 
 
 	pDC->SetBkMode(TRANSPARENT);
-	pDC->SetTextColor(RGB(0,0,0));
-	pDC->TextOut(x+1,y+1,m_text);
-	pDC->SetTextColor( m_fontColor);
+	pDC->SetTextColor(m_fontColor);
 	// draw text in DC
 	pDC->TextOut(x,y,m_text);
 
 	// restore old font
 	pDC->SelectObject(OldFont);
-
-
-
 }
+
+
