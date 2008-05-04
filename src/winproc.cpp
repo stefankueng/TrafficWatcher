@@ -307,10 +307,7 @@ HICON	CWinproc::GetTaskBarIcon()
 	CRect rcSentLAN(12,1,15,15);
 
     CBrush back( RGB(0,0,0) );
-	dcMem.FillRect( rcSent, &back );
-	dcMem.FillRect( rcRecv, &back );
-	dcMem.FillRect( rcSentLAN, &back );
-	dcMem.FillRect( rcRecvLAN, &back );
+	dcMem.FillRect( CRect(0,0,16,16), &back );
 
     int nIcon = 0;
 	nIcon = (int)((16.0 * log(dlSpeed/1000.0)) / log((double)COptionsPage::GetDownloadSpeed()));
