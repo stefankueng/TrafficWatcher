@@ -107,6 +107,24 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR * /*packet*/)
 					m_sent.AddData(0, 0, len);
 				}
 			}
+			else
+			{
+				if (ip->ip_p == PROT_TCP)
+				{
+					//tcp protocol
+					m_sentLAN.AddDataTCP((tcp->th_dport), (tcp->th_sport), len);
+				}
+				else if (ip->ip_p == PROT_UDP)
+				{
+					//udp protocol
+					m_sentLAN.AddDataUDP((tcp->th_dport), (tcp->th_sport), len);
+				}
+				else
+				{
+					//other protocol like ICMP, ...
+					m_sentLAN.AddData(0, 0, len);
+				}
+			}
 		}
 		else if ((ip->ip_dst.S_un.S_addr)==Adapters[nActiveAdapter].ip4)
 		{
@@ -127,6 +145,24 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR * /*packet*/)
 				{
 					//other protocol like ICMP, ...
 					m_received.AddData(0, 0, len);
+				}
+			}
+			else
+			{
+				if (ip->ip_p == PROT_TCP)
+				{
+					//tcp protocol
+					m_receivedLAN.AddDataTCP((tcp->th_sport), (tcp->th_dport), len);
+				}
+				else if (ip->ip_p == PROT_UDP)
+				{
+					//udp protocol
+					m_receivedLAN.AddDataUDP((tcp->th_sport), (tcp->th_dport), len);
+				}
+				else
+				{
+					//other protocol like ICMP, ...
+					m_receivedLAN.AddData(0, 0, len);
 				}
 			}
 		}
