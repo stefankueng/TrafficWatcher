@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project name="TrafficWatcher" default="build">
+
+	<target name="build" depends="VSNET">
+		<!-- run SubWCRev to get the revision of the working copy -->
+		<exec program="SubWCRev.exe">
+			<arg value="." />
+			<arg value="src/version.in" />
+			<arg value="src/version.h" />
+		</exec>
+
+		<exec program="devenv.com" >
+			<arg value="trafficwatch.sln" />
+			<arg value="/rebuild" />
+			<arg value="debug|win32" />
+		</exec>
+		<exec program="devenv.com" >
+			<arg value="trafficwatch.sln" />
+			<arg value="/rebuild" />
+			<arg value="release|win32" />
+		</exec>
+
+	</target>
+
+	<target name="VSNET" description="Checks if the env variables for VS.NET2005 are set">
+		<if test="${not environment::variable-exists('VCINSTALLDIR')}">
+			<fail>You must first call "%VS80COMNTOOLS%\vsvars32.bat"</fail>
+		</if>
+	</target>
+
+</project>
+
