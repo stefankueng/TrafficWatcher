@@ -82,13 +82,13 @@ BOOL CTrafficPage::OnInitDialog()
 	m_dl_barlan.SetMaximumTime();
 	m_dl_barlan.SetShowMaximum();
 	m_dl_barlan.SetMaximumTime(50);
-	m_dl_barlan.SetColor(COLORDOWN);
+	m_dl_barlan.SetColor(COLORDOWNLAN);
 	m_dl_barlan.SetFontColor(RGB(255, 0, 0));
 	m_ul_barlan.SetAnimated();
 	m_ul_barlan.SetMaximumTime();
 	m_ul_barlan.SetShowMaximum();
 	m_ul_barlan.SetMaximumTime(50);
-	m_ul_barlan.SetColor(COLORUP);
+	m_ul_barlan.SetColor(COLORUPLAN);
 	m_ul_barlan.SetFontColor(RGB(255, 0, 0));
 
 
@@ -133,15 +133,15 @@ void CTrafficPage::OnTimer(UINT nIDEvent)
 			m_dl_bar.SetText(CUtil::GetNumberString(dlSpeed)+"/s");
 			m_ul_bar.SetText(CUtil::GetNumberString(ulSpeed)+"/s");
 
-			m_dl_bar.SetPos(dlSpeed/1000);		//range is in kbytes/s, not bytes/s!
-			m_ul_bar.SetPos(ulSpeed/1000);
+			m_dl_bar.SetPos(dlSpeed ? (int)log(dlSpeed/1000.0) : 0);		//range is in kbytes/s, not bytes/s!
+			m_ul_bar.SetPos(ulSpeed ? (int)log(ulSpeed/1000.0) : 0);
 
 
 			m_dl_barlan.SetText(CUtil::GetNumberString(dlLANSpeed)+"/s");
 			m_ul_barlan.SetText(CUtil::GetNumberString(ulLANSpeed)+"/s");
 
-			m_dl_barlan.SetPos(dlLANSpeed/1000);
-			m_ul_barlan.SetPos(ulLANSpeed/1000);
+			m_dl_barlan.SetPos(dlLANSpeed ? (int)log(dlLANSpeed/1000.0) : 0);
+			m_ul_barlan.SetPos(ulLANSpeed ? (int)log(ulLANSpeed/1000.0) : 0);
 
 
 			m_dlByteSpeed = CUtil::GetNumberString(dlSpeed)+"/s";
@@ -162,10 +162,10 @@ void CTrafficPage::OnTimer(UINT nIDEvent)
 
 BOOL CTrafficPage::OnSetActive() 
 {
-	m_dl_bar.SetRange(0, (short)(COptionsPage::GetDownloadSpeed()));
-	m_ul_bar.SetRange(0, (short)(COptionsPage::GetUploadSpeed()));
-	m_dl_barlan.SetRange(0, (short)(COptionsPage::GetDownloadSpeedLAN()));
-	m_ul_barlan.SetRange(0, (short)(COptionsPage::GetUploadSpeedLAN()));
+	m_dl_bar.SetRange(0, (short)(log((double)COptionsPage::GetDownloadSpeed())));
+	m_ul_bar.SetRange(0, (short)(log((double)COptionsPage::GetUploadSpeed())));
+	m_dl_barlan.SetRange(0, (short)(log((double)COptionsPage::GetDownloadSpeedLAN())));
+	m_ul_barlan.SetRange(0, (short)(log((double)COptionsPage::GetUploadSpeedLAN())));
 	SetTimer( IDT_TRAFFIC, 10, NULL );
 	return CPropertyPage::OnSetActive();
 }
