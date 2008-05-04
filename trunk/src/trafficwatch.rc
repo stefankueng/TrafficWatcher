@@ -249,6 +249,13 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
 CAPTION "About"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
+    LTEXT           "TrafficWatcher",IDC_STATIC,7,7,49,8
+    LTEXT           "",IDC_VERSIONINFO,81,7,147,8
+    LTEXT           "Author: Stefan Küng",IDC_STATIC,7,30,78,8
+    LTEXT           "This program is licensed under GPL. The sourcecode is available from:",IDC_STATIC,7,50,222,10
+    LTEXT           "http://code.google.com/p/trafficwatcher/source/browse",IDC_SOURCECODELINK,7,63,181,8
+    LTEXT           "More information is available on our website:",IDC_STATIC,7,94,144,8
+    LTEXT           "http://tools.tortoisesvn.net",IDC_WEBLINK,7,105,90,8
 END
 
 

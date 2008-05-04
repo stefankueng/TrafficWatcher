@@ -114,6 +114,9 @@
 #define IDC_ADAPTER                     1141
 #define IDC_UL_BARLAN                   1142
 #define IDC_DL_BARLAN                   1143
+#define IDC_VERSIONINFO                 1144
+#define IDC_SOURCECODELINK              1145
+#define IDC_WEBLINK                     1146
 
 // Next default values for new objects
 // 
@@ -121,7 +124,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        174
 #define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1144
+#define _APS_NEXT_CONTROL_VALUE         1147
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

@@ -231,6 +231,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HyperLink.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IPStat.cpp"
 				>
 			</File>
@@ -317,6 +321,10 @@
 			</File>
 			<File
 				RelativePath=".\Globals.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HyperLink.h"
 				>
 			</File>
 			<File
@@ -435,5 +443,9 @@
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="trafficwatch.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
