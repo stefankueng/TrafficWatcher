@@ -312,22 +312,39 @@ HICON	CWinproc::GetTaskBarIcon()
 	dcMem.FillRect( rcSentLAN, &back );
 	dcMem.FillRect( rcRecvLAN, &back );
 
-    int nIcon =  MulDiv(16, dlSpeed/1000, COptionsPage::GetDownloadSpeed());
+    int nIcon = 0;
+	nIcon = (int)((16.0 * log(dlSpeed/1000.0)) / log((double)COptionsPage::GetDownloadSpeed()));
+	if (dlSpeed == 0)
+		nIcon = 1;
+	if (nIcon == 0)
+		nIcon = 1;
     rcRecv.top =  rcRecv.bottom - nIcon;
     CBrush brush( COLORDOWN );
     dcMem.FillRect( rcRecv, &brush );
 
-    nIcon =  MulDiv(16, ulSpeed/1000, COptionsPage::GetUploadSpeed());
+    nIcon = (int)((16.0 * log(ulSpeed/1000.0)) / log((double)COptionsPage::GetUploadSpeed()));
+	if (ulSpeed == 0)
+		nIcon = 1;
+	if (nIcon == 0)
+		nIcon = 1;
     rcSent.top =  rcSent.bottom - nIcon;
     CBrush brush1( COLORUP );
     dcMem.FillRect( rcSent, &brush1 );
 
-	nIcon =  MulDiv(16, ulSpeedLAN/1000, COptionsPage::GetDownloadSpeedLAN());
+	nIcon = (int)((16.0 * log(ulSpeedLAN/1000.0)) / log((double)COptionsPage::GetDownloadSpeedLAN()));
+	if (ulSpeedLAN == 0)
+		nIcon = 1;
+	if (nIcon == 0)
+		nIcon = 1;
 	rcSentLAN.top =  rcSentLAN.bottom - nIcon;
 	CBrush brush2( COLORUPLAN );
 	dcMem.FillRect( rcSentLAN, &brush2 );
 
-	nIcon =  MulDiv(16, dlSpeedLAN/1000, COptionsPage::GetUploadSpeedLAN());
+	nIcon = (int)((16.0 * log(dlSpeedLAN/1000.0)) / log((double)COptionsPage::GetUploadSpeedLAN()));
+	if (dlSpeedLAN == 0)
+		nIcon = 1;
+	if (nIcon == 0)
+		nIcon = 1;
 	rcRecvLAN.top =  rcRecvLAN.bottom - nIcon;
 	CBrush brush3( COLORDOWNLAN );
 	dcMem.FillRect( rcRecvLAN, &brush3 );

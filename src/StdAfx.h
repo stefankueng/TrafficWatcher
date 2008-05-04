@@ -30,5 +30,6 @@
 #include <Shlobj.h>
 #include <Shlwapi.h>
 #include <tchar.h>
+#include <math.h>
 
 
