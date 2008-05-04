@@ -1,4 +1,4 @@
-// trafficwatch
+// TrafficWatcher - a network speed monitor
 
 // Copyright (C) 2008 - Stefan Kueng
 
