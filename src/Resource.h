@@ -10,7 +10,6 @@
 #define IDD_OPTIONS                     132
 #define IDD_VIEW                        137
 #define IDI_TASKBAR                     140
-#define IDR_WORLDPIC                    145
 #define IDD_ABOUT                       151
 #define IDR_BMP1                        173
 #define IDC_DL_BAR                      1003
@@ -107,7 +106,6 @@
 #define IDC_COLLAPSE                    1136
 #define IDC_ULAN_1G                     1136
 #define IDC_ULBAR                       1137
-#define IDC_DL_R10002                   1137
 #define IDC_ULAN_10G                    1137
 #define IDC_DLBAR                       1138
 #define IDC_ULBARLAN                    1139
