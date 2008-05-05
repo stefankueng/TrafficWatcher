@@ -35,9 +35,8 @@ BOOL CPacket::init()
 
 	// we first get the adapters info for ipv4
 	buflen = 0;
-	pAdInfo = (struct _IP_ADAPTER_INFO *)new UCHAR[1000];
+	pAdInfo = NULL;
 	GetAdaptersInfo(pAdInfo, &buflen);
-	delete pAdInfo;
 	pAdInfo = (struct _IP_ADAPTER_INFO *)new UCHAR[buflen];
 	nAdapterCount = 0;
 	if (GetAdaptersInfo(pAdInfo, &buflen) == ERROR_SUCCESS)
