@@ -74,6 +74,14 @@ BOOL CTrafficwatchApp::InitInstance()
 	pcap_if_t *alldevs;
 	char errbuf[PCAP_ERRBUF_SIZE];
 
+	// check if winsock2.x is available	
+	WSADATA WinsockData;
+	if( WSAStartup(MAKEWORD(2,2), &WinsockData) != 0) 
+	{
+		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
+		return FALSE;	//quit program
+	}
+
 	CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
 	if (parser.HasKey(_T("initwpcap")))
 	{
@@ -124,13 +132,6 @@ BOOL CTrafficwatchApp::InitInstance()
 #endif
 
 	
-	// check if winsock2.x is available	
-    WSADATA WinsockData;
-    if( WSAStartup(MAKEWORD(2,2), &WinsockData) != 0) 
-    {
-        AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
-		return FALSE;	//quit program
-    }
 	
 	
     // create a hidden window to receive system tray messages
