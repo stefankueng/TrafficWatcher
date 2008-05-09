@@ -194,7 +194,7 @@ BOOL CTrafficPage::OnSetActive()
 		m_adaptDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription();
 	}
 
-	SetTimer( IDT_TRAFFIC, 10, NULL );
+	SetTimer( IDT_TRAFFIC, 1000, NULL );
 	return CPropertyPage::OnSetActive();
 }
 
