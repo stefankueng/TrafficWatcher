@@ -150,7 +150,7 @@ BOOL CDetailPage::OnSetActive()
 	int dl, ul;
 	dl = COptionsPage::GetDownloadSpeed();
 	ul = COptionsPage::GetUploadSpeed();
-	SetTimer(IDT_DETAIL, 10, NULL);
+	SetTimer(IDT_DETAIL, 1000, NULL);
 	for (int i=0; i<LASTSERVICE; i++)
 	{
 		m_dlCtrl[i].SetShowMaximum();
