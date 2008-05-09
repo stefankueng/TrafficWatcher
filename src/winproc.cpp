@@ -328,7 +328,7 @@ HICON	CWinproc::GetTaskBarIcon()
 	dcMem.FillRect( CRect(0,0,16,16), &back );
 
     int nIcon = 0;
-	nIcon = (int)((16.0 * log(dlSpeed/1000.0)) / log((double)COptionsPage::GetDownloadSpeed()));
+	nIcon = (int)((16.0 * sqrt(dlSpeed/1000.0)) / sqrt((double)COptionsPage::GetDownloadSpeed()));
 	if (dlSpeed == 0)
 		nIcon = 1;
 	if (nIcon == 0)
@@ -337,7 +337,7 @@ HICON	CWinproc::GetTaskBarIcon()
     CBrush brush( COLORDOWN );
     dcMem.FillRect( rcRecv, &brush );
 
-    nIcon = (int)((16.0 * log(ulSpeed/1000.0)) / log((double)COptionsPage::GetUploadSpeed()));
+    nIcon = (int)((16.0 * sqrt(ulSpeed/1000.0)) / sqrt((double)COptionsPage::GetUploadSpeed()));
 	if (ulSpeed == 0)
 		nIcon = 1;
 	if (nIcon == 0)
@@ -346,7 +346,7 @@ HICON	CWinproc::GetTaskBarIcon()
     CBrush brush1( COLORUP );
     dcMem.FillRect( rcSent, &brush1 );
 
-	nIcon = (int)((16.0 * log(ulSpeedLAN/1000.0)) / log((double)COptionsPage::GetDownloadSpeedLAN()));
+	nIcon = (int)((16.0 * sqrt(ulSpeedLAN/1000.0)) / sqrt((double)COptionsPage::GetDownloadSpeedLAN()));
 	if (ulSpeedLAN == 0)
 		nIcon = 1;
 	if (nIcon == 0)
@@ -355,7 +355,7 @@ HICON	CWinproc::GetTaskBarIcon()
 	CBrush brush2( COLORUPLAN );
 	dcMem.FillRect( rcSentLAN, &brush2 );
 
-	nIcon = (int)((16.0 * log(dlSpeedLAN/1000.0)) / log((double)COptionsPage::GetUploadSpeedLAN()));
+	nIcon = (int)((16.0 * sqrt(dlSpeedLAN/1000.0)) / sqrt((double)COptionsPage::GetUploadSpeedLAN()));
 	if (dlSpeedLAN == 0)
 		nIcon = 1;
 	if (nIcon == 0)
