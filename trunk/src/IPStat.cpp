@@ -85,7 +85,7 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR * /*packet*/)
 		ULONG len;
 		len = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
 		if (len > 10000 )
-			len = htons(len);
+			len = htons((u_short)len);
 		SOCKADDRIPV6 * sock6 = (SOCKADDRIPV6 *)&Adapters[nActiveAdapter].ip6;
 		// assume for now that ipv6 is only used inside the LAN
 		if (memcmp(ip6->ip6_src.u.Byte, sock6->sa_data, 16) == 0)
