@@ -194,6 +194,13 @@ BOOL CTrafficPage::OnSetActive()
 		m_adaptDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription();
 	}
 
+	DWORD dwTicks = GetTickCount();
+
+	m_sentFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+	m_receivedFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+	m_sentLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+	m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
+
 	SetTimer( IDT_TRAFFIC, 1000, NULL );
 	return CPropertyPage::OnSetActive();
 }

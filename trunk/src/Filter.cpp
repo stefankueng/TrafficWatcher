@@ -48,5 +48,7 @@ DWORD64 CFilter::Filter(DWORD ticks, DWORD64 value)
 		diffs[i] = diffs[i-1];
 	diffs[0] = diffValue;
 
-	return meanDiff * 1000 / diffTicks;
+	if (diffTicks)
+		return meanDiff * 1000 / diffTicks;
+	return 0;
 }
