@@ -115,37 +115,39 @@ BOOL COptionsPage::OnKillActive()
 		TCHAR szFilePath[512];
 		GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
 
-		regRun = szFilePath;
-
-
-		CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
-		if (DWORD(regService) == 3)
+		if (CString(regRun).Compare(szFilePath))
 		{
-			int ret = AfxMessageBox(_T("To start TrafficWatcher automatically, it is recommended\nto also start the NPF service automatically.\nDo you want to set the NPF service to start automatically?"), MB_ICONQUESTION|MB_YESNOCANCEL);
-			if (ret == IDYES)
+			regRun = szFilePath;
+
+			CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
+			if (DWORD(regService) == 3)
 			{
-				OSVERSIONINFO osinfo = {0};
-				osinfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-				GetVersionEx(&osinfo);
-				if (osinfo.dwMajorVersion >= 6)
+				int ret = AfxMessageBox(_T("To start TrafficWatcher automatically, it is recommended\nto also start the NPF service automatically.\nDo you want to set the NPF service to start automatically?"), MB_ICONQUESTION|MB_YESNOCANCEL);
+				if (ret == IDYES)
 				{
-					// if Vista
-					SHELLEXECUTEINFO TempInfo = {0};
-					TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
-					TempInfo.fMask = 0;
-					TempInfo.hwnd = NULL;
-					TempInfo.lpVerb = _T("runas");
-					TempInfo.lpFile = szFilePath;
-					TempInfo.lpParameters = _T("/wpcapautostart");
-					TempInfo.lpDirectory = NULL;
-					TempInfo.nShow = SW_NORMAL;
-					::ShellExecuteEx(&TempInfo);
+					OSVERSIONINFO osinfo = {0};
+					osinfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+					GetVersionEx(&osinfo);
+					if (osinfo.dwMajorVersion >= 6)
+					{
+						// if Vista
+						SHELLEXECUTEINFO TempInfo = {0};
+						TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+						TempInfo.fMask = 0;
+						TempInfo.hwnd = NULL;
+						TempInfo.lpVerb = _T("runas");
+						TempInfo.lpFile = szFilePath;
+						TempInfo.lpParameters = _T("/wpcapautostart");
+						TempInfo.lpDirectory = NULL;
+						TempInfo.nShow = SW_NORMAL;
+						::ShellExecuteEx(&TempInfo);
+					}
 				}
-			}
-			else if (ret == IDCANCEL)
-			{
-				m_autostart = FALSE;
-				regRun.removeKey();
+				else if (ret == IDCANCEL)
+				{
+					m_autostart = FALSE;
+					regRun.removeKey();
+				}
 			}
 		}
 	}
