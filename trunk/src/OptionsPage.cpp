@@ -146,14 +146,14 @@ BOOL COptionsPage::OnKillActive()
 				else if (ret == IDCANCEL)
 				{
 					m_autostart = FALSE;
-					regRun.removeKey();
+					regRun.removeValue();
 				}
 			}
 		}
 	}
 	else
 	{
-		regRun.removeKey();
+		regRun.removeValue();
 	}
 
 	HKEY hKey;
