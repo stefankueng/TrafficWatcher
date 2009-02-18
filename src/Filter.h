@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -25,6 +25,8 @@ public:
 	CFilter(void);
 	~CFilter(void);
 	DWORD64		Filter(DWORD ticks, DWORD64 value);
+	void		Clear();
+	void		Init(DWORD ticks, DWORD64 value);
 private:
 	DWORD64		dwTotalOld;
 

@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,6 +31,14 @@ CFilter::~CFilter(void)
 {
 }
 
+void CFilter::Clear()
+{
+	for (int i=0; i<FILTER_MEAN_DEPTH; ++i)
+		diffs[i] = 0;
+	dwTotalOld = 0;
+	dwPrevTicks = 0;
+}
+
 DWORD64 CFilter::Filter(DWORD ticks, DWORD64 value)
 {
 	DWORD diffTicks = ticks - dwPrevTicks;
@@ -51,4 +59,11 @@ DWORD64 CFilter::Filter(DWORD ticks, DWORD64 value)
 	if (diffTicks)
 		return meanDiff * 1000 / diffTicks;
 	return 0;
+}
+
+void CFilter::Init(DWORD ticks, DWORD64 value)
+{
+	Clear();
+	dwPrevTicks = ticks;
+	dwTotalOld = value;
 }
