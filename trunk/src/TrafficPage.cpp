@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -120,12 +120,17 @@ BOOL CTrafficPage::OnInitDialog()
 	}
 
 	
+	m_sentFilter.Clear();
+	m_receivedFilter.Clear();
+	m_sentLANFilter.Clear();
+	m_receivedLANFilter.Clear();
+
 	DWORD dwTicks = GetTickCount();
 
-	m_sentFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
-	m_receivedFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
-	m_sentLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
-	m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
+	m_sentFilter.Init(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSent());
+	m_receivedFilter.Init(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceived());
+	m_sentLANFilter.Init(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalSentLAN());
+	m_receivedLANFilter.Init(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
 
 	UpdateData(FALSE);
 	
