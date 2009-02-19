@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -181,8 +181,11 @@ BOOL COptionsPage::OnKillActive()
 		RegSetValueEx(hKey, "ulSpeedlan", 0, REG_DWORD, (unsigned char *)&value, valuesize);
 
 		value = m_cAdapter.GetCurSel();
-		valuesize = sizeof(valuesize);
-		RegSetValueEx(hKey, "adapter", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+		if (value != CB_ERR)
+		{
+			CString adapterDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription(value);
+			RegSetValueEx(hKey, "adapter", 0, REG_SZ, (unsigned char *)(LPCTSTR)adapterDesc, adapterDesc.GetLength());
+		}
 		RegCloseKey(hKey);
 	}
 	if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() != m_cAdapter.GetCurSel())
