@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -91,9 +91,24 @@ void CWinproc::StartUp( )
 	{
 		DWORD value, valuesize;
 		ULONG type;
-		valuesize = sizeof(value);
-		if (!RegQueryValueEx(hKey, "adapter", 0, &type, (unsigned char *)&value, &valuesize) == ERROR_SUCCESS)
+		TCHAR buf[4096] = {0};
+		valuesize = 4095;
+		if (!RegQueryValueEx(hKey, "adapter", 0, &type, (unsigned char *)buf, &valuesize) == ERROR_SUCCESS)
 			value = (DWORD)-1;
+		else
+		{
+			value = (DWORD)-1;
+			m_ipStat.init(value);
+			for (int i=0; i<m_ipStat.GetNumberOfAdapters(); i++)
+			{
+				if (m_ipStat.GetDescription(i).Compare(buf) == 0)
+				{
+					value = i;
+					break;
+				}
+			}
+
+		}
 		if (m_ipStat.init(value) == FALSE)
 		{
 			AfxMessageBox("failed to initialize network adapter!", MB_ICONHAND );
