@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -73,6 +73,7 @@ private://members
 
 	int			m_ver;
 
+#pragma pack(1)
 
     /// structure of the ethernet packet header
 	typedef struct sniff_ethernet
@@ -81,7 +82,6 @@ private://members
 		u_char ether_shost[ETHER_ADDR_LEN];	///<Source host address
 		u_short ether_type;					///<IP? ARP? RARP? etc
 	};
-
     /// structure of the ip packet header
 	typedef	struct sniff_ip
 	{
@@ -154,8 +154,7 @@ private://members
 	const sniff_tcp *tcp;						///< The TCP header
 	const sniff_ip6 *ip6;						///< The IPv6 header
 	const sniff_tcp *tcp6;						///< The TCP header
-private:
-
+#pragma pack()
 
 };
 
