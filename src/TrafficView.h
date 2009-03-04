@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -21,6 +21,11 @@
 #include "databar.h"
 #include "util.h"
 #include "Filter.h"
+
+#define MONITOR_CENTER   0x0001			// center rect to monitor
+#define MONITOR_CLIP     0x0000			// clip rect to monitor
+#define MONITOR_WORKAREA 0x0002			// use monitor work area
+#define MONITOR_AREA     0x0000			// use monitor entire area
 
 /////////////////////////////////////////////////////////////////////////////
 // CTrafficView dialog
@@ -61,5 +66,7 @@ protected:
 private:
 	void		LoadWindowPosition(CRect *rc);
 	void		SaveWindowPosition(CRect *rc);
+	void		ClipOrCenterRectToMonitor(LPRECT prc, UINT flags);
+
 };
 
