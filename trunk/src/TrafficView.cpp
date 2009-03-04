@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -118,6 +118,7 @@ BOOL CTrafficView::OnInitDialog()
     CRect rc;
     GetClientRect( rc );
     LoadWindowPosition( &rc );
+	ClipOrCenterRectToMonitor(&rc, MONITOR_WORKAREA|MONITOR_DEFAULTTONEAREST);
     BOOL bCenter = FALSE;
     if( rc.left < 0 || ( rc.right ) > GetSystemMetrics(SM_CXSCREEN) )
         bCenter = TRUE;
@@ -144,6 +145,50 @@ BOOL CTrafficView::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
+
+void CTrafficView::ClipOrCenterRectToMonitor(LPRECT prc, UINT flags)
+{
+	HMONITOR hMonitor;
+	MONITORINFO mi;
+	RECT        rc;
+	int         w = prc->right  - prc->left;
+	int         h = prc->bottom - prc->top;
+
+	//
+	// get the nearest monitor to the passed rect.
+	//
+	hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
+
+	//
+	// get the work area or entire monitor rect.
+	//
+	mi.cbSize = sizeof(mi);
+	GetMonitorInfo(hMonitor, &mi);
+
+	if (flags & MONITOR_WORKAREA)
+		rc = mi.rcWork;
+	else
+		rc = mi.rcMonitor;
+
+	//
+	// center or clip the passed rect to the monitor rect
+	//
+	if (flags & MONITOR_CENTER)
+	{
+		prc->left   = rc.left + (rc.right  - rc.left - w) / 2;
+		prc->top    = rc.top  + (rc.bottom - rc.top  - h) / 2;
+		prc->right  = prc->left + w;
+		prc->bottom = prc->top  + h;
+	}
+	else
+	{
+		prc->left   = max(rc.left, min(rc.right-w,  prc->left));
+		prc->top    = max(rc.top,  min(rc.bottom-h, prc->top));
+		prc->right  = prc->left + w;
+		prc->bottom = prc->top  + h;
+	}
+}
+
 void CTrafficView::LoadWindowPosition(CRect *rc)
 {
 	HKEY hKey;
@@ -241,63 +286,37 @@ void CTrafficView::OnMouseMove(UINT nFlags, CPoint point)
 
 void CTrafficView::OnWindowPosChanging( WINDOWPOS* lpwndpos )
 {
-	CRect	wndRect, trayRect;
-	int		leftTaskbar = 0, rightTaskbar = 0, topTaskbar = 0, bottomTaskbar = 0;
+	CRect	wndRect;
 
 	GetWindowRect(&wndRect);
 
-	// Screen resolution
-	int screenWidth =	GetSystemMetrics(SM_CXSCREEN); 
-	int screenHeight =	GetSystemMetrics(SM_CYSCREEN);
-	
-	
-/*	CRect taskbarrect;
-	SystemParametersInfo(SPI_GETWORKAREA, 0, &taskbarrect, 0);
-	screenHeight = taskbarrect.Height();
-*/
-	// Find the taskbar
-	CWnd* pWnd = FindWindow(_T("Shell_TrayWnd"), _T(""));
-	pWnd->GetWindowRect(&trayRect);
+	HMONITOR hMonitor = MonitorFromRect(&wndRect, MONITOR_DEFAULTTONEAREST);
+	MONITORINFOEX mi;
+	mi.cbSize = sizeof(mi);
+	GetMonitorInfo(hMonitor, &mi);
 
 	int wndWidth = wndRect.right - wndRect.left;
 	int wndHeight = wndRect.bottom - wndRect.top;
 
-	if(trayRect.top <= 0 && trayRect.left <= 0 && trayRect.right >= screenWidth) {
-		// top taskbar
-		topTaskbar = trayRect.bottom - trayRect.top;
-	}
-	else if(trayRect.top > 0 && trayRect.left <= 0) {
-		// bottom taskbar
-		bottomTaskbar = trayRect.bottom - trayRect.top;
-	}
-	else if(trayRect.top <= 0 && trayRect.left > 0) {
-		// right taskbar
-		rightTaskbar = trayRect.right - trayRect.left;
-	}
-	else {
-		// left taskbar
-		leftTaskbar = trayRect.right - trayRect.left;
-	}
-
 	// Snap to screen border
 	// Left border
-	if(lpwndpos->x >= -m_nXOffset + leftTaskbar && lpwndpos->x <= leftTaskbar + m_nXOffset) {
-		lpwndpos->x = leftTaskbar;
+	if(lpwndpos->x >= -m_nXOffset + mi.rcWork.left && lpwndpos->x <= mi.rcWork.left + m_nXOffset) {
+		lpwndpos->x = mi.rcWork.left;
 	}
 
 	// Top border
-	if(lpwndpos->y >= -m_nYOffset && lpwndpos->y <= topTaskbar + m_nYOffset) {
-		lpwndpos->y = topTaskbar;
+	if(lpwndpos->y >= -m_nYOffset && lpwndpos->y <= mi.rcWork.top + m_nYOffset) {
+		lpwndpos->y = mi.rcWork.top;
 	}
 
 	// Right border
-	if(lpwndpos->x + wndWidth <= screenWidth - rightTaskbar + m_nXOffset && lpwndpos->x + wndWidth >= screenWidth - rightTaskbar - m_nXOffset) {
-		lpwndpos->x = screenWidth - rightTaskbar - wndWidth;
+	if(lpwndpos->x + wndWidth <= mi.rcWork.right + m_nXOffset && lpwndpos->x + wndWidth >= mi.rcWork.right - m_nXOffset) {
+		lpwndpos->x = mi.rcWork.right - wndWidth;
 	}
 
 	// Bottom border
-	if( lpwndpos->y + wndHeight <= screenHeight - bottomTaskbar + m_nYOffset && lpwndpos->y + wndHeight >= screenHeight - bottomTaskbar - m_nYOffset) {
-		lpwndpos->y = screenHeight - bottomTaskbar - wndHeight;
+	if( lpwndpos->y + wndHeight <= mi.rcWork.bottom + m_nYOffset && lpwndpos->y + wndHeight >= mi.rcWork.bottom - m_nYOffset) {
+		lpwndpos->y = mi.rcWork.bottom - wndHeight;
 	}
 	CDialog::OnWindowPosChanging(lpwndpos);
 }
