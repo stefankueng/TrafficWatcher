@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -50,8 +50,11 @@ BOOL	CIPStat::init(int ind)
 	m_received.Clear();
 
 	if (CPacket::init() == TRUE)
-		return CPacket::Open(ind);
-	
+	{
+		if (ind >= 0)
+			return CPacket::Open(ind);
+		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -99,7 +102,6 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR * /*packet*/)
 	}
 	else if (htons(ethernet->ether_type) == 0x0800)	// IPv4
 	{		
-		USHORT len;
 		len = htons(ip->ip_len);
 		//since we're probably (or for sure) in promiscuous mode, check if the packet was meant for us or not
 		if ((ip->ip_src.S_un.S_addr)==Adapters[nActiveAdapter].ip4)
