@@ -1,0 +1,355 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\trafficwatch.ico"
+IDI_TASKBAR             ICON                    "res\\icon1.ico"
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINPAGE DIALOGEX 0, 0, 364, 206
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Current Traffic"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Progress3",IDC_DL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,17,33,10,158
+    RTEXT           "0 kBit/s",IDC_UL_LANSPEED,138,148,69,8
+    RTEXT           "0 kBit/s",IDC_DL_BYTESPEED,153,33,55,10,NOT WS_GROUP
+    CONTROL         "Progress1",IDC_UL_BAR,"msctls_progress32",PBS_SMOOTH | PBS_VERTICAL | WS_BORDER | WS_GROUP,33,33,10,158
+    LTEXT           "Up",IDC_STATIC,35,16,15,10
+    LTEXT           "Down",IDC_STATIC,14,16,20,10
+    GROUPBOX        "Download",IDC_COLLAPSE,112,7,100,84
+    GROUPBOX        "Upload",IDC_STATIC,112,101,100,96
+    LTEXT           "LAN:",IDC_STATIC,118,48,17,8
+    RTEXT           "0 kBit/s",IDC_DL_LANSPEED,144,48,64,10
+    RTEXT           "0 kBit/s",IDC_UL_BYTESPEED,152,133,55,10
+    LTEXT           "Internet:",IDC_STATIC,117,133,27,8
+    LTEXT           "LAN:",IDC_STATIC,117,148,17,8
+    GROUPBOX        "Info",IDC_STATIC,227,7,130,190
+    LTEXT           "IP:",IDC_STATIC,232,67,10,8
+    LTEXT           "Mask:",IDC_STATIC,232,83,20,8
+    LTEXT           "Gateway:",IDC_STATIC,232,96,31,8
+    LTEXT           "open connections:",IDC_STATIC,232,112,60,8
+    RTEXT           "888.888.888.888",IDC_IP,297,67,55,8
+    RTEXT           "888.888.888.888",IDC_MASK,297,82,55,8
+    RTEXT           "888.888.888.888",IDC_GATEWAY,297,96,55,8
+    RTEXT           "0",IDC_CONNECTIONS,307,112,44,8
+    LTEXT           "Internet:",IDC_STATIC,118,33,27,8
+    LTEXT           "",IDC_ADAPT_DESC,233,19,119,28
+    LTEXT           "MAC-Address:",IDC_STATIC,232,52,46,8
+    RTEXT           "",IDC_MACADDR,282,52,70,8
+    GROUPBOX        "LAN",IDC_STATIC,58,7,50,192
+    CONTROL         "",IDC_UL_BARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,85,33,10,158
+    CONTROL         "",IDC_DL_BARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,69,33,10,158
+    LTEXT           "Up",IDC_STATIC,87,16,15,10
+    LTEXT           "Down",IDC_STATIC,64,16,20,10
+    GROUPBOX        "Internet",IDC_STATIC,7,7,47,192
+END
+
+IDD_DETAILPAGE DIALOGEX 0, 0, 307, 206
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Detailed Internet Traffic"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Web",IDC_STATIC,5,5,95,95
+    GROUPBOX        "Mail",IDC_STATIC,105,5,95,95
+    GROUPBOX        "Filesharing",IDC_STATIC,5,105,95,95
+    GROUPBOX        "News",IDC_STATIC,205,5,95,95
+    GROUPBOX        "UDP",IDC_STATIC,105,105,95,95
+    GROUPBOX        "Other",IDC_STATIC,205,105,95,95
+    CONTROL         "Progress1",IDC_PROGRESS_WEB_DL,"msctls_progress32",WS_BORDER,30,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_WEB_UL,"msctls_progress32",WS_BORDER,30,50,65,6
+    LTEXT           "DL",IDC_STATIC,10,15,10,8
+    LTEXT           "UL",IDC_STATIC,10,50,10,8
+    RTEXT           "0 kByte/s",IDC_WEB_DL_SPEED,15,25,80,8
+    RTEXT           "0 kByte/s",IDC_WEB_UL_SPEED,15,60,80,8
+    RTEXT           "0 kByte",IDC_WEB_UL_DATA,35,70,55,8
+    RTEXT           "0 kByte",IDC_WEB_DL_DATA,15,35,75,8
+    LTEXT           "Total:",IDC_STATIC,10,85,19,8
+    RTEXT           "0 kByte",IDC_WEB_TOTAL_DATA,35,85,55,8
+    CONTROL         "Progress1",IDC_PROGRESS_MAIL_DL,"msctls_progress32",WS_BORDER,130,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_MAIL_UL,"msctls_progress32",WS_BORDER,130,50,65,6
+    LTEXT           "DL",IDC_STATIC,110,15,10,8
+    LTEXT           "UL",IDC_STATIC,110,50,10,8
+    RTEXT           "0 kByte/s",IDC_MAIL_DL_SPEED,115,25,80,8
+    RTEXT           "0 kByte/s",IDC_MAIL_UL_SPEED,115,60,80,8
+    RTEXT           "0 kByte",IDC_MAIL_UL_DATA,135,70,55,8
+    RTEXT           "0 kByte",IDC_MAIL_DL_DATA,115,35,75,8
+    LTEXT           "Total:",IDC_STATIC,110,85,19,8
+    RTEXT           "0 kByte",IDC_MAIL_TOTAL_DATA,135,85,55,8
+    CONTROL         "Progress1",IDC_PROGRESS_NEWS_DL,"msctls_progress32",WS_BORDER,230,15,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_NEWS_UL,"msctls_progress32",WS_BORDER,230,50,65,6
+    LTEXT           "DL",IDC_STATIC,210,15,10,8
+    LTEXT           "UL",IDC_STATIC,210,50,10,8
+    RTEXT           "0 kByte/s",IDC_NEWS_DL_SPEED,215,25,80,8
+    RTEXT           "0 kByte/s",IDC_NEWS_UL_SPEED,215,60,80,8
+    RTEXT           "0 kByte",IDC_NEWS_UL_DATA,235,70,55,8
+    RTEXT           "0 kByte",IDC_NEWS_DL_DATA,215,35,75,8
+    LTEXT           "Total:",IDC_STATIC,210,85,19,8
+    RTEXT           "0 kByte",IDC_NEWS_TOTAL_DATA,235,85,55,8
+    CONTROL         "Progress1",IDC_PROGRESS_SHARE_DL,"msctls_progress32",WS_BORDER,30,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_SHARE_UL,"msctls_progress32",WS_BORDER,30,150,65,6
+    LTEXT           "DL",IDC_STATIC,10,115,10,8
+    LTEXT           "UL",IDC_STATIC,10,150,10,8
+    RTEXT           "0 kByte/s",IDC_SHARE_DL_SPEED,15,126,80,8
+    RTEXT           "0 kByte/s",IDC_SHARE_UL_SPEED,15,160,80,8
+    RTEXT           "0 kByte",IDC_SHARE_UL_DATA,35,170,55,8
+    RTEXT           "0 kByte",IDC_SHARE_DL_DATA,15,135,75,8
+    LTEXT           "Total:",IDC_STATIC,10,185,19,8
+    RTEXT           "0 kByte",IDC_SHARE_TOTAL_DATA,35,185,55,8
+    CONTROL         "Progress1",IDC_PROGRESS_UDP_DL,"msctls_progress32",WS_BORDER,130,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_UDP_UL,"msctls_progress32",WS_BORDER,130,150,65,6
+    LTEXT           "DL",IDC_STATIC,110,115,10,8
+    LTEXT           "UL",IDC_STATIC,110,150,10,8
+    RTEXT           "0 kByte/s",IDC_UDP_DL_SPEED,115,126,80,8
+    RTEXT           "0 kByte/s",IDC_UDP_UL_SPEED,115,160,80,8
+    RTEXT           "0 kByte",IDC_UDP_UL_DATA,135,170,55,8
+    RTEXT           "0 kByte",IDC_UDP_DL_DATA,115,135,75,8
+    LTEXT           "Total:",IDC_STATIC,110,185,19,8
+    RTEXT           "0 kByte",IDC_UDP_TOTAL_DATA,135,185,55,8
+    CONTROL         "Progress1",IDC_PROGRESS_OTHER_DL,"msctls_progress32",WS_BORDER,230,115,65,6
+    CONTROL         "Progress2",IDC_PROGRESS_OTHER_UL,"msctls_progress32",WS_BORDER,230,150,65,6
+    LTEXT           "DL",IDC_STATIC,210,115,10,8
+    LTEXT           "UL",IDC_STATIC,210,150,10,8
+    RTEXT           "0 kByte/s",IDC_OTHER_DL_SPEED,215,126,80,8
+    RTEXT           "0 kByte/s",IDC_OTHER_UL_SPEED,215,160,80,8
+    RTEXT           "0 kByte",IDC_OTHER_UL_DATA,235,170,55,8
+    RTEXT           "0 kByte",IDC_OTHER_DL_DATA,215,135,75,8
+    LTEXT           "Total:",IDC_STATIC,210,185,19,8
+    RTEXT           "0 kByte",IDC_OTHER_TOTAL_DATA,235,185,55,8
+END
+
+IDD_OPTIONS DIALOGEX 0, 0, 307, 206
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Options"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "max. speed",IDC_STATIC,5,5,295,125
+    GROUPBOX        "Internet Download",IDC_STATIC,15,15,130,55
+    CONTROL         "256 kBit/s",IDC_DL_R256,"Button",BS_AUTORADIOBUTTON | WS_GROUP,20,25,49,10
+    CONTROL         "512 kBit/s",IDC_DL_R512,"Button",BS_AUTORADIOBUTTON,20,35,49,10
+    CONTROL         "768 kBit/s",IDC_DL_R768,"Button",BS_AUTORADIOBUTTON,20,45,49,10
+    CONTROL         "1 MBit/s",IDC_DL_R1000,"Button",BS_AUTORADIOBUTTON,20,55,43,10
+    CONTROL         "2 MBit/s",IDC_DL_R2000,"Button",BS_AUTORADIOBUTTON,80,25,43,10
+    CONTROL         "5 MBit/s",IDC_DL_R5000,"Button",BS_AUTORADIOBUTTON,80,35,43,10
+    CONTROL         "10 MBit/s",IDC_DL_R10000,"Button",BS_AUTORADIOBUTTON,80,45,47,10
+    GROUPBOX        "Internet Upload",IDC_STATIC,160,15,130,55
+    CONTROL         "256 kBit/s",IDC_UL_R256,"Button",BS_AUTORADIOBUTTON | WS_GROUP,165,25,49,10
+    CONTROL         "512 kBit/s",IDC_UL_R512,"Button",BS_AUTORADIOBUTTON,165,35,49,10
+    CONTROL         "768 kBit/s",IDC_UL_R768,"Button",BS_AUTORADIOBUTTON,165,45,49,10
+    CONTROL         "1 MBit/s",IDC_UL_R1000,"Button",BS_AUTORADIOBUTTON,165,55,43,10
+    CONTROL         "2 MBit/s",IDC_UL_R2000,"Button",BS_AUTORADIOBUTTON,225,25,43,10
+    CONTROL         "5 MBit/s",IDC_UL_R5000,"Button",BS_AUTORADIOBUTTON,225,35,43,10
+    CONTROL         "10 MBit/s",IDC_UL_R10000,"Button",BS_AUTORADIOBUTTON,225,45,47,10
+    GROUPBOX        "LAN Download",IDC_STATIC,16,71,130,55
+    CONTROL         "1 MBit/s",IDC_DLAN_1M,"Button",BS_AUTORADIOBUTTON | WS_GROUP,21,81,43,10
+    CONTROL         "5 MBit/s",IDC_DLAN_5M,"Button",BS_AUTORADIOBUTTON,21,91,43,10
+    CONTROL         "10 MBit/s",IDC_DLAN_10M,"Button",BS_AUTORADIOBUTTON,21,101,47,10
+    CONTROL         "54 MBit/s",IDC_DLAN_54M,"Button",BS_AUTORADIOBUTTON,21,111,47,10
+    CONTROL         "100 MBit/s",IDC_DLAN_100M,"Button",BS_AUTORADIOBUTTON,81,81,51,10
+    CONTROL         "1 GBit/s",IDC_DLAN_1G,"Button",BS_AUTORADIOBUTTON,81,91,42,10
+    CONTROL         "10 GBit/s",IDC_DLAN_10G,"Button",BS_AUTORADIOBUTTON,81,101,46,10
+    GROUPBOX        "LAN Upload",IDC_STATIC,160,71,130,55
+    CONTROL         "1 MBit/s",IDC_ULAN_1M,"Button",BS_AUTORADIOBUTTON | WS_GROUP,165,81,43,10
+    CONTROL         "5 MBit/s",IDC_ULAN_5M,"Button",BS_AUTORADIOBUTTON,165,91,43,10
+    CONTROL         "10 MBit/s",IDC_ULAN_10M,"Button",BS_AUTORADIOBUTTON,165,101,47,10
+    CONTROL         "54 MBit/s",IDC_ULAN_54M,"Button",BS_AUTORADIOBUTTON,165,111,47,10
+    CONTROL         "100 MBit/s",IDC_ULAN_100M,"Button",BS_AUTORADIOBUTTON,225,81,51,10
+    CONTROL         "1 GBit/s",IDC_ULAN_1G,"Button",BS_AUTORADIOBUTTON,225,91,42,10
+    CONTROL         "10 GBit/s",IDC_ULAN_10G,"Button",BS_AUTORADIOBUTTON,225,101,46,10
+    GROUPBOX        "startup && lifetime",IDC_STATIC,7,132,295,35
+    CONTROL         "start with windows",IDC_AUTOSTART_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,148,73,10
+    CONTROL         "show bits instead of bytes",IDC_SHOWBITS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,97,148,97,10
+    CONTROL         "show values in IEC format",IDC_SHOWIEC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,197,148,97,10
+    GROUPBOX        "select adapter",IDC_STATIC,7,169,295,30
+    COMBOBOX        IDC_ADAPTER,12,180,285,30,CBS_DROPDOWNLIST | WS_VSCROLL
+END
+
+IDD_VIEW DIALOGEX 0, 0, 55, 225
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Progress1",IDC_ULBAR,"msctls_progress32",PBS_VERTICAL | WS_BORDER,15,0,10,225
+    CONTROL         "Progress2",IDC_DLBAR,"msctls_progress32",PBS_VERTICAL | WS_BORDER,0,0,10,225
+    CONTROL         "",IDC_ULBARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,45,0,10,225
+    CONTROL         "",IDC_DLBARLAN,"msctls_progress32",PBS_VERTICAL | WS_BORDER,30,0,10,225
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 235, 182
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "About"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LTEXT           "TrafficWatcher",IDC_STATIC,7,7,49,8
+    LTEXT           "",IDC_VERSIONINFO,81,7,147,8
+    LTEXT           "Author: Stefan Küng",IDC_STATIC,7,30,78,8
+    LTEXT           "This program is licensed under GPL. The sourcecode is available from:",IDC_STATIC,7,50,222,10
+    LTEXT           "http://code.google.com/p/trafficwatcher/source/browse",IDC_SOURCECODELINK,7,63,181,8
+    LTEXT           "More information is available on our website:",IDC_STATIC,7,94,144,8
+    LTEXT           "http://tools.tortoisesvn.net",IDC_WEBLINK,7,105,90,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_MAINPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 357
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+        HORZGUIDE, 26
+        HORZGUIDE, 33
+        HORZGUIDE, 191
+    END
+
+    IDD_DETAILPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 300
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+    END
+
+    IDD_OPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 300
+        VERTGUIDE, 15
+        VERTGUIDE, 160
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 199
+    END
+
+    IDD_VIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 48
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 218
+    END
+
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 175
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Switzerland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DES)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN_SWISS
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 7, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\trafficwatch.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.deu\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // German (Switzerland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE 7, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\trafficwatch.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.deu\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
