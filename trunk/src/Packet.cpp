@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -161,6 +161,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
 	char errbuf[PCAP_ERRBUF_SIZE];
 	struct bpf_program fcode;
 
+	Stop(true);
 	if (i<0)
 	{
 		//search for a adapter and use the first valid found
