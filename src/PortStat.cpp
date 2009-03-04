@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008-2009 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -117,7 +117,8 @@ void CPortStat::AddDataTCP(USHORT awayport, USHORT localport, ULONG len)
 					m_services[S_SHARE] += (DWORD)len;
 					break;
 				default:
-				m_services[S_OTHER] += (DWORD)len;
+					m_services[S_OTHER] += (DWORD)len;
+					break;
 			}
 			break;
 	}
