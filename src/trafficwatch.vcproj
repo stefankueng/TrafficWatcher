@@ -441,6 +441,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Scripts"
+			>
+			<File
+				RelativePath="..\default.build"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 		<Global

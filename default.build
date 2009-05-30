@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <project name="TrafficWatcher" default="build">
+	<!-- the signinfo.txt file has to contain one line with parameters for signtool.exe,
+	     for example:
+		 /t "url/to/timestamp/server" /q
+	-->
+	<loadfile file="signinfo.txt" property="signinfo" failonerror="false" />
 
 	<target name="build" depends="VSNET">
 		<!-- run SubWCRev to get the revision of the working copy -->
@@ -19,6 +24,14 @@
 			<arg value="/rebuild" />
 			<arg value="release|win32" />
 		</exec>
+
+		<if test="${file::exists('signinfo.txt')}">
+			<exec program="signtool">
+				<arg value="sign" />
+				<arg value="${signinfo}" />
+				<arg value="bin\release\trafficwatch.exe" />
+			</exec>
+		</if>
 
 	</target>
 
