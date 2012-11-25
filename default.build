@@ -37,9 +37,8 @@
 
 	<target name="VSNET" description="Checks if the env variables for VS.NET2005 are set">
 		<if test="${not environment::variable-exists('VCINSTALLDIR')}">
-			<fail>You must first call "%VS80COMNTOOLS%\vsvars32.bat"</fail>
+			<fail>You must first call "%VS100COMNTOOLS%\vsvars32.bat"</fail>
 		</if>
 	</target>
 
 </project>
-
