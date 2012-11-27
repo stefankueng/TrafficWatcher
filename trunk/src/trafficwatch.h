@@ -1,10 +1,10 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error include 'stdafx.h' before including this file for PCH
+    #error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "resource.h"		// main symbols
+#include "resource.h"       // main symbols
 #include "globals.h"
 #include "winproc.h"
 #include "commctrl.h"
@@ -16,16 +16,15 @@
 class CTrafficwatchApp : public CWinApp
 {
 public:
-	CTrafficwatchApp();
-	~CTrafficwatchApp();
-	CWinproc m_wnd;
-	HANDLE m_mutex;
+    CTrafficwatchApp();
+    ~CTrafficwatchApp();
+    CWinproc m_wnd;
+    HANDLE m_mutex;
 
 
 public:
-	virtual BOOL InitInstance();
-	DECLARE_MESSAGE_MAP()
+    virtual BOOL InitInstance();
+    DECLARE_MESSAGE_MAP()
 };
 
 extern CTrafficwatchApp* m_pTheApp;
-

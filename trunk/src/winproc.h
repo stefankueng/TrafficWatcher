@@ -39,8 +39,8 @@ class CWinproc : public CWnd
 {
 // Construction
 public:
-	CWinproc();
-	void StartUp( );
+    CWinproc();
+    void StartUp( );
     LRESULT OnTaskbarNotify( WPARAM wParam, LPARAM lParam );
     void UpdateTrayIcon( HICON hIcon );
     void ShowDialog( );
@@ -48,39 +48,38 @@ public:
 
 // Attributes
 public:
-    CMainSheet*	m_pDialog;
-	CTrafficView* m_pTView;
+    CMainSheet* m_pDialog;
+    CTrafficView* m_pTView;
 
-	CIPStat		m_ipStat;
+    CIPStat     m_ipStat;
 
-    NOTIFYICONDATA	m_SystemTray;
+    NOTIFYICONDATA  m_SystemTray;
 
-	DWORD		dwUlMax, dwDlMax;
-	BOOL		m_bView;
+    DWORD       dwUlMax, dwDlMax;
+    BOOL        m_bView;
 
 protected:
-	HICON		GetTaskBarIcon();
+    HICON       GetTaskBarIcon();
 protected:
-	DWORD		ulSpeed, dlSpeed;
-	DWORD		ulSpeedLAN, dlSpeedLAN;
+    DWORD       ulSpeed, dlSpeed;
+    DWORD       ulSpeedLAN, dlSpeedLAN;
 
-	CFilter		m_sentFilter;
-	CFilter		m_receivedFilter;
-	CFilter		m_sentLANFilter;
-	CFilter		m_receivedLANFilter;
+    CFilter     m_sentFilter;
+    CFilter     m_receivedFilter;
+    CFilter     m_sentLANFilter;
+    CFilter     m_receivedLANFilter;
 
-	int			internaltimer;
-	HICON		m_AppIcon;
-	HICON		m_TaskBarIcon;
-    ICONINFO	m_TaskBarIconInfo;
-    CBitmap		m_bmpIcon;
+    int         internaltimer;
+    HICON       m_AppIcon;
+    HICON       m_TaskBarIcon;
+    ICONINFO    m_TaskBarIconInfo;
+    CBitmap     m_bmpIcon;
 
 public:
-	virtual ~CWinproc();
+    virtual ~CWinproc();
 
 protected:
-	afx_msg void OnClose();
-	afx_msg void OnTimer(UINT nIDEvent);
-	DECLARE_MESSAGE_MAP()
+    afx_msg void OnClose();
+    afx_msg void OnTimer(UINT nIDEvent);
+    DECLARE_MESSAGE_MAP()
 };
-

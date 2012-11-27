@@ -23,22 +23,22 @@
 
 
 
-class CIP  
+class CIP
 {
 public:
-	CIP();
-	virtual ~CIP();
+    CIP();
+    virtual ~CIP();
 
-	BOOL	CreateAdapterList();
+    BOOL    CreateAdapterList();
 
 public:
-	LPADAPTER	lpAdapter;				//define a pointer to an ADAPTER structure
-	LPPACKET	lpPacket;				//define a pointer to a PACKET structure
-	WCHAR		AdapterName[512];		//string that contains a list of the network adapters
+    LPADAPTER   lpAdapter;              //define a pointer to an ADAPTER structure
+    LPPACKET    lpPacket;               //define a pointer to a PACKET structure
+    WCHAR       AdapterName[512];       //string that contains a list of the network adapters
 
 
 private:
-	char        AdapterList[Max_Num_Adapter][1024];
+    char        AdapterList[Max_Num_Adapter][1024];
 
 };
 

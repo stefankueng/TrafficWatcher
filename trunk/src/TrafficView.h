@@ -22,51 +22,50 @@
 #include "util.h"
 #include "Filter.h"
 
-#define MONITOR_CENTER   0x0001			// center rect to monitor
-#define MONITOR_CLIP     0x0000			// clip rect to monitor
-#define MONITOR_WORKAREA 0x0002			// use monitor work area
-#define MONITOR_AREA     0x0000			// use monitor entire area
+#define MONITOR_CENTER   0x0001         // center rect to monitor
+#define MONITOR_CLIP     0x0000         // clip rect to monitor
+#define MONITOR_WORKAREA 0x0002         // use monitor work area
+#define MONITOR_AREA     0x0000         // use monitor entire area
 
 /////////////////////////////////////////////////////////////////////////////
 // CTrafficView dialog
 class CTrafficView : public CDialog
 {
 public:
-	CTrafficView(CWnd* pParent = NULL);
+    CTrafficView(CWnd* pParent = NULL);
 
-	enum { IDD = IDD_VIEW };
-	CDataBar	m_ulbar;
-	CDataBar	m_dlbar;
-	CDataBar	m_ulbarlan;
-	CDataBar	m_dlbarlan;
+    enum { IDD = IDD_VIEW };
+    CDataBar    m_ulbar;
+    CDataBar    m_dlbar;
+    CDataBar    m_ulbarlan;
+    CDataBar    m_dlbarlan;
 
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);
-	virtual void PostNcDestroy();
+    protected:
+    virtual void DoDataExchange(CDataExchange* pDX);
+    virtual void PostNcDestroy();
 
 public:
-	int m_nYOffset;
-	int m_nXOffset;
+    int m_nYOffset;
+    int m_nXOffset;
 
 protected:
 
-	virtual BOOL OnInitDialog();
-	afx_msg void OnClose();
-	afx_msg void OnTimer(UINT nIDEvent);
-	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
-	afx_msg void OnWindowPosChanging( WINDOWPOS* lpwndpos );
-	afx_msg void OnDestroy();
-	DECLARE_MESSAGE_MAP()
+    virtual BOOL OnInitDialog();
+    afx_msg void OnClose();
+    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+    afx_msg void OnWindowPosChanging( WINDOWPOS* lpwndpos );
+    afx_msg void OnDestroy();
+    DECLARE_MESSAGE_MAP()
 protected:
-	CFilter		m_sentFilter;
-	CFilter		m_receivedFilter;
-	CFilter		m_sentLANFilter;
-	CFilter		m_receivedLANFilter;
+    CFilter     m_sentFilter;
+    CFilter     m_receivedFilter;
+    CFilter     m_sentLANFilter;
+    CFilter     m_receivedLANFilter;
 
 private:
-	void		LoadWindowPosition(CRect *rc);
-	void		SaveWindowPosition(CRect *rc);
-	void		ClipOrCenterRectToMonitor(LPRECT prc, UINT flags);
+    void        LoadWindowPosition(CRect *rc);
+    void        SaveWindowPosition(CRect *rc);
+    void        ClipOrCenterRectToMonitor(LPRECT prc, UINT flags);
 
 };
-
