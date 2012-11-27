@@ -19,10 +19,10 @@
 #pragma once
 
 
-#include	"trafficpage.h"
-#include	"detailpage.h"
-#include	"optionspage.h"
-#include	"aboutpage.h"
+#include "trafficpage.h"
+#include "detailpage.h"
+#include "optionspage.h"
+#include "aboutpage.h"
 
 
 
@@ -32,43 +32,42 @@
  */
 class CMainSheet : public CPropertySheet
 {
-	DECLARE_DYNAMIC(CMainSheet)
+    DECLARE_DYNAMIC(CMainSheet)
 
 public:
-	CMainSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
-	CMainSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+    CMainSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+    CMainSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 
 public:
-	CTrafficPage*		m_pTrafficPage;
-	CDetailPage*		m_pDetailPage;
-	COptionsPage*		m_pOptionsPage;
-	CAboutPage*			m_pAboutPage;
+    CTrafficPage*       m_pTrafficPage;
+    CDetailPage*        m_pDetailPage;
+    COptionsPage*       m_pOptionsPage;
+    CAboutPage*         m_pAboutPage;
 
-  
-public:
-	void  AddPropPages( );
 
 public:
-	virtual BOOL OnInitDialog();
-	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
+    void  AddPropPages( );
+
+public:
+    virtual BOOL OnInitDialog();
+    virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
 protected:
-	virtual void PostNcDestroy();
-	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+    virtual void PostNcDestroy();
+    virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
 public:
-	virtual ~CMainSheet();
+    virtual ~CMainSheet();
 
 protected:
-	afx_msg void OnDestroy();
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg void OnPaint();
-	afx_msg void OnClose();
-	DECLARE_MESSAGE_MAP()
+    afx_msg void OnDestroy();
+    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+    afx_msg void OnPaint();
+    afx_msg void OnClose();
+    DECLARE_MESSAGE_MAP()
 private:
-	void	LoadWindowPosition(CRect *rc);
-	void	SaveWindowPosition(CRect *rc);
+    void    LoadWindowPosition(CRect *rc);
+    void    SaveWindowPosition(CRect *rc);
 private:
-	CFont	m_fontLogo;
+    CFont   m_fontLogo;
 
 };
-

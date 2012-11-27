@@ -30,8 +30,8 @@
 
 IMPLEMENT_DYNAMIC(CAboutPage, CPropertyPage)
 CAboutPage::CAboutPage()
-	: CPropertyPage(CAboutPage::IDD)
-	, m_VersionString(_T(""))
+    : CPropertyPage(CAboutPage::IDD)
+    , m_VersionString(_T(""))
 {
 }
 
@@ -41,10 +41,10 @@ CAboutPage::~CAboutPage()
 
 void CAboutPage::DoDataExchange(CDataExchange* pDX)
 {
-	CPropertyPage::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_SOURCECODELINK, m_sourceLink);
-	DDX_Control(pDX, IDC_WEBLINK, m_webLink);
-	DDX_Text(pDX, IDC_VERSIONINFO, m_VersionString);
+    CPropertyPage::DoDataExchange(pDX);
+    DDX_Control(pDX, IDC_SOURCECODELINK, m_sourceLink);
+    DDX_Control(pDX, IDC_WEBLINK, m_webLink);
+    DDX_Text(pDX, IDC_VERSIONINFO, m_VersionString);
 }
 
 
@@ -55,13 +55,13 @@ END_MESSAGE_MAP()
 
 BOOL CAboutPage::OnInitDialog()
 {
-	CPropertyPage::OnInitDialog();
+    CPropertyPage::OnInitDialog();
 
-	m_VersionString.Format(_T("Version %d.%d.%d.%d"), VER_MAJOR, VER_MINOR, VER_MICRO, VER_REVISION);
-	m_webLink.SetURL(_T("http://tools.tortoisesvn.net"));
-	m_sourceLink.SetURL(_T("http://code.google.com/p/trafficwatcher/source/browse"));
+    m_VersionString.Format(_T("Version %d.%d.%d.%d"), VER_MAJOR, VER_MINOR, VER_MICRO, VER_REVISION);
+    m_webLink.SetURL(_T("http://tools.tortoisesvn.net"));
+    m_sourceLink.SetURL(_T("http://code.google.com/p/trafficwatcher/source/browse"));
 
-	UpdateData(FALSE);
+    UpdateData(FALSE);
 
-	return TRUE;  
+    return TRUE;
 }

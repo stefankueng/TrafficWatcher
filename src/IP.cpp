@@ -28,37 +28,35 @@ CIP::~CIP()
 
 }
 
-BOOL	CIP::CreateAdapterList()
+BOOL    CIP::CreateAdapterList()
 {
-	WCHAR		AdapterName[512]; // string that contains a list of the network adapters
-	WCHAR		*temp,*temp1;
+    WCHAR       AdapterName[512]; // string that contains a list of the network adapters
+    WCHAR       *temp,*temp1;
 
-	
-	ULONG		AdapterLength;
-	int			AdapterNum=0;
 
-	PacketGetAdapterNames((char *)AdapterName,&AdapterLength);
-	temp=AdapterName;
-	temp1=AdapterName;
-	int i=0;
-	while ((*temp!='\0')||(*(temp-1)!='\0'))
-	{
-		if (*temp=='\0') 
-		{
-			memcpy(AdapterList[i],temp1,(temp-temp1)*2);
-			temp1=temp+1;
-			i++;
-	}
+    ULONG       AdapterLength;
+    int         AdapterNum=0;
 
-	temp++;
-	}
-  
-	AdapterNum=i;
-	for (i=0;i<AdapterNum;i++)
-		wprintf(L"\n%d- %s\n",i+1,AdapterList[i]);
-	printf("\n");
+    PacketGetAdapterNames((char *)AdapterName,&AdapterLength);
+    temp=AdapterName;
+    temp1=AdapterName;
+    int i=0;
+    while ((*temp!='\0')||(*(temp-1)!='\0'))
+    {
+        if (*temp=='\0')
+        {
+            memcpy(AdapterList[i],temp1,(temp-temp1)*2);
+            temp1=temp+1;
+            i++;
+    }
 
-	return TRUE;
+    temp++;
+    }
+
+    AdapterNum=i;
+    for (i=0;i<AdapterNum;i++)
+        wprintf(L"\n%d- %s\n",i+1,AdapterList[i]);
+    printf("\n");
+
+    return TRUE;
 }
-
-

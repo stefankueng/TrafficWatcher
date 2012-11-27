@@ -26,7 +26,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-static int m_nLastTab = 0;    
+static int m_nLastTab = 0;
 
 /////////////////////////////////////////////////////////////////////////////
 // CMainSheet
@@ -46,19 +46,19 @@ CMainSheet::CMainSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage) :
 
 CMainSheet::~CMainSheet()
 {
-	delete m_pTrafficPage;
-	delete m_pDetailPage;
-	delete m_pOptionsPage;
-	delete m_pAboutPage;
+    delete m_pTrafficPage;
+    delete m_pDetailPage;
+    delete m_pOptionsPage;
+    delete m_pAboutPage;
 }
 
 
 BEGIN_MESSAGE_MAP(CMainSheet, CPropertySheet)
-	ON_WM_DESTROY()
-	ON_WM_CREATE()
-	ON_WM_PAINT()
-	ON_WM_TIMER()
-	ON_WM_CLOSE()
+    ON_WM_DESTROY()
+    ON_WM_CREATE()
+    ON_WM_PAINT()
+    ON_WM_TIMER()
+    ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -66,47 +66,47 @@ END_MESSAGE_MAP()
 
 void CMainSheet::AddPropPages( )
 {
-	m_pTrafficPage = new CTrafficPage;
-	m_pDetailPage = new CDetailPage;
-	m_pOptionsPage = new COptionsPage;
-	m_pAboutPage = new CAboutPage;
+    m_pTrafficPage = new CTrafficPage;
+    m_pDetailPage = new CDetailPage;
+    m_pOptionsPage = new COptionsPage;
+    m_pAboutPage = new CAboutPage;
 
-	AddPage( m_pTrafficPage );
-	AddPage( m_pDetailPage );
-	AddPage( m_pOptionsPage );
-	AddPage( m_pAboutPage );
+    AddPage( m_pTrafficPage );
+    AddPage( m_pDetailPage );
+    AddPage( m_pOptionsPage );
+    AddPage( m_pAboutPage );
 
-	SetActivePage(m_nLastTab);
+    SetActivePage(m_nLastTab);
 
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL CMainSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult) 
+BOOL CMainSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult)
 {
     //save last tab
-    m_nLastTab = GetActiveIndex( );    	
-	return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
+    m_nLastTab = GetActiveIndex( );
+    return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL CMainSheet::OnInitDialog() 
+BOOL CMainSheet::OnInitDialog()
 {
     BOOL bResult = CPropertySheet::OnInitDialog();
 
-	GetDlgItem( IDOK )->ShowWindow( FALSE ); 
-	GetDlgItem( IDCANCEL )->ShowWindow( FALSE ); 
+    GetDlgItem( IDOK )->ShowWindow( FALSE );
+    GetDlgItem( IDCANCEL )->ShowWindow( FALSE );
 
 
-	m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, "Arial");
+    m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, "Arial");
 
-  
-   	HICON m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	SetIcon(m_hIcon, TRUE);         // Set big icon
-	SetIcon(m_hIcon, FALSE);        // Set small icon
+
+    HICON m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+    SetIcon(m_hIcon, TRUE);         // Set big icon
+    SetIcon(m_hIcon, FALSE);        // Set small icon
 
     UpdateData(FALSE);
     //position the dialog
@@ -120,77 +120,77 @@ BOOL CMainSheet::OnInitDialog()
     if( rc.top < 0 || ( rc.bottom ) >= GetSystemMetrics(SM_CYSCREEN) )
         bCenter = TRUE;
 
-    if( bCenter ) 
+    if( bCenter )
     {
         GetWindowRect( rc );
         rc.OffsetRect(-rc.left, -rc.top);
         MoveWindow( ((GetSystemMetrics(SM_CXSCREEN) - rc.right ) / 2 + 4) & ~7,
-			         (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2, rc.right, rc.bottom, 0);
-    } 
-	else 
-	{
+                     (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2, rc.right, rc.bottom, 0);
+    }
+    else
+    {
         SetWindowPos( NULL,rc.left,rc.top,0,0,SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOSIZE );
-	}
+    }
 
-	SetActivePage(m_pTrafficPage);
+    SetActivePage(m_pTrafficPage);
 
-	return bResult;
+    return bResult;
 }
 
 void CMainSheet::LoadWindowPosition(CRect *rc)
 {
-	HKEY hKey;
-	LONG lnRes;
-	CString key;
-	key = "SOFTWARE\\";
-	key += LPCTSTR( M_APPNAME );
-	lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-	if (lnRes == ERROR_SUCCESS)
-	{
-		DWORD valuesize;
-		ULONG type;
-		valuesize = sizeof(CRect);
-		RegQueryValueEx(hKey, "windowpos", 0, &type, (unsigned char *)rc, &valuesize);
-	}
-	RegCloseKey(hKey);
+    HKEY hKey;
+    LONG lnRes;
+    CString key;
+    key = "SOFTWARE\\";
+    key += LPCTSTR( M_APPNAME );
+    lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
+    if (lnRes == ERROR_SUCCESS)
+    {
+        DWORD valuesize;
+        ULONG type;
+        valuesize = sizeof(CRect);
+        RegQueryValueEx(hKey, "windowpos", 0, &type, (unsigned char *)rc, &valuesize);
+    }
+    RegCloseKey(hKey);
 }
 
 void CMainSheet::SaveWindowPosition(CRect *rc)
 {
-	HKEY hKey;
-	CString key;
-	key = "SOFTWARE\\";
-	key += LPCTSTR( M_APPNAME );
-	DWORD value, valuesize;
-	valuesize = sizeof(value);
-	LONG lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
-	if (lnRes == ERROR_SUCCESS)
-	{
-		valuesize = sizeof(CRect);
-		RegSetValueEx(hKey, "windowpos", 0, REG_BINARY, (unsigned char *)rc, valuesize);
-	}
-	RegCloseKey(hKey);
+    HKEY hKey;
+    CString key;
+    key = "SOFTWARE\\";
+    key += LPCTSTR( M_APPNAME );
+    DWORD value, valuesize;
+    valuesize = sizeof(value);
+    LONG lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
+    if (lnRes == ERROR_SUCCESS)
+    {
+        valuesize = sizeof(CRect);
+        RegSetValueEx(hKey, "windowpos", 0, REG_BINARY, (unsigned char *)rc, valuesize);
+    }
+    RegCloseKey(hKey);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void CMainSheet::OnDestroy() 
+void CMainSheet::OnDestroy()
 {
     CRect rc;
     GetWindowRect( rc );
     SaveWindowPosition( &rc );
     m_pTheApp->m_pMainWnd = &m_pTheApp->m_wnd;
-	CPropertySheet::OnDestroy();
+    CPropertySheet::OnDestroy();
 }
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void CMainSheet::PostNcDestroy() 
+void CMainSheet::PostNcDestroy()
 {
     //restore mfc's main window handle
     m_pTheApp->m_pMainWnd = &m_pTheApp->m_wnd;
-	CPropertySheet::PostNcDestroy();
+    CPropertySheet::PostNcDestroy();
 }
 
 
@@ -198,98 +198,98 @@ void CMainSheet::PostNcDestroy()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-LRESULT CMainSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT CMainSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     if( message == WM_SIZE && wParam == SIZE_MINIMIZED )
     {
-		CRect rc;
-		GetWindowRect( rc );
-		SaveWindowPosition( &rc );
+        CRect rc;
+        GetWindowRect( rc );
+        SaveWindowPosition( &rc );
         PostMessage( WM_CLOSE,0,0);
-    }          
+    }
 
-	return CPropertySheet::DefWindowProc(message, wParam, lParam);
+    return CPropertySheet::DefWindowProc(message, wParam, lParam);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-int CMainSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CMainSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (CPropertySheet::OnCreate(lpCreateStruct) == -1)
-		return -1;
-	
-	ModifyStyleEx(WS_EX_TOOLWINDOW, WS_EX_APPWINDOW);
+    if (CPropertySheet::OnCreate(lpCreateStruct) == -1)
+        return -1;
 
-	
-	// Configure our system menu
-	GetSystemMenu( TRUE ); //revert the menu
-	CMenu* pSysMenu = GetSystemMenu( FALSE ); //and grab the handle
+    ModifyStyleEx(WS_EX_TOOLWINDOW, WS_EX_APPWINDOW);
+
+
+    // Configure our system menu
+    GetSystemMenu( TRUE ); //revert the menu
+    CMenu* pSysMenu = GetSystemMenu( FALSE ); //and grab the handle
     pSysMenu->EnableMenuItem( SC_MINIMIZE, MF_ENABLED );
-	pSysMenu->DeleteMenu( SC_MAXIMIZE, MF_BYCOMMAND );	  
-	pSysMenu->DeleteMenu( SC_SIZE, MF_BYCOMMAND );
-	pSysMenu->EnableMenuItem( SC_RESTORE, MF_DISABLED | MF_GRAYED );
-    	
-	return 0;
+    pSysMenu->DeleteMenu( SC_MAXIMIZE, MF_BYCOMMAND );
+    pSysMenu->DeleteMenu( SC_SIZE, MF_BYCOMMAND );
+    pSysMenu->EnableMenuItem( SC_RESTORE, MF_DISABLED | MF_GRAYED );
+
+    return 0;
 }
 
 void CMainSheet::OnPaint()
 {
-	CPaintDC dc(this); // device context for painting
+    CPaintDC dc(this); // device context for painting
 
-	CString m_LogoText = "Kings";
-
-        
-
-	// So Get the Dialog's Window Rect  
-	CRect rectTabCtrl;
-	GetTabControl()->GetWindowRect(rectTabCtrl);
-	ScreenToClient(rectTabCtrl);
+    CString m_LogoText = "Kings";
 
 
-	CRect rectOk;
-	GetDlgItem(IDOK)->GetWindowRect(rectOk);
-	ScreenToClient(rectOk);
 
-	dc.SetBkMode(TRANSPARENT);
-
-	CRect rectText;
-	rectText.left = rectTabCtrl.left;
-	rectText.top = rectOk.top;
-	rectText.bottom = rectOk.bottom;
-	rectText.right = rectOk.left;
-
-	CFont * OldFont = dc.SelectObject(&m_fontLogo);
-
-	// draw text in DC
-	COLORREF OldColor = dc.SetTextColor( ::GetSysColor( COLOR_3DHILIGHT));
+    // So Get the Dialog's Window Rect
+    CRect rectTabCtrl;
+    GetTabControl()->GetWindowRect(rectTabCtrl);
+    ScreenToClient(rectTabCtrl);
 
 
-	dc.DrawText(m_LogoText, rectText + CPoint(2,2), DT_SINGLELINE | DT_LEFT | DT_VCENTER);
-	dc.SetTextColor( ::GetSysColor( COLOR_3DSHADOW));
-	dc.DrawText( m_LogoText, rectText, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+    CRect rectOk;
+    GetDlgItem(IDOK)->GetWindowRect(rectOk);
+    ScreenToClient(rectOk);
 
-	dc.SetTextColor( ::GetSysColor( COLOR_3DDKSHADOW ));
-	dc.DrawText( m_LogoText, rectText - CPoint(2,2),  DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+    dc.SetBkMode(TRANSPARENT);
 
-	// restore old text color
-	dc.SetTextColor( OldColor);
+    CRect rectText;
+    rectText.left = rectTabCtrl.left;
+    rectText.top = rectOk.top;
+    rectText.bottom = rectOk.bottom;
+    rectText.right = rectOk.left;
 
-	// restore old font
-	dc.SelectObject(OldFont);
+    CFont * OldFont = dc.SelectObject(&m_fontLogo);
+
+    // draw text in DC
+    COLORREF OldColor = dc.SetTextColor( ::GetSysColor( COLOR_3DHILIGHT));
+
+
+    dc.DrawText(m_LogoText, rectText + CPoint(2,2), DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+    dc.SetTextColor( ::GetSysColor( COLOR_3DSHADOW));
+    dc.DrawText( m_LogoText, rectText, DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+
+    dc.SetTextColor( ::GetSysColor( COLOR_3DDKSHADOW ));
+    dc.DrawText( m_LogoText, rectText - CPoint(2,2),  DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+
+    // restore old text color
+    dc.SetTextColor( OldColor);
+
+    // restore old font
+    dc.SelectObject(OldFont);
 }
 
 
 
-void CMainSheet::OnClose() 
+void CMainSheet::OnClose()
 {
     CRect rc;
     GetWindowRect( rc );
     SaveWindowPosition( &rc );
     m_pTheApp->m_pMainWnd = &m_pTheApp->m_wnd;
 
-	
-	CPropertySheet::OnClose();
-	delete this;
-	m_pTheApp->m_wnd.m_pDialog = 0;
+
+    CPropertySheet::OnClose();
+    delete this;
+    m_pTheApp->m_wnd.m_pDialog = 0;
 }

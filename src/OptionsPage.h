@@ -24,35 +24,34 @@
  */
 class COptionsPage : public CPropertyPage
 {
-	DECLARE_DYNCREATE(COptionsPage)
+    DECLARE_DYNCREATE(COptionsPage)
 public:
-	COptionsPage();
+    COptionsPage();
 
-	DWORD	static GetRegValue(CString entry);
-	DWORD	static GetDownloadSpeed();
-	DWORD	static GetUploadSpeed();
-	DWORD	static GetDownloadSpeedLAN();
-	DWORD	static GetUploadSpeedLAN();
+    DWORD   static GetRegValue(CString entry);
+    DWORD   static GetDownloadSpeed();
+    DWORD   static GetUploadSpeed();
+    DWORD   static GetDownloadSpeedLAN();
+    DWORD   static GetUploadSpeedLAN();
 
-	enum { IDD = IDD_OPTIONS };
-	CComboBox	m_cAdapter;
-	BOOL	m_autostart;
-	int		m_dlSpeed;
-	int		m_ulSpeed;
-	int		m_dlSpeedLAN;
-	int		m_ulSpeedLAN;
-	BOOL	m_showbits;
-	BOOL	m_showiec;
+    enum { IDD = IDD_OPTIONS };
+    CComboBox   m_cAdapter;
+    BOOL    m_autostart;
+    int     m_dlSpeed;
+    int     m_ulSpeed;
+    int     m_dlSpeedLAN;
+    int     m_ulSpeedLAN;
+    BOOL    m_showbits;
+    BOOL    m_showiec;
 
 
-	public:
-	virtual BOOL OnSetActive();
-	virtual BOOL OnKillActive();
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+public:
+    virtual BOOL OnSetActive();
+    virtual BOOL OnKillActive();
+    protected:
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 protected:
 
-	afx_msg void OnAutostartCheck();
-	DECLARE_MESSAGE_MAP()
+    afx_msg void OnAutostartCheck();
+    DECLARE_MESSAGE_MAP()
 };
-

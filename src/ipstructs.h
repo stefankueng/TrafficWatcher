@@ -68,8 +68,8 @@
 #define METHOD_NEITHER                  3
 
 #define FILE_ANY_ACCESS                 0
-#define FILE_READ_ACCESS          ( 0x0001 )	// file & pipe
-#define FILE_WRITE_ACCESS         ( 0x0002 )	// file & pipe
+#define FILE_READ_ACCESS          ( 0x0001 )    // file & pipe
+#define FILE_WRITE_ACCESS         ( 0x0002 )    // file & pipe
 
 
 //defines and structs taken from ntddpack.h
@@ -77,7 +77,7 @@ struct _PACKET_OID_DATA {
     ULONG Oid;
     ULONG Length;
     UCHAR Data[1];
-}; 
+};
 
 typedef struct _PACKET_OID_DATA PACKET_OID_DATA, *PPACKET_OID_DATA;
 
@@ -99,37 +99,37 @@ typedef struct _PACKET_OID_DATA PACKET_OID_DATA, *PPACKET_OID_DATA;
 #define MODE_STAT 1
 
 //ioctls
-#define	 pBIOCSETBUFFERSIZE 9592		///< IOCTL code: set kernel buffer size.
-#define	 pBIOCSETF 9030					///< IOCTL code: set packet filtering program.
-#define  pBIOCGSTATS 9031				///< IOCTL code: get the capture stats.
-#define	 pBIOCSRTIMEOUT 7416			///< IOCTL code: set the read timeout.
-#define	 pBIOCSMODE 7412				///< IOCTL code: set working mode.
-#define	 pBIOCSWRITEREP 7413			///< IOCTL code: set number of physical repetions of every packet written by the app.
-#define	 pBIOCSMINTOCOPY 7414			///< IOCTL code: set minimum amount of data in the kernel buffer that unlocks a read call.
-#define	 pBIOCSETOID 2147483648			///< IOCTL code: set an OID value.
-#define	 pBIOCQUERYOID 2147483652		///< IOCTL code: get an OID value.
-#define	 pATTACHPROCESS 7117			///< IOCTL code: attach a process to the driver. Used in Win9x only.
-#define	 pDETACHPROCESS 7118			///< IOCTL code: detach a process from the driver. Used in Win9x only.
-#define  pBIOCSETDUMPFILENAME 9029		///< IOCTL code: set the name of a the file used by kernel dump mode.
-#define  pBIOCEVNAME 7415				///< IOCTL code: get the name of the event that the driver signals when some data is present in the buffer.
-#define  pBIOCSENDPACKETSNOSYNC 9032	///< IOCTL code: Send a buffer containing multiple packets to the network, ignoring the timestamps associated with the packets.
-#define  pBIOCSENDPACKETSSYNC 9033		///< IOCTL code: Send a buffer containing multiple packets to the network, respecting the timestamps associated with the packets.
-#define  pBIOCSETDUMPLIMITS 9034		///< IOCTL code: Set the dump file limits. See the PacketSetDumpLimits() function.
-#define  pBIOCISDUMPENDED 7411			///< IOCTL code: Get the status of the kernel dump process. See the PacketIsDumpEnded() function.
+#define  pBIOCSETBUFFERSIZE 9592        ///< IOCTL code: set kernel buffer size.
+#define  pBIOCSETF 9030                 ///< IOCTL code: set packet filtering program.
+#define  pBIOCGSTATS 9031               ///< IOCTL code: get the capture stats.
+#define  pBIOCSRTIMEOUT 7416            ///< IOCTL code: set the read timeout.
+#define  pBIOCSMODE 7412                ///< IOCTL code: set working mode.
+#define  pBIOCSWRITEREP 7413            ///< IOCTL code: set number of physical repetions of every packet written by the app.
+#define  pBIOCSMINTOCOPY 7414           ///< IOCTL code: set minimum amount of data in the kernel buffer that unlocks a read call.
+#define  pBIOCSETOID 2147483648         ///< IOCTL code: set an OID value.
+#define  pBIOCQUERYOID 2147483652       ///< IOCTL code: get an OID value.
+#define  pATTACHPROCESS 7117            ///< IOCTL code: attach a process to the driver. Used in Win9x only.
+#define  pDETACHPROCESS 7118            ///< IOCTL code: detach a process from the driver. Used in Win9x only.
+#define  pBIOCSETDUMPFILENAME 9029      ///< IOCTL code: set the name of a the file used by kernel dump mode.
+#define  pBIOCEVNAME 7415               ///< IOCTL code: get the name of the event that the driver signals when some data is present in the buffer.
+#define  pBIOCSENDPACKETSNOSYNC 9032    ///< IOCTL code: Send a buffer containing multiple packets to the network, ignoring the timestamps associated with the packets.
+#define  pBIOCSENDPACKETSSYNC 9033      ///< IOCTL code: Send a buffer containing multiple packets to the network, respecting the timestamps associated with the packets.
+#define  pBIOCSETDUMPLIMITS 9034        ///< IOCTL code: Set the dump file limits. See the PacketSetDumpLimits() function.
+#define  pBIOCISDUMPENDED 7411          ///< IOCTL code: Get the status of the kernel dump process. See the PacketIsDumpEnded() function.
 
-#define  pBIOCSTIMEZONE 7471			///< IOCTL code: set time zone. Used in Win9x only.
+#define  pBIOCSTIMEZONE 7471            ///< IOCTL code: set time zone. Used in Win9x only.
 
 
 //Network type structure
 typedef struct NetType
 {
-	UINT LinkType;	///< The MAC of the current network adapter (see function PacketGetNetType() for more information)
-	ULONGLONG LinkSpeed;	///< The speed of the network in bits per second
+    UINT LinkType;  ///< The MAC of the current network adapter (see function PacketGetNetType() for more information)
+    ULONGLONG LinkSpeed;    ///< The speed of the network in bits per second
 }NetType;
 
 
-// Alignment macros.  Packet_WORDALIGN rounds up to the next 
-// even multiple of Packet_ALIGNMENT. 
+// Alignment macros.  Packet_WORDALIGN rounds up to the next
+// even multiple of Packet_ALIGNMENT.
 #define Packet_ALIGNMENT sizeof(int)
 #define Packet_WORDALIGN(x) (((x)+(Packet_ALIGNMENT-1))&~(Packet_ALIGNMENT-1))
 
@@ -137,41 +137,41 @@ typedef struct NetType
 //iphelper structs
 typedef struct _MIB_TCPROW_EX
 {
-    DWORD	dwState;		// MIB_TCP_STATE_*
-    DWORD	dwLocalAddr;
-    DWORD	dwLocalPort;
-    DWORD	dwRemoteAddr;
-    DWORD	dwRemotePort;
-	DWORD	dwProcessId;
+    DWORD   dwState;        // MIB_TCP_STATE_*
+    DWORD   dwLocalAddr;
+    DWORD   dwLocalPort;
+    DWORD   dwRemoteAddr;
+    DWORD   dwRemotePort;
+    DWORD   dwProcessId;
 } MIB_TCPROW_EX, *PMIB_TCPROW_EX;
 
 typedef struct _MIB_TCPTABLE_EX
 {
-    DWORD			dwNumEntries;
-    MIB_TCPROW_EX	table[ANY_SIZE];
+    DWORD           dwNumEntries;
+    MIB_TCPROW_EX   table[ANY_SIZE];
 } MIB_TCPTABLE_EX, *PMIB_TCPTABLE_EX;
 
 typedef struct _MIB_UDPROW_EX
 {
-    DWORD	dwLocalAddr;
-    DWORD	dwLocalPort;
-	DWORD	dwProcessId;
+    DWORD   dwLocalAddr;
+    DWORD   dwLocalPort;
+    DWORD   dwProcessId;
 } MIB_UDPROW_EX, *PMIB_UDPROW_EX;
 
 typedef struct _MIB_UDPTABLE_EX
 {
-    DWORD			dwNumEntries;
-    MIB_UDPROW_EX	table[ANY_SIZE];
+    DWORD           dwNumEntries;
+    MIB_UDPROW_EX   table[ANY_SIZE];
 } MIB_UDPTABLE_EX, *PMIB_UDPTABLE_EX;
 /*
 DWORD
 WINAPI
 AllocateAndGetTcpExTableFromStack(
-	OUT PMIB_TCPTABLE_EX	*pTcpTableEx,
-	IN BOOL					bOrder,
-	IN HANDLE				hAllocHeap,
-	IN DWORD				dwAllocFlags,
-	IN DWORD				dwProtocolVersion; // 2 - TCP, 23 - TCPv6 (size of *pTcpTableEx must be 56!)
+    OUT PMIB_TCPTABLE_EX    *pTcpTableEx,
+    IN BOOL                 bOrder,
+    IN HANDLE               hAllocHeap,
+    IN DWORD                dwAllocFlags,
+    IN DWORD                dwProtocolVersion; // 2 - TCP, 23 - TCPv6 (size of *pTcpTableEx must be 56!)
 );
 */
 typedef DWORD (WINAPI *PROCALLOCATEANDGETTCPEXTABLEFROMSTACK)(PMIB_TCPTABLE_EX*,BOOL,HANDLE,DWORD,DWORD);
@@ -180,35 +180,35 @@ typedef DWORD (WINAPI *PROCALLOCATEANDGETTCPEXTABLEFROMSTACK)(PMIB_TCPTABLE_EX*,
 DWORD
 WINAPI
 AllocateAndGetUdpExTableFromStack(
-	OUT PMIB_UDPTABLE_EX	*pUdpTable,
-	IN BOOL					bOrder,
-	IN HANDLE				hAllocHeap,
-	IN DWORD				dwAllocFlags,
-	IN DWORD				dwProtocolVersion; // 2 - UDP, 23 - UDPv6 (size of *pUdpTable must be 28!)
+    OUT PMIB_UDPTABLE_EX    *pUdpTable,
+    IN BOOL                 bOrder,
+    IN HANDLE               hAllocHeap,
+    IN DWORD                dwAllocFlags,
+    IN DWORD                dwProtocolVersion; // 2 - UDP, 23 - UDPv6 (size of *pUdpTable must be 28!)
 );
 */
 typedef DWORD (WINAPI *PROCALLOCATEANDGETUDPEXTABLEFROMSTACK)(PMIB_UDPTABLE_EX*,BOOL,HANDLE,DWORD,DWORD);
 
 // IP header
 #pragma pack(push, 1) //The IP_HEADER and ICMP_HEADER should be alligned on 1 byte boundaries
-typedef struct tagIP_HEADER 
+typedef struct tagIP_HEADER
 {
-	unsigned int h_len:4;          // length of the header
-	unsigned int version:4;        // Version of IP
-	unsigned char tos;             // Type of service
-	unsigned short total_len;      // total length of the packet
-	unsigned short ident;          // unique identifier
-	unsigned short frag_and_flags; // flags
-	unsigned char  ttl; 
-	unsigned char proto;           // protocol (TCP, UDP etc)
-	unsigned short checksum;       // IP checksum
-	unsigned int sourceIP;
-	unsigned int destIP;
+    unsigned int h_len:4;          // length of the header
+    unsigned int version:4;        // Version of IP
+    unsigned char tos;             // Type of service
+    unsigned short total_len;      // total length of the packet
+    unsigned short ident;          // unique identifier
+    unsigned short frag_and_flags; // flags
+    unsigned char  ttl;
+    unsigned char proto;           // protocol (TCP, UDP etc)
+    unsigned short checksum;       // IP checksum
+    unsigned int sourceIP;
+    unsigned int destIP;
 } IP_HEADER;
 typedef IP_HEADER FAR* LPIP_HEADER;
 
 // ICMP header
-typedef struct tagICMP_HEADER 
+typedef struct tagICMP_HEADER
 {
   BYTE i_type;
   BYTE i_code; /* type sub code */

@@ -25,22 +25,22 @@
 
 class CAboutPage : public CPropertyPage
 {
-	DECLARE_DYNAMIC(CAboutPage)
+    DECLARE_DYNAMIC(CAboutPage)
 
 public:
-	CAboutPage();
-	virtual ~CAboutPage();
+    CAboutPage();
+    virtual ~CAboutPage();
 
 // Dialog Data
-	enum { IDD = IDD_ABOUT };
+    enum { IDD = IDD_ABOUT };
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	virtual BOOL OnInitDialog();
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+    virtual BOOL OnInitDialog();
 
-	DECLARE_MESSAGE_MAP()
+    DECLARE_MESSAGE_MAP()
 private:
-	CHyperLink m_sourceLink;
-	CHyperLink m_webLink;
-	CString m_VersionString;
+    CHyperLink m_sourceLink;
+    CHyperLink m_webLink;
+    CString m_VersionString;
 };
