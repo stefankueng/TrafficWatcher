@@ -114,7 +114,10 @@ public:
 class   CPacket : public CThread , CNetAdapter
 {
 public:
-    CPacket() {nActiveAdapter = -1;};
+    CPacket()
+        : nActiveAdapter(-1)
+        , nAdapterCount(-1)
+    {};
     ~CPacket();
 
 
