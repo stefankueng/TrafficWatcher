@@ -572,10 +572,10 @@ bool CRegistryKey::getSubKeys(CStringList& subkeys)
 /////////////////////////////////////////////////////////////////////
 
 CRegStdString::CRegStdString(void)
+    : m_value(_T(""))
+    , m_defaultvalue(_T(""))
+    , m_key(_T(""))
 {
-    m_value = _T("");
-    m_defaultvalue = _T("");
-    m_key = _T("");
     m_base = HKEY_CURRENT_USER;
     m_read = FALSE;
     m_force = FALSE;
@@ -802,10 +802,10 @@ CRegStdWORD& CRegStdWORD::operator =(DWORD d)
 }
 
 CStdRegistryKey::CStdRegistryKey(const stdstring& key, HKEY base)
+    : m_base(base)
+    , m_hKey(NULL)
+    , m_path(key)
 {
-    m_base = base;
-    m_hKey = NULL;
-    m_path = key;
     stdstring::size_type pos = key.find_last_of(_T('\\'));
     m_path = key.substr(0, pos);
 }
@@ -851,7 +851,7 @@ bool CStdRegistryKey::getValues(stdregistrykeylist& values)
         }
     }
 
-    return values.size() > 0;
+    return !values.empty();
 }
 
 bool CStdRegistryKey::getSubKeys(stdregistrykeylist& subkeys)
@@ -873,5 +873,5 @@ bool CStdRegistryKey::getSubKeys(stdregistrykeylist& subkeys)
         }
     }
 
-    return subkeys.size() > 0;
+    return !subkeys.empty();
 }
