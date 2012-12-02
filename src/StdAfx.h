@@ -13,7 +13,7 @@
 #endif
 
 #ifndef _WIN32_IE
-#   define _WIN32_IE 0x0600
+#   define _WIN32_IE 0x0700
 #endif
 
 #define VC_EXTRALEAN        // Exclude rarely-used stuff from Windows headers
