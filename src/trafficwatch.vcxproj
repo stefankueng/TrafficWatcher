@@ -187,12 +187,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\sktoolslib\CmdLineParser.cpp" />
+    <ClCompile Include="..\sktoolslib\hyperlink.cpp" />
     <ClCompile Include="..\sktoolslib\Registry.cpp" />
     <ClCompile Include="AboutPage.cpp" />
     <ClCompile Include="DataBar.cpp" />
     <ClCompile Include="DetailPage.cpp" />
     <ClCompile Include="Filter.cpp" />
-    <ClCompile Include="HyperLink.cpp" />
     <ClCompile Include="IPStat.cpp" />
     <ClCompile Include="MainSheet.cpp" />
     <ClCompile Include="OptionsPage.cpp" />
@@ -208,13 +208,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\sktoolslib\CmdLineParser.h" />
+    <ClInclude Include="..\sktoolslib\hyperlink.h" />
     <ClInclude Include="..\sktoolslib\Registry.h" />
     <ClInclude Include="AboutPage.h" />
     <ClInclude Include="DataBar.h" />
     <ClInclude Include="DetailPage.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="HyperLink.h" />
     <ClInclude Include="IPStat.h" />
     <ClInclude Include="MainSheet.h" />
     <ClInclude Include="OptionsPage.h" />

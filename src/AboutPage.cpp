@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -42,8 +42,6 @@ CAboutPage::~CAboutPage()
 void CAboutPage::DoDataExchange(CDataExchange* pDX)
 {
     CPropertyPage::DoDataExchange(pDX);
-    DDX_Control(pDX, IDC_SOURCECODELINK, m_sourceLink);
-    DDX_Control(pDX, IDC_WEBLINK, m_webLink);
     DDX_Text(pDX, IDC_VERSIONINFO, m_VersionString);
 }
 
@@ -58,8 +56,8 @@ BOOL CAboutPage::OnInitDialog()
     CPropertyPage::OnInitDialog();
 
     m_VersionString.Format(_T("Version %d.%d.%d.%d"), VER_MAJOR, VER_MINOR, VER_MICRO, VER_REVISION);
-    m_webLink.SetURL(_T("http://tools.tortoisesvn.net"));
-    m_sourceLink.SetURL(_T("http://code.google.com/p/trafficwatcher/source/browse"));
+    m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_WEBLINK, _T("http://tools.tortoisesvn.net"));
+    m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_SOURCECODELINK, _T("http://code.google.com/p/trafficwatcher/source/browse"));
 
     UpdateData(FALSE);
 
