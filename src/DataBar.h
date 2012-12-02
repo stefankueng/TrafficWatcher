@@ -96,7 +96,7 @@ public:
     // Generated message map functions
 protected:
     afx_msg void OnPaint();
-    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
     afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 
     DECLARE_MESSAGE_MAP()

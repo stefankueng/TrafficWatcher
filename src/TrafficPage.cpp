@@ -137,7 +137,7 @@ BOOL CTrafficPage::OnInitDialog()
     return TRUE;
 }
 
-void CTrafficPage::OnTimer(UINT nIDEvent)
+void CTrafficPage::OnTimer(UINT_PTR nIDEvent)
 {
     if (nIDEvent == IDT_TRAFFIC)
     {

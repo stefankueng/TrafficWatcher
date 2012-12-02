@@ -402,7 +402,7 @@ BOOL CDataBar::GetAnimated()
     return m_bAnimated;
 }
 
-void CDataBar::OnTimer(UINT nIDEvent)
+void CDataBar::OnTimer(UINT_PTR nIDEvent)
 {
     // Increment the Animated bar offset and redraw the window.
     if (nIDEvent == IDT_ANIMATE)

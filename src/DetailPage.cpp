@@ -103,7 +103,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CDetailPage message handlers
 
-void CDetailPage::OnTimer(UINT nIDEvent)
+void CDetailPage::OnTimer(UINT_PTR nIDEvent)
 {
     if (nIDEvent == IDT_DETAIL)
     {
