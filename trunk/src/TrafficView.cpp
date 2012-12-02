@@ -239,7 +239,7 @@ void CTrafficView::OnClose()
     CDialog::OnClose();
 }
 
-void CTrafficView::OnTimer(UINT nIDEvent)
+void CTrafficView::OnTimer(UINT_PTR nIDEvent)
 {
     if (nIDEvent == IDT_TRAFFIC)
     {

@@ -42,5 +42,5 @@ protected:
 private:
     CHyperLink m_sourceLink;
     CHyperLink m_webLink;
-    CString m_VersionString;
+    CString    m_VersionString;
 };

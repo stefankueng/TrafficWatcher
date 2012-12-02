@@ -52,7 +52,7 @@ protected:
 
     virtual BOOL OnInitDialog();
     afx_msg void OnClose();
-    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
     afx_msg void OnMouseMove(UINT nFlags, CPoint point);
     afx_msg void OnWindowPosChanging( WINDOWPOS* lpwndpos );
     afx_msg void OnDestroy();

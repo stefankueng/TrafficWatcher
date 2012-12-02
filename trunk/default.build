@@ -17,19 +17,37 @@
         <exec program="devenv.com" >
             <arg value="trafficwatch.sln" />
             <arg value="/rebuild" />
-            <arg value="debug|win32" />
+            <arg value="Debug|win32" />
         </exec>
         <exec program="devenv.com" >
             <arg value="trafficwatch.sln" />
             <arg value="/rebuild" />
-            <arg value="release|win32" />
+            <arg value="Release|Win32" />
+        </exec>
+
+        <exec program="devenv.com" >
+            <arg value="trafficwatch.sln" />
+            <arg value="/rebuild" />
+            <arg value="Debug|x64" />
+        </exec>
+        <exec program="devenv.com" >
+            <arg value="trafficwatch.sln" />
+            <arg value="/rebuild" />
+            <arg value="Release|x64" />
         </exec>
 
         <if test="${file::exists('signinfo.txt')}">
             <exec program="signtool">
                 <arg value="sign" />
                 <arg value="${signinfo}" />
-                <arg value="bin\release\trafficwatch.exe" />
+                <arg value="bin\Release\Win32\trafficwatch.exe" />
+            </exec>
+        </if>
+        <if test="${file::exists('signinfo.txt')}">
+            <exec program="signtool">
+                <arg value="sign" />
+                <arg value="${signinfo}" />
+                <arg value="bin\Release\x64\trafficwatch.exe" />
             </exec>
         </if>
 

@@ -289,7 +289,7 @@ void CWinproc::UpdateTrayIcon( HICON hIcon )
 }
 
 
-void CWinproc::OnTimer(UINT nIDEvent)
+void CWinproc::OnTimer(UINT_PTR nIDEvent)
 {
     // Increment the Animated bar offset and redraw the window.
     if (nIDEvent == IDT_STATISTICS)

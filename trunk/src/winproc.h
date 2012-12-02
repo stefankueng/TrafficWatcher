@@ -80,6 +80,6 @@ public:
 
 protected:
     afx_msg void OnClose();
-    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
     DECLARE_MESSAGE_MAP()
 };

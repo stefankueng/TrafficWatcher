@@ -49,7 +49,7 @@ public:
     protected:
     virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 protected:
-    afx_msg void OnTimer(UINT nIDEvent);
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
     DECLARE_MESSAGE_MAP()
 private:
     DWORD64 m_lwReceived[LASTSERVICE];
