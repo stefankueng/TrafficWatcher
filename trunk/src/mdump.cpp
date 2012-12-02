@@ -31,7 +31,7 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
         char *pSlash = _tcsrchr( szDbgHelpPath, '\\' );
         if (pSlash)
         {
-            _tcscpy( pSlash+1, "DBGHELP.DLL" );
+            _tcscpy( pSlash+1, "dbghelp.dll" );
             hDll = ::LoadLibrary( szDbgHelpPath );
         }
     }
@@ -39,7 +39,7 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
     if (hDll==NULL)
     {
         // load any version we can
-        hDll = ::LoadLibrary( "DBGHELP.DLL" );
+        hDll = ::LoadLibrary( "dbghelp.dll" );
     }
 
     LPCTSTR szResult = NULL;
@@ -98,12 +98,12 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
         }
         else
         {
-            szResult = "DBGHELP.DLL too old";
+            szResult = "dbghelp.dll too old";
         }
     }
     else
     {
-        szResult = "DBGHELP.DLL not found";
+        szResult = "dbghelp.dll not found";
     }
 
     if (szResult)
