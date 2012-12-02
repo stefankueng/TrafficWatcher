@@ -32,12 +32,10 @@ static char THIS_FILE[]=__FILE__;
 
 CPortStat::CPortStat()
 {
-
 }
 
 CPortStat::~CPortStat()
 {
-
 }
 
 void CPortStat::AddData(USHORT /*awayport*/, USHORT /*localport*/, ULONG len)

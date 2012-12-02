@@ -1,9 +1,4 @@
-#if !defined(AFX_DAYPAGE_H__9586E425_528C_4761_8BD4_428A2DA1CEED__INCLUDED_)
-#define AFX_DAYPAGE_H__9586E425_528C_4761_8BD4_428A2DA1CEED__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 // DayPage.h : header file
 //
 
@@ -61,8 +56,3 @@ private:
     int     day;
     int     month;
 };
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_DAYPAGE_H__9586E425_528C_4761_8BD4_428A2DA1CEED__INCLUDED_)

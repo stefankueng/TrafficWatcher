@@ -22,7 +22,7 @@
 #include "packet.h"
 
 
-#define ETHER_ADDR_LEN 6
+#define ETHER_ADDR_LEN      6
 
 
 /**

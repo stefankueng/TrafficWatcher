@@ -26,7 +26,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-#define     STAT_FILE_VER       1
+#define STAT_FILE_VER       1
 
 CIPStat::CIPStat()
 {
@@ -43,7 +43,7 @@ DWORD64 CIPStat::GetTotal()
     return (m_received.GetTotal() + m_sent.GetTotal());
 }
 
-BOOL    CIPStat::init(int ind)
+BOOL CIPStat::init(int ind)
 {
     //first clear all data and statistics
     m_sent.Clear();
@@ -58,7 +58,7 @@ BOOL    CIPStat::init(int ind)
     return FALSE;
 }
 
-BOOL    CIPStat::close()
+BOOL CIPStat::close()
 {
     Stop((WORD)1000);
     return TRUE;
