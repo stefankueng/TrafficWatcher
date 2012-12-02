@@ -55,7 +55,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\WinPCap\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\WinPCap\include;..\sktoolslib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -85,7 +85,7 @@
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>..\WinPCap\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\WinPCap\include;..\sktoolslib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -112,8 +112,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\sktoolslib\CmdLineParser.cpp" />
+    <ClCompile Include="..\sktoolslib\Registry.cpp" />
     <ClCompile Include="AboutPage.cpp" />
-    <ClCompile Include="CmdLineParser.cpp" />
     <ClCompile Include="DataBar.cpp" />
     <ClCompile Include="DetailPage.cpp" />
     <ClCompile Include="Filter.cpp" />
@@ -123,7 +124,6 @@
     <ClCompile Include="OptionsPage.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PortStat.cpp" />
-    <ClCompile Include="Registry.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -134,8 +134,9 @@
     <ClCompile Include="winproc.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\sktoolslib\CmdLineParser.h" />
+    <ClInclude Include="..\sktoolslib\Registry.h" />
     <ClInclude Include="AboutPage.h" />
-    <ClInclude Include="CmdLineParser.h" />
     <ClInclude Include="DataBar.h" />
     <ClInclude Include="DetailPage.h" />
     <ClInclude Include="Filter.h" />
@@ -146,7 +147,6 @@
     <ClInclude Include="OptionsPage.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PortStat.h" />
-    <ClInclude Include="Registry.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="Thread.h" />
