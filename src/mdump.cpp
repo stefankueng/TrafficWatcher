@@ -24,9 +24,9 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
     // look next to the EXE first, as the one in System32 might be old
     // (e.g. Windows 2000)
     HMODULE hDll = NULL;
-    char szDbgHelpPath[_MAX_PATH];
+    char szDbgHelpPath[MAX_PATH];
 
-    if (GetModuleFileName( NULL, szDbgHelpPath, _MAX_PATH ))
+    if (GetModuleFileName( NULL, szDbgHelpPath, MAX_PATH ))
     {
         char *pSlash = _tcsrchr( szDbgHelpPath, '\\' );
         if (pSlash)
@@ -49,11 +49,11 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
         MINIDUMPWRITEDUMP pDump = (MINIDUMPWRITEDUMP)::GetProcAddress( hDll, "MiniDumpWriteDump" );
         if (pDump)
         {
-            char szDumpPath[_MAX_PATH];
-            char szScratch [_MAX_PATH];
+            char szDumpPath[MAX_PATH];
+            char szScratch [MAX_PATH];
 
             // work out a good place for the dump file
-            if (!GetTempPath( _MAX_PATH, szDumpPath ))
+            if (!GetTempPath( MAX_PATH, szDumpPath ))
                 _tcscpy( szDumpPath, "c:\\temp\\" );
 
             _tcscat( szDumpPath, m_szAppName );
