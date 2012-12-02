@@ -16,6 +16,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{d535d05c-843b-4ad1-918e-65d7b5f1b2b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sktoolslib">
+      <UniqueIdentifier>{0d7051c0-3d13-4045-b2ef-3f78d0f09057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutPage.cpp">
@@ -28,9 +31,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Filter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HyperLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IPStat.cpp">
@@ -69,6 +69,9 @@
     <ClCompile Include="..\sktoolslib\Registry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\sktoolslib\hyperlink.cpp">
+      <Filter>sktoolslib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutPage.h">
@@ -84,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HyperLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IPStat.h">
@@ -134,11 +134,11 @@
     <ClInclude Include="..\sktoolslib\Registry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\sktoolslib\hyperlink.h">
+      <Filter>sktoolslib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\default.build">
-      <Filter>Scripts</Filter>
-    </None>
     <None Include="res\icon1.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -147,6 +147,9 @@
     </None>
     <None Include="res\trafficwatch.rc2">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\default.build">
+      <Filter>Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
