@@ -1,9 +1,3 @@
-#ifndef __IPSTRUCTS_H__
-#define __IPSTRUCTS_H__
-
-
-
-#if _MSC_VER > 1000
 #pragma once
 
 #ifndef ANY_SIZE
@@ -220,11 +214,3 @@ typedef struct tagICMP_HEADER
 } ICMP_HEADER;
 typedef ICMP_HEADER FAR* LPICMP_HEADER;
 #pragma pack(pop)
-
-
-
-
-#endif // _MSC_VER > 1000
-
-#endif __IPSTRUCTS_H__
-

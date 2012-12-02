@@ -1,6 +1,5 @@
 
 #include "stdafx.h"
-
 #include "mdump.h"
 
 LPCSTR MiniDumper::m_szAppName;

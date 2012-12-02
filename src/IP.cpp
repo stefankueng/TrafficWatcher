@@ -20,17 +20,15 @@ static char THIS_FILE[]=__FILE__;
 
 CIP::CIP()
 {
-
 }
 
 CIP::~CIP()
 {
-
 }
 
-BOOL    CIP::CreateAdapterList()
+BOOL CIP::CreateAdapterList()
 {
-    WCHAR       AdapterName[512]; // string that contains a list of the network adapters
+    WCHAR       AdapterName[512];   // string that contains a list of the network adapters
     WCHAR       *temp,*temp1;
 
 

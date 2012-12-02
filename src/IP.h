@@ -2,13 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_IP_H__06993831_D680_43B4_A9F3_86484B0C5BF1__INCLUDED_)
-#define AFX_IP_H__06993831_D680_43B4_A9F3_86484B0C5BF1__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-
 
 #include <windows.h>
 #include <conio.h>
@@ -41,5 +35,3 @@ private:
     char        AdapterList[Max_Num_Adapter][1024];
 
 };
-
-#endif // !defined(AFX_IP_H__06993831_D680_43B4_A9F3_86484B0C5BF1__INCLUDED_)

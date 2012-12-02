@@ -19,6 +19,7 @@
 #pragma once
 
 #define FILTER_MEAN_DEPTH 3
+
 class CFilter
 {
 public:

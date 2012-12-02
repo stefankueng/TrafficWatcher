@@ -20,12 +20,10 @@ static char THIS_FILE[]=__FILE__;
 
 CNetStat::CNetStat()
 {
-
 }
 
 CNetStat::~CNetStat()
 {
-
 }
 
 BOOL    CNetStat::initialize()

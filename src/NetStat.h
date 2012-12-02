@@ -2,12 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_NETSTAT_H__00C4B51E_F411_4FFF_B359_8808E6AFF267__INCLUDED_)
-#define AFX_NETSTAT_H__00C4B51E_F411_4FFF_B359_8808E6AFF267__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
 
 #include <winsock2.h>
 #include <iphlpapi.h>
@@ -26,7 +21,6 @@ public:
     BOOL    GetAdapter(SOCKET s, SOCKADDR_IN *ifx, int num);
     BOOL    GetAdapterList(SOCKET_ADDRESS_LIST *slist);
 
-
 public:
     IP_ADAPTER_INFO     HostInfo;
     BOOL    threadactive;
@@ -42,5 +36,3 @@ private:
 
 //forward declaration
 UINT    sniff(LPVOID pParam);
-
-#endif // !defined(AFX_NETSTAT_H__00C4B51E_F411_4FFF_B359_8808E6AFF267__INCLUDED_)
