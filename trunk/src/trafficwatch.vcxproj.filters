@@ -136,22 +136,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\bmp1.bin">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\default1.bin">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="earth.jpg">
-      <Filter>Resource Files</Filter>
+    <None Include="..\default.build">
+      <Filter>Scripts</Filter>
     </None>
     <None Include="res\icon1.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="reddot.gif">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="reddot.JPG">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="res\trafficwatch.ico">
@@ -159,21 +147,6 @@
     </None>
     <None Include="res\trafficwatch.rc2">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="tw.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="tw.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="yellowdot.gif">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="yellowdot.JPG">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\default.build">
-      <Filter>Scripts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

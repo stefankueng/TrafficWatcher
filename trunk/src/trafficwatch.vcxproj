@@ -157,19 +157,10 @@
     <ClInclude Include="winproc.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\bmp1.bin" />
-    <None Include="res\default1.bin" />
-    <None Include="earth.jpg" />
+    <None Include="..\default.build" />
     <None Include="res\icon1.ico" />
-    <None Include="reddot.gif" />
-    <None Include="reddot.JPG" />
     <None Include="res\trafficwatch.ico" />
     <None Include="res\trafficwatch.rc2" />
-    <None Include="tw.bmp" />
-    <None Include="tw.jpg" />
-    <None Include="yellowdot.gif" />
-    <None Include="yellowdot.JPG" />
-    <None Include="..\default.build" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="trafficwatch.rc" />
