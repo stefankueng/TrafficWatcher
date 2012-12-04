@@ -5,8 +5,8 @@
 #include "trafficwatch.h"
 #include "DayPage.h"
 
-#include "util.h"
-#include "globals.h"
+#include "Util.h"
+#include "Globals.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

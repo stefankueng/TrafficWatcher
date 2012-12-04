@@ -16,13 +16,13 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #pragma once
 
-
-#include "trafficpage.h"
-#include "detailpage.h"
-#include "optionspage.h"
-#include "aboutpage.h"
+#include "TrafficPage.h"
+#include "DetailPage.h"
+#include "OptionsPage.h"
+#include "AboutPage.h"
 
 
 

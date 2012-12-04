@@ -198,7 +198,7 @@
     <ClCompile Include="OptionsPage.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PortStat.cpp" />
-    <ClCompile Include="StdAfx.cpp">
+    <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TrafficPage.cpp" />
@@ -220,8 +220,8 @@
     <ClInclude Include="OptionsPage.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PortStat.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Thread.h" />
     <ClInclude Include="TrafficPage.h" />
     <ClInclude Include="TrafficView.h" />

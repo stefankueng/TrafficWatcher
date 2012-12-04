@@ -16,13 +16,14 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #pragma once
 
 #include "stdafx.h"
-#include "thread.h"
-#include "ntddndis.h"
+#include "Thread.h"
+#include <ntddndis.h>
 #include <winsock2.h>
-#include "iphlpapi.h"
+#include <iphlpapi.h>
 #include "ipstructs.h"
 
 #define HAVE_REMOTE

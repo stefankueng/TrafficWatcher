@@ -5,9 +5,9 @@
 #endif
 
 #include "resource.h"       // main symbols
-#include "globals.h"
+#include "Globals.h"
 #include "winproc.h"
-#include "commctrl.h"
+#include <commctrl.h>
 
 /**
  * CTrafficwatchApp.

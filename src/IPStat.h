@@ -16,10 +16,11 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #pragma once
 
-#include "portstat.h"
-#include "packet.h"
+#include "PortStat.h"
+#include "Packet.h"
 
 
 #define ETHER_ADDR_LEN      6

@@ -20,7 +20,7 @@
 #include "Trafficwatch.h"
 #include "winproc.h"
 #include "resource.h"
-#include "util.h"
+#include "Util.h"
 
 
 #ifdef _DEBUG

@@ -16,10 +16,11 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #pragma once
 
-#include "databar.h"
-#include "util.h"
+#include "DataBar.h"
+#include "Util.h"
 #include "Filter.h"
 
 #define MONITOR_CENTER   0x0001         // center rect to monitor
