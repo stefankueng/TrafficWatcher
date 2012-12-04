@@ -16,13 +16,14 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #pragma once
 
 
-#include "globals.h"
+#include "Globals.h"
 #include "MainSheet.h"
-#include "trafficview.h"
-#include "ipstat.h"
+#include "TrafficView.h"
+#include "IPStat.h"
 #include "Filter.h"
 
 

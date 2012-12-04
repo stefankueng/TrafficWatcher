@@ -19,7 +19,7 @@
 #include "stdafx.h"
 #include "trafficwatch.h"
 #include "TrafficView.h"
-#include "optionspage.h"
+#include "OptionsPage.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
