@@ -46,16 +46,16 @@ BOOL CPacket::init()
         {
             Adapters[nAdapterCount].AdapterDescription = pAdInfo->Description;
             Adapters[nAdapterCount].AdapterString = pAdInfo->AdapterName;
-            Adapters[nAdapterCount].AdapterString = _T("\\Device\\NPF_") + Adapters[nAdapterCount].AdapterString;
+            Adapters[nAdapterCount].AdapterString = L"\\Device\\NPF_" + Adapters[nAdapterCount].AdapterString;
             Adapters[nAdapterCount].Type = pAdInfo->Type;
             if (pAdInfo->AddressLength != 0)
             {
                 Adapters[nAdapterCount].AddressLength = pAdInfo->AddressLength;
-                Adapters[nAdapterCount].Address = "";
+                Adapters[nAdapterCount].Address = L"";
                 for (int i = 0; i < (int)Adapters[nAdapterCount].AddressLength; i++)
                 {
                     CString temp;
-                    temp.Format(_T(" %02X"), pAdInfo->Address[i]);
+                    temp.Format(L" %02X", pAdInfo->Address[i]);
                     Adapters[nAdapterCount].Address += temp;
                 }
             }
@@ -69,7 +69,7 @@ BOOL CPacket::init()
     }
     else
     {
-        AfxMessageBox(_T("could not obtain info about adapters!"));
+        AfxMessageBox(L"could not obtain info about adapters!");
     }
     delete pAdInfo;
 
@@ -173,7 +173,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
     //check if given Adapter is available
     if (i>=nAdapterCount)
     {
-        AfxMessageBox(_T("no valid adapter found!"));
+        AfxMessageBox(L"no valid adapter found!");
         return FALSE;                       //invalid adapter number or not initialized yet
     }
     nActiveAdapter = i;                     //save the number of the selected adapter
@@ -181,7 +181,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
     // list all available adapters
     if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
     {
-        if (AfxMessageBox(_T("Failed to connect to the NPF service!\nThis may be because the service is not running yet.\nDo you want to start the service?"), MB_ICONQUESTION | MB_YESNO) == IDYES)
+        if (AfxMessageBox(L"Failed to connect to the NPF service!\nThis may be because the service is not running yet.\nDo you want to start the service?", MB_ICONQUESTION | MB_YESNO) == IDYES)
         {
             // maybe the npf service isn't running yet
             // start our own exe with elevated privileges to get the service started
@@ -195,9 +195,9 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
                 TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
                 TempInfo.fMask = 0;
                 TempInfo.hwnd = NULL;
-                TempInfo.lpVerb = _T("runas");
+                TempInfo.lpVerb = L"runas";
                 TempInfo.lpFile = szFilePath;
-                TempInfo.lpParameters = _T("/initwpcap");
+                TempInfo.lpParameters = L"/initwpcap";
                 TempInfo.lpDirectory = NULL;
                 TempInfo.nShow = SW_NORMAL;
                 ::ShellExecuteEx(&TempInfo);
@@ -255,7 +255,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
                                                         errbuf            // error buffer
                                                         ) ) == NULL)
     {
-        AfxMessageBox(_T("Unable to open the adapter."));
+        AfxMessageBox(L"Unable to open the adapter.");
         // Free the device list
         pcap_freealldevs(alldevs);
         return FALSE;
@@ -272,21 +272,21 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
     netmask=0;
     if (pcap_compile(Adapters[nActiveAdapter].pAdapter, &fcode, "ip or ip6", 1, netmask) < 0)
     {
-        AfxMessageBox(_T("Unable to compile the packet filter. Check the syntax."));
+        AfxMessageBox(L"Unable to compile the packet filter. Check the syntax.");
         pcap_freealldevs(alldevs);
         return FALSE;
     }
 
     if (pcap_setfilter(Adapters[nActiveAdapter].pAdapter, &fcode) < 0)
     {
-        AfxMessageBox(_T("Error setting the filter."));
+        AfxMessageBox(L"Error setting the filter.");
         pcap_freealldevs(alldevs);
         return FALSE;
     }
 
     if (pcap_datalink(Adapters[nActiveAdapter].pAdapter) != DLT_EN10MB)
     {
-        AfxMessageBox(_T("This program works only on Ethernet networks."));
+        AfxMessageBox(L"This program works only on Ethernet networks.");
         pcap_freealldevs(alldevs);
         return FALSE;
     }

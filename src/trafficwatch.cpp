@@ -77,12 +77,12 @@ BOOL CTrafficwatchApp::InitInstance()
     WSADATA WinsockData;
     if( WSAStartup(MAKEWORD(2,2), &WinsockData) != 0)
     {
-        AfxMessageBox(_T("This program requires Winsock 2.x"), MB_ICONHAND );
+        AfxMessageBox(L"This program requires Winsock 2.x", MB_ICONHAND );
         return FALSE;   //quit program
     }
 
     CCmdLineParser parser(AfxGetApp()->m_lpCmdLine);
-    if (parser.HasKey(_T("initwpcap")))
+    if (parser.HasKey(L"initwpcap"))
     {
         // list all available adapters (this starts the NPF service which is what we want)
         if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
@@ -93,7 +93,7 @@ BOOL CTrafficwatchApp::InitInstance()
         pcap_freealldevs(alldevs);
         return FALSE;
     }
-    if (parser.HasKey(_T("wpcapautostart")))
+    if (parser.HasKey(L"wpcapautostart"))
     {
         // list all available adapters (this starts the NPF service which is what we want)
         if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
@@ -103,7 +103,7 @@ BOOL CTrafficwatchApp::InitInstance()
         }
         pcap_freealldevs(alldevs);
         // now set the service to autostart
-        CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
+        CRegDWORD regService = CRegDWORD(L"SYSTEM\\CurrentControlSet\\Services\\NPF\\Start", 0, 0, HKEY_LOCAL_MACHINE);
         regService = 2; // SERVICE_AUTO_START (for SERVICE_SYSTEM_START, use a value of 1)
         return FALSE;
     }
@@ -139,7 +139,7 @@ BOOL CTrafficwatchApp::InitInstance()
 
     if (m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, M_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
     {
-        AfxMessageBox( _T("could not create window"), MB_OK | MB_ICONHAND );
+        AfxMessageBox(L"could not create window", MB_OK | MB_ICONHAND );
         return FALSE;   //quit program
     }
 

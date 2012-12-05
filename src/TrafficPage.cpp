@@ -32,18 +32,19 @@ static char THIS_FILE[] = __FILE__;
 
 IMPLEMENT_DYNCREATE(CTrafficPage, CPropertyPage)
 
-CTrafficPage::CTrafficPage() : CPropertyPage(CTrafficPage::IDD)
+CTrafficPage::CTrafficPage()
+    : CPropertyPage(CTrafficPage::IDD)
+    , m_dlLANSpeed(L"")
+    , m_ulLANSpeed(L"")
+    , m_connections(L"")
+    , m_dlByteSpeed(L"")
+    , m_gateway(L"")
+    , m_ip(L"")
+    , m_mask(L"")
+    , m_ulByteSpeed(L"")
+    , m_adaptDesc(L"")
+    , m_macaddress(L"")
 {
-    m_dlLANSpeed = _T("");
-    m_ulLANSpeed = _T("");
-    m_connections = _T("");
-    m_dlByteSpeed = _T("");
-    m_gateway = _T("");
-    m_ip = _T("");
-    m_mask = _T("");
-    m_ulByteSpeed = _T("");
-    m_adaptDesc = _T("");
-    m_macaddress = _T("");
 }
 
 CTrafficPage::~CTrafficPage()
@@ -153,29 +154,29 @@ void CTrafficPage::OnTimer(UINT_PTR nIDEvent)
             DWORD dlLANSpeed = (DWORD)m_receivedLANFilter.Filter(dwTicks, m_pTheApp->m_wnd.m_ipStat.GetTotalReceivedLAN());
 
 
-            m_dl_bar.SetText(CUtil::GetNumberString(dlSpeed)+"/s");
-            m_ul_bar.SetText(CUtil::GetNumberString(ulSpeed)+"/s");
+            m_dl_bar.SetText(CUtil::GetNumberString(dlSpeed)+L"/s");
+            m_ul_bar.SetText(CUtil::GetNumberString(ulSpeed)+L"/s");
 
             m_dl_bar.SetPos(dlSpeed ? (int)sqrt(dlSpeed/1000.0) : 0);       //range is in kbytes/s, not bytes/s!
             m_ul_bar.SetPos(ulSpeed ? (int)sqrt(ulSpeed/1000.0) : 0);
 
 
-            m_dl_barlan.SetText(CUtil::GetNumberString(dlLANSpeed)+"/s");
-            m_ul_barlan.SetText(CUtil::GetNumberString(ulLANSpeed)+"/s");
+            m_dl_barlan.SetText(CUtil::GetNumberString(dlLANSpeed)+L"/s");
+            m_ul_barlan.SetText(CUtil::GetNumberString(ulLANSpeed)+L"/s");
 
             m_dl_barlan.SetPos(dlLANSpeed ? (int)sqrt(dlLANSpeed/1000.0) : 0);
             m_ul_barlan.SetPos(ulLANSpeed ? (int)sqrt(ulLANSpeed/1000.0) : 0);
 
 
-            m_dlByteSpeed = CUtil::GetNumberString(dlSpeed)+"/s";
-            m_ulByteSpeed = CUtil::GetNumberString(ulSpeed)+"/s";
-            m_dlLANSpeed = CUtil::GetNumberString(dlLANSpeed)+"/s";
-            m_ulLANSpeed = CUtil::GetNumberString(ulLANSpeed)+"/s";
+            m_dlByteSpeed = CUtil::GetNumberString(dlSpeed)+L"/s";
+            m_ulByteSpeed = CUtil::GetNumberString(ulSpeed)+L"/s";
+            m_dlLANSpeed = CUtil::GetNumberString(dlLANSpeed)+L"/s";
+            m_ulLANSpeed = CUtil::GetNumberString(ulLANSpeed)+L"/s";
 
 
             GetTcpStatistics(&m_tcpstats);
 
-            m_connections.Format(_T("%d"), m_tcpstats.dwCurrEstab);
+            m_connections.Format(L"%d", m_tcpstats.dwCurrEstab);
 
             UpdateData(FALSE);
         }

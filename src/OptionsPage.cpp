@@ -74,13 +74,13 @@ void COptionsPage::OnAutostartCheck()
 
 BOOL COptionsPage::OnSetActive()
 {
-    CRegString regRun = CRegString(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch"));
+    CRegString regRun = CRegString(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch");
     m_autostart = !CString(regRun).IsEmpty();
 
-    m_dlSpeed = GetRegValue("dlSpeed");
-    m_ulSpeed = GetRegValue("ulSpeed");
-    m_dlSpeedLAN = GetRegValue("dlSpeedlan");
-    m_ulSpeedLAN = GetRegValue("ulSpeedlan");
+    m_dlSpeed    = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlspeed");
+    m_ulSpeed    = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulspeed");
+    m_dlSpeedLAN = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlSpeedlan");
+    m_ulSpeedLAN = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulSpeedlan");
 
     m_showbits = CUtil::IsBits();
     m_showiec = CUtil::IsIEC();
@@ -109,7 +109,7 @@ BOOL COptionsPage::OnKillActive()
     TRACE("m_dlSpeedLAN = %d\n", m_dlSpeedLAN);
     TRACE("m_ulSpeedLAN = %d\n", m_ulSpeedLAN);
 
-    CRegString regRun = CRegString(_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch"));
+    CRegString regRun = CRegString(L"Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrafficWatch");
     if (m_autostart)
     {
         TCHAR szFilePath[512];
@@ -119,10 +119,10 @@ BOOL COptionsPage::OnKillActive()
         {
             regRun = szFilePath;
 
-            CRegDWORD regService = CRegDWORD(_T("SYSTEM\\CurrentControlSet\\Services\\NPF\\Start"), 0, 0, HKEY_LOCAL_MACHINE);
+            CRegDWORD regService = CRegDWORD(L"SYSTEM\\CurrentControlSet\\Services\\NPF\\Start", 0, 0, HKEY_LOCAL_MACHINE);
             if (DWORD(regService) == 3)
             {
-                int ret = AfxMessageBox(_T("To start TrafficWatcher automatically, it is recommended\nto also start the NPF service automatically.\nDo you want to set the NPF service to start automatically?"), MB_ICONQUESTION|MB_YESNOCANCEL);
+                int ret = AfxMessageBox(L"To start TrafficWatcher automatically, it is recommended\nto also start the NPF service automatically.\nDo you want to set the NPF service to start automatically?", MB_ICONQUESTION|MB_YESNOCANCEL);
                 if (ret == IDYES)
                 {
                     OSVERSIONINFO osinfo = {0};
@@ -135,9 +135,9 @@ BOOL COptionsPage::OnKillActive()
                         TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
                         TempInfo.fMask = 0;
                         TempInfo.hwnd = NULL;
-                        TempInfo.lpVerb = _T("runas");
+                        TempInfo.lpVerb = L"runas";
                         TempInfo.lpFile = szFilePath;
-                        TempInfo.lpParameters = _T("/wpcapautostart");
+                        TempInfo.lpParameters = L"/wpcapautostart";
                         TempInfo.lpDirectory = NULL;
                         TempInfo.nShow = SW_NORMAL;
                         ::ShellExecuteEx(&TempInfo);
@@ -156,37 +156,21 @@ BOOL COptionsPage::OnKillActive()
         regRun.removeValue();
     }
 
-    HKEY hKey;
-    LONG lnRes;
-    CString key;
-    key = _T("SOFTWARE\\");
-    key += LPCTSTR( M_APPNAME );
-    DWORD value, valuesize;
-    valuesize = sizeof(value);
-    lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
-    if (lnRes == ERROR_SUCCESS)
+    CRegDWORD regDlspeed(L"SOFTWARE\\" M_APPNAME L"\\dlspeed");
+    regDlspeed = m_dlSpeed;
+    CRegDWORD regUlspeed(L"SOFTWARE\\" M_APPNAME L"\\ulspeed");
+    regUlspeed = m_ulSpeed;
+    CRegDWORD regDlspeedLAN(L"SOFTWARE\\" M_APPNAME L"\\dlspeedlan");
+    regDlspeedLAN = m_dlSpeedLAN;
+    CRegDWORD regUlspeedLAN(L"SOFTWARE\\" M_APPNAME L"\\ulspeedlan");
+    regUlspeedLAN = m_ulSpeedLAN;
+
+    int value = m_cAdapter.GetCurSel();
+    if (value != CB_ERR)
     {
-        value = m_dlSpeed;
-        valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, _T("dlSpeed"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
-        value = m_ulSpeed;
-        valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, _T("ulSpeed"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
-
-        value = m_dlSpeedLAN;
-        valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, _T("dlSpeedlan"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
-        value = m_ulSpeedLAN;
-        valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, _T("ulSpeedlan"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
-
-        value = m_cAdapter.GetCurSel();
-        if (value != CB_ERR)
-        {
-            CString adapterDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription(value);
-            RegSetValueEx(hKey, _T("adapter"), 0, REG_SZ, (unsigned char *)(LPCTSTR)adapterDesc, adapterDesc.GetLength());
-        }
-        RegCloseKey(hKey);
+        CString adapterDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription(value);
+        CRegString regAdapter(L"SOFTWARE\\" M_APPNAME L"\\adapter");
+        regAdapter = adapterDesc;
     }
     if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() != m_cAdapter.GetCurSel())
     {
@@ -195,7 +179,7 @@ BOOL COptionsPage::OnKillActive()
         int cursel = m_cAdapter.GetCurSel();
         if ((cursel!=CB_ERR)&&(m_pTheApp->m_wnd.m_ipStat.init(cursel) == FALSE))
         {
-            AfxMessageBox(_T("could not open Adapter!"));
+            AfxMessageBox(L"could not open Adapter!");
         }
     }
 
@@ -206,33 +190,10 @@ BOOL COptionsPage::OnKillActive()
 }
 
 
-DWORD   COptionsPage::GetRegValue(CString entry)
-{
-    HKEY hKey;
-    LONG lnRes;
-    CString key;
-    key = _T("SOFTWARE\\");
-    key += LPCTSTR( M_APPNAME );
-    lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-    if (lnRes == ERROR_SUCCESS)
-    {
-        DWORD value, valuesize;
-        ULONG type;
-        valuesize = sizeof(value);
-        if (RegQueryValueEx(hKey, entry, 0, &type, (unsigned char *)&value, &valuesize) == ERROR_SUCCESS)
-        {
-            RegCloseKey(hKey);
-            return value;
-        }
-    }
-    RegCloseKey(hKey);
-    return 0;
-}
-
 DWORD   COptionsPage::GetUploadSpeed()
 {
     DWORD temp;
-    temp = GetRegValue(_T("ulSpeed"));
+    temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulspeed");
     switch ((int)temp)
     {
     case 0:
@@ -258,7 +219,7 @@ DWORD   COptionsPage::GetUploadSpeed()
 DWORD   COptionsPage::GetDownloadSpeed()
 {
     DWORD temp;
-    temp = GetRegValue(_T("dlSpeed"));
+    temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlspeed");
     switch ((int)temp)
     {
     case 0:
@@ -284,7 +245,7 @@ DWORD   COptionsPage::GetDownloadSpeed()
 DWORD   COptionsPage::GetUploadSpeedLAN()
 {
     DWORD temp;
-    temp = GetRegValue(_T("ulSpeedlan"));
+    temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulspeedlan");
     switch ((int)temp)
     {
     case 0:
@@ -310,7 +271,7 @@ DWORD   COptionsPage::GetUploadSpeedLAN()
 DWORD   COptionsPage::GetDownloadSpeedLAN()
 {
     DWORD temp;
-    temp = GetRegValue(_T("dlSpeedlan"));
+    temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlspeedlan");
     switch ((int)temp)
     {
     case 0:

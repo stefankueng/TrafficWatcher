@@ -31,7 +31,7 @@
 IMPLEMENT_DYNAMIC(CAboutPage, CPropertyPage)
 CAboutPage::CAboutPage()
     : CPropertyPage(CAboutPage::IDD)
-    , m_VersionString(_T(""))
+    , m_VersionString(L"")
 {
 }
 

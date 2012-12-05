@@ -462,13 +462,13 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 
     if (bVertical)
     {
-        m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, _T("Courier New"));
+        m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, L"Courier New");
         x = rect.left;
         y = (rect.Height()-(pDC->GetTextExtent(m_text)).cy)/2 + (pDC->GetTextExtent(m_text)).cy;
     }
     else
     {
-        m_fontText.CreateFont(rect.Width(), 0, 0, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, _T("Courier New"));
+        m_fontText.CreateFont(rect.Width(), 0, 0, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, L"Courier New");
         x = (rect.Width()-(pDC->GetTextExtent(m_text)).cx)/2 + (pDC->GetTextExtent(m_text)).cx;
         y = rect.top;
     }
