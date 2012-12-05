@@ -57,7 +57,7 @@ BOOL CAboutPage::OnInitDialog()
 
     m_VersionString.Format(_T("Version %d.%d.%d.%d"), VER_MAJOR, VER_MINOR, VER_MICRO, VER_REVISION);
     m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_WEBLINK, _T("http://tools.tortoisesvn.net"));
-    m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_SOURCECODELINK, _T("http://code.google.com/p/trafficwatcher/source/browse"));
+    m_sourceLink.ConvertStaticToHyperlink(m_hWnd, IDC_SOURCECODELINK, _T("http://code.google.com/p/trafficwatcher/source/browse"));
 
     UpdateData(FALSE);
 
