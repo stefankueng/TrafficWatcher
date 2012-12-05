@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -33,6 +33,8 @@ static char THIS_FILE[] = __FILE__;
 
 CTrafficView::CTrafficView(CWnd* pParent /*=NULL*/)
     : CDialog(CTrafficView::IDD, pParent)
+    , m_nYOffset(50)
+    , m_nXOffset(100)
 {
 }
 
@@ -194,7 +196,7 @@ void CTrafficView::LoadWindowPosition(CRect *rc)
     HKEY hKey;
     LONG lnRes;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
     if (lnRes == ERROR_SUCCESS)
@@ -202,7 +204,7 @@ void CTrafficView::LoadWindowPosition(CRect *rc)
         DWORD valuesize;
         ULONG type;
         valuesize = sizeof(CRect);
-        RegQueryValueEx(hKey, "viewpos", 0, &type, (unsigned char *)rc, &valuesize);
+        RegQueryValueEx(hKey, _T("viewpos"), 0, &type, (unsigned char *)rc, &valuesize);
     }
     RegCloseKey(hKey);
 }
@@ -211,7 +213,7 @@ void CTrafficView::SaveWindowPosition(CRect *rc)
 {
     HKEY hKey;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     DWORD value, valuesize;
     valuesize = sizeof(value);
@@ -219,7 +221,7 @@ void CTrafficView::SaveWindowPosition(CRect *rc)
     if (lnRes == ERROR_SUCCESS)
     {
         valuesize = sizeof(CRect);
-        RegSetValueEx(hKey, "viewpos", 0, REG_BINARY, (unsigned char *)rc, valuesize);
+        RegSetValueEx(hKey, _T("viewpos"), 0, REG_BINARY, (unsigned char *)rc, valuesize);
     }
     RegCloseKey(hKey);
 }

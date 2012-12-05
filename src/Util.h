@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -18,6 +18,7 @@
 //
 
 #pragma once
+#include "Registry.h"
 
 /**
  * CUtil.
@@ -71,41 +72,41 @@ public:
 
         if (value < 1000)
         {
-            temp.Format("%.2f ", value);
+            temp.Format(L"%.2f ", value);
             return temp+b;
         }
         value /= 1000;
         if (value < 1000)
         {
-            temp.Format("%.2f k", value);
+            temp.Format(L"%.2f k", value);
             return temp+b;
         }
         value /= 1000;
         if (value < 1000)
         {
-            temp.Format("%.2f M", value);
+            temp.Format(L"%.2f M", value);
             return temp+b;
         }
         value /= 1000;
         if (value < 1000)
         {
-            temp.Format("%.2f G", value);
+            temp.Format(L"%.2f G", value);
             return temp+b;
         }
         value /= 1000;
         if (value < 1000)
         {
-            temp.Format("%.2f T", value);
+            temp.Format(L"%.2f T", value);
             return temp+b;
         }
         value /= 1000;
         if (value < 1000)
         {
-            temp.Format("%.2f P", value);
+            temp.Format(L"%.2f P", value);
             return temp+b;
         }
         value /= 1000;
-        temp.Format("%.2f E", value);
+        temp.Format(L"%.2f E", value);
         return temp+b;
     }
     static CString  GetNumberStringSI(double value) {return GetNumberStringSI( (float)value );};
@@ -129,49 +130,49 @@ public:
         CString b;
         if (IsBits())
         {
-            b = "Bits";
+            b = L"Bits";
             value *= 8;
         }
         else
-            b = "Bytes";
+            b = L"Bytes";
 
         if (value < 1024)
         {
-            temp.Format("%.2f ", value);
+            temp.Format(L"%.2f ", value);
             return temp+b;
         }
         value /= 1024;
         if (value < 1024)
         {
-            temp.Format("%.2f Ki", value);
+            temp.Format(L"%.2f Ki", value);
             return temp+b;
         }
         value /= 1024;
         if (value < 1024)
         {
-            temp.Format("%.2f Me", value);
+            temp.Format(L"%.2f Me", value);
             return temp+b;
         }
         value /= 1024;
         if (value < 1024)
         {
-            temp.Format("%.2f Gi", value);
+            temp.Format(L"%.2f Gi", value);
             return temp+b;
         }
         value /= 1024;
         if (value < 1024)
         {
-            temp.Format("%.2f Ti", value);
+            temp.Format(L"%.2f Ti", value);
             return temp+b;
         }
         value /= 1024;
         if (value < 1024)
         {
-            temp.Format("%.2f Pi", value);
+            temp.Format(L"%.2f Pi", value);
             return temp+b;
         }
         value /= 1024;
-        temp.Format("%.2f Ei", value);
+        temp.Format(L"%.2f Ei", value);
         return temp+b;
     }
     static CString  GetNumberStringIEC(double value) {return GetNumberStringIEC( (float)value );};
@@ -180,6 +181,8 @@ public:
     static CString  GetNumberStringIEC(SHORT value) {return GetNumberStringIEC( (float)value );};
     static CString  GetNumberStringIEC(int value) {return GetNumberStringIEC( (float)value );};
 
+    static CRegDWORD regbits;
+    static CRegDWORD regiec;
 
 
     /**
@@ -189,22 +192,7 @@ public:
      */
     static BOOL IsBits()
     {
-        HKEY hKey;
-        LONG lnRes;
-        CString key;
-        BOOL bits = FALSE;
-        key = "SOFTWARE\\";
-        key += LPCTSTR( M_APPNAME );
-        lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-        if (lnRes == ERROR_SUCCESS)
-        {
-            DWORD valuesize;
-            ULONG type;
-            valuesize = sizeof(BOOL);
-            RegQueryValueEx(hKey, "bits", 0, &type, (unsigned char *)&bits, &valuesize);
-        }
-        RegCloseKey(hKey);
-        return bits;
+        return DWORD(regbits);
     }
 
     /**
@@ -214,22 +202,7 @@ public:
      */
     static BOOL IsIEC()
     {
-        HKEY hKey;
-        LONG lnRes;
-        CString key;
-        BOOL iec = FALSE;
-        key = "SOFTWARE\\";
-        key += LPCTSTR( M_APPNAME );
-        lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-        if (lnRes == ERROR_SUCCESS)
-        {
-            DWORD valuesize;
-            ULONG type;
-            valuesize = sizeof(BOOL);
-            RegQueryValueEx(hKey, "iec", 0, &type, (unsigned char *)&iec, &valuesize);
-        }
-        RegCloseKey(hKey);
-        return iec;
+        return DWORD(regiec);
     }
 
 
@@ -240,20 +213,7 @@ public:
      */
     static void SetBits(BOOL b)
     {
-        HKEY hKey;
-        LONG lnRes;
-        CString key;
-        DWORD value;
-        key = "SOFTWARE\\";
-        key += LPCTSTR( M_APPNAME );
-        lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
-        if (lnRes == ERROR_SUCCESS)
-        {
-            DWORD valuesize;
-            valuesize = sizeof(BOOL);
-            RegSetValueEx(hKey, "bits", 0, REG_DWORD, (unsigned char *)&b, valuesize);
-        }
-        RegCloseKey(hKey);
+        regbits = b;
     }
 
 
@@ -264,20 +224,7 @@ public:
      */
     static void SetIEC(BOOL b)
     {
-        HKEY hKey;
-        LONG lnRes;
-        CString key;
-        DWORD value;
-        key = "SOFTWARE\\";
-        key += LPCTSTR( M_APPNAME );
-        lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
-        if (lnRes == ERROR_SUCCESS)
-        {
-            DWORD valuesize;
-            valuesize = sizeof(BOOL);
-            RegSetValueEx(hKey, "iec", 0, REG_DWORD, (unsigned char *)&b, valuesize);
-        }
-        RegCloseKey(hKey);
+        regiec = b;
     }
 
 #define COLOR_WHITE RGB(255,255,255)
@@ -448,3 +395,4 @@ private:
     }
 
 };
+

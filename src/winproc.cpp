@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -30,15 +30,17 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
+UINT TaskbarCallbackMsg = RegisterWindowMessage(_T("NPSTaskbarMsg"));
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CWinproc
 
 CWinproc::CWinproc()
+    : m_TaskBarIcon(0)
+    , m_pDialog(NULL)
+    , m_pTView(NULL)
 {
-    m_TaskBarIcon = 0;
     ZeroMemory( &m_TaskBarIconInfo, sizeof( m_TaskBarIconInfo ) );
     ZeroMemory( &m_SystemTray, sizeof( m_SystemTray ) );
     m_bView = TRUE;
@@ -84,7 +86,7 @@ void CWinproc::StartUp( )
     HKEY hKey;
     LONG lnRes;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
     if (lnRes == ERROR_SUCCESS)
@@ -93,7 +95,7 @@ void CWinproc::StartUp( )
         ULONG type;
         TCHAR buf[4096] = {0};
         valuesize = 4095;
-        if (!RegQueryValueEx(hKey, "adapter", 0, &type, (unsigned char *)buf, &valuesize) == ERROR_SUCCESS)
+        if (!RegQueryValueEx(hKey, _T("adapter"), 0, &type, (unsigned char *)buf, &valuesize) == ERROR_SUCCESS)
             value = (DWORD)-1;
         else
         {
@@ -111,7 +113,7 @@ void CWinproc::StartUp( )
         }
         if (m_ipStat.init(value) == FALSE)
         {
-            AfxMessageBox("failed to initialize network adapter!", MB_ICONHAND );
+            AfxMessageBox(_T("failed to initialize network adapter!"), MB_ICONHAND );
         }
     }
     RegCloseKey(hKey);
@@ -138,7 +140,7 @@ void CWinproc::StartUp( )
     m_SystemTray.uFlags = NIF_MESSAGE | NIF_ICON;
     m_SystemTray.uCallbackMessage = TaskbarCallbackMsg;
     if( !Shell_NotifyIcon(NIM_ADD, &m_SystemTray ) )
-        AfxMessageBox("System tray error.");
+        AfxMessageBox(_T("System tray error."));
     SetTimer(IDT_STATISTICS, 1000, NULL);
 }
 
@@ -197,14 +199,14 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
         {
             CString s,sRecvBPS,sRecvAVE;
 
-            s = "Internet-Upload: "+CUtil::GetNumberString(ulSpeed)+"/s\nInternet-Download: "+CUtil::GetNumberString(dlSpeed)+"/s\n"
-                +"LAN-Upload: "+CUtil::GetNumberString(ulSpeedLAN)+"/s\nLAN-Download: "+CUtil::GetNumberString(dlSpeedLAN)+"/s";
+            s = _T("Internet-Upload: ") + CUtil::GetNumberString(ulSpeed) + _T("/s\nInternet-Download: ") + CUtil::GetNumberString(dlSpeed) + _T("/s\n")
+                + _T("LAN-Upload: ") + CUtil::GetNumberString(ulSpeedLAN) + _T("/s\nLAN-Download: ") + CUtil::GetNumberString(dlSpeedLAN) + _T("/s");
 
             m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
             m_SystemTray.hWnd   = GetSafeHwnd( );
             m_SystemTray.uID    = 1;
             m_SystemTray.uFlags = NIF_TIP;
-            strncpy_s( m_SystemTray.szTip, sizeof( m_SystemTray.szTip ), s, sizeof( m_SystemTray.szTip ) );
+            wcsncpy_s( m_SystemTray.szTip, sizeof( m_SystemTray.szTip ), s, sizeof( m_SystemTray.szTip ) );
             Shell_NotifyIcon( NIM_MODIFY, &m_SystemTray );
         }
         break;
@@ -222,11 +224,11 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
             CMenu menu;
             menu.CreatePopupMenu();
             if (m_pTView)
-                menu.AppendMenu(MF_STRING | MF_CHECKED, ID_SHOWONTOP, "View");
+                menu.AppendMenu(MF_STRING | MF_CHECKED, ID_SHOWONTOP, L"View");
             else
-                menu.AppendMenu(MF_STRING, ID_SHOWONTOP, "View");
-            menu.AppendMenu(MF_STRING,ID_SHOWDIALOG,"Open");
-            menu.AppendMenu(MF_STRING,ID_CLOSE,"Exit");
+                menu.AppendMenu(MF_STRING, ID_SHOWONTOP, L"View");
+            menu.AppendMenu(MF_STRING,ID_SHOWDIALOG, L"Open");
+            menu.AppendMenu(MF_STRING,ID_CLOSE, L"Exit");
             menu.SetDefaultItem(ID_SHOWDIALOG, FALSE);
 
             SetForegroundWindow( );

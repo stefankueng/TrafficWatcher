@@ -72,6 +72,12 @@
     <ClCompile Include="..\sktoolslib\hyperlink.cpp">
       <Filter>sktoolslib</Filter>
     </ClCompile>
+    <ClCompile Include="..\sktoolslib\UnicodeUtils.cpp">
+      <Filter>sktoolslib</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutPage.h">
@@ -135,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\sktoolslib\hyperlink.h">
+      <Filter>sktoolslib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sktoolslib\UnicodeUtils.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
   </ItemGroup>
