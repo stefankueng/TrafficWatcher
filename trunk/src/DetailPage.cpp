@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -36,11 +36,11 @@ CDetailPage::CDetailPage() : CPropertyPage(CDetailPage::IDD)
 {
     for (int i=0; i<LASTSERVICE; i++)
     {
-        m_dlData[i] = _T("");
-        m_ulData[i] = _T("");
-        m_dlSpeed[i] = _T("");
-        m_ulSpeed[i] = _T("");
-        m_totalData[i] = _T("");
+        m_dlData[i]     = "";
+        m_ulData[i]     = "";
+        m_dlSpeed[i]    = "";
+        m_ulSpeed[i]    = "";
+        m_totalData[i]  = "";
     }
 }
 

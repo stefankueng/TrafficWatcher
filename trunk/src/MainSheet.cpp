@@ -101,7 +101,7 @@ BOOL CMainSheet::OnInitDialog()
     GetDlgItem( IDCANCEL )->ShowWindow( FALSE );
 
 
-    m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, _T("Arial"));
+    m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, L"Arial");
 
 
     HICON m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -139,37 +139,14 @@ BOOL CMainSheet::OnInitDialog()
 
 void CMainSheet::LoadWindowPosition(CRect *rc)
 {
-    HKEY hKey;
-    LONG lnRes;
-    CString key;
-    key = _T("SOFTWARE\\");
-    key += LPCTSTR( M_APPNAME );
-    lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-    if (lnRes == ERROR_SUCCESS)
-    {
-        DWORD valuesize;
-        ULONG type;
-        valuesize = sizeof(CRect);
-        RegQueryValueEx(hKey, _T("windowpos"), 0, &type, (unsigned char *)rc, &valuesize);
-    }
-    RegCloseKey(hKey);
+    CRegRect regRect(L"SOFTWARE\\" M_APPNAME L"\\windowpos", *rc);
+    *rc = regRect;
 }
 
 void CMainSheet::SaveWindowPosition(CRect *rc)
 {
-    HKEY hKey;
-    CString key;
-    key = _T("SOFTWARE\\");
-    key += LPCTSTR( M_APPNAME );
-    DWORD value, valuesize;
-    valuesize = sizeof(value);
-    LONG lnRes = RegCreateKeyEx(HKEY_CURRENT_USER, key, 0L, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &value);
-    if (lnRes == ERROR_SUCCESS)
-    {
-        valuesize = sizeof(CRect);
-        RegSetValueEx(hKey, _T("windowpos"), 0, REG_BINARY, (unsigned char *)rc, valuesize);
-    }
-    RegCloseKey(hKey);
+    CRegRect regRect(L"SOFTWARE\\" M_APPNAME L"\\windowpos", *rc);
+    regRect = *rc;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 //

@@ -30,7 +30,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-UINT TaskbarCallbackMsg = RegisterWindowMessage(_T("NPSTaskbarMsg"));
+UINT TaskbarCallbackMsg = RegisterWindowMessage(L"NPSTaskbarMsg");
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,42 +82,25 @@ END_MESSAGE_MAP()
 // initializes SNMP and the system tray icon
 void CWinproc::StartUp( )
 {
-
-    HKEY hKey;
-    LONG lnRes;
-    CString key;
-    key = _T("SOFTWARE\\");
-    key += LPCTSTR( M_APPNAME );
-    lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
-    if (lnRes == ERROR_SUCCESS)
+    CRegString regAdapter(L"SOFTWARE\\" M_APPNAME L"\\adapter");
+    CString sAdapter = regAdapter;
+    if (!sAdapter.IsEmpty())
     {
-        DWORD value, valuesize;
-        ULONG type;
-        TCHAR buf[4096] = {0};
-        valuesize = 4095;
-        if (!RegQueryValueEx(hKey, _T("adapter"), 0, &type, (unsigned char *)buf, &valuesize) == ERROR_SUCCESS)
-            value = (DWORD)-1;
-        else
+        DWORD value = (DWORD)-1;
+        m_ipStat.init(value);
+        for (int i=0; i<m_ipStat.GetNumberOfAdapters(); i++)
         {
-            value = (DWORD)-1;
-            m_ipStat.init(value);
-            for (int i=0; i<m_ipStat.GetNumberOfAdapters(); i++)
+            if (m_ipStat.GetDescription(i).Compare(sAdapter) == 0)
             {
-                if (m_ipStat.GetDescription(i).Compare(buf) == 0)
-                {
-                    value = i;
-                    break;
-                }
+                value = i;
+                break;
             }
-
         }
         if (m_ipStat.init(value) == FALSE)
         {
-            AfxMessageBox(_T("failed to initialize network adapter!"), MB_ICONHAND );
+            AfxMessageBox(L"failed to initialize network adapter!", MB_ICONHAND );
         }
     }
-    RegCloseKey(hKey);
-
 
     DWORD dwTicks = GetTickCount();
 
@@ -131,8 +114,6 @@ void CWinproc::StartUp( )
     HICON hIcon;
     hIcon = m_AppIcon;
 
-
-
     m_SystemTray.cbSize = sizeof( NOTIFYICONDATA );
     m_SystemTray.hWnd   = GetSafeHwnd( );
     m_SystemTray.uID    = 1;
@@ -140,7 +121,7 @@ void CWinproc::StartUp( )
     m_SystemTray.uFlags = NIF_MESSAGE | NIF_ICON;
     m_SystemTray.uCallbackMessage = TaskbarCallbackMsg;
     if( !Shell_NotifyIcon(NIM_ADD, &m_SystemTray ) )
-        AfxMessageBox(_T("System tray error."));
+        AfxMessageBox(L"System tray error.");
     SetTimer(IDT_STATISTICS, 1000, NULL);
 }
 
@@ -199,8 +180,8 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
         {
             CString s,sRecvBPS,sRecvAVE;
 
-            s = _T("Internet-Upload: ") + CUtil::GetNumberString(ulSpeed) + _T("/s\nInternet-Download: ") + CUtil::GetNumberString(dlSpeed) + _T("/s\n")
-                + _T("LAN-Upload: ") + CUtil::GetNumberString(ulSpeedLAN) + _T("/s\nLAN-Download: ") + CUtil::GetNumberString(dlSpeedLAN) + _T("/s");
+            s = L"Internet-Upload: " + CUtil::GetNumberString(ulSpeed) + L"/s\nInternet-Download: " + CUtil::GetNumberString(dlSpeed) + L"/s\n"
+                + L"LAN-Upload: " + CUtil::GetNumberString(ulSpeedLAN) + L"/s\nLAN-Download: " + CUtil::GetNumberString(dlSpeedLAN) + L"/s";
 
             m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
             m_SystemTray.hWnd   = GetSafeHwnd( );
