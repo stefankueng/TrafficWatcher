@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -175,7 +175,7 @@ void CTrafficPage::OnTimer(UINT_PTR nIDEvent)
 
             GetTcpStatistics(&m_tcpstats);
 
-            m_connections.Format("%d", m_tcpstats.dwCurrEstab);
+            m_connections.Format(_T("%d"), m_tcpstats.dwCurrEstab);
 
             UpdateData(FALSE);
         }

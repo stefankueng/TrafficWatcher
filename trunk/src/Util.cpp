@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008, 2012 - Stefan Kueng
+// Copyright (C) 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -16,23 +16,10 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+#include "stdafx.h"
+#include "Util.h"
+#include "Globals.h"
 
-#define M_APPNAME       L"Traffic Watcher"
-#define IDT_TRAFFIC     1
+CRegDWORD CUtil::regbits(L"SOFTWARE\\" M_APPNAME L"\\bits");
+CRegDWORD CUtil::regiec(L"SOFTWARE\\" M_APPNAME L"\\iec");
 
-#define ID_SHOWDIALOG   1
-#define ID_CLOSE        2
-#define ID_SHOWONTOP    3
-
-#define COLORDOWN       RGB(255, 0, 0)
-#define COLORUP         RGB(180, 0, 0)
-#define COLORDOWNLAN    RGB(0, 255, 0)
-#define COLORUPLAN      RGB(0, 180, 0)
-
-#define S_WEB           0
-#define S_MAIL          1
-#define S_NEWS          2
-#define S_SHARE         3
-#define S_UDP           4
-#define S_OTHER         5
-#define LASTSERVICE     6

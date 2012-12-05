@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -200,7 +200,7 @@ protected://methods
     BOOL            IsValidIPAdapter(int i);
 
 
-private://methods
+private: //methods
 
     /**
      * reads the packets from the driver. calls AnalyzePackets() for every
@@ -215,7 +215,7 @@ private://methods
     static void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
 
 
-private://members
+private: //members
     /// marks the begin of a received packet
     UCHAR           *packetbegin;
     /// marks the end of a received packet

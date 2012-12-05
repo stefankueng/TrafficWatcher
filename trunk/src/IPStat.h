@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -51,7 +51,7 @@ public:
     BOOL    init(int ind = -1);
     BOOL    close();
 
-private://methods
+private: //methods
 
     /**
      * this method is called from the thread in the base class CPacket whenever a packet
@@ -65,14 +65,12 @@ private://methods
     void        AnalyzePackets(const UCHAR *buffer, const UCHAR *packet);
 
 
-private://members
+private: //members
     CPortStat   m_sent;
     CPortStat   m_received;
 
     CPortStat   m_sentLAN;
     CPortStat   m_receivedLAN;
-
-    int         m_ver;
 
 #pragma pack(1)
 

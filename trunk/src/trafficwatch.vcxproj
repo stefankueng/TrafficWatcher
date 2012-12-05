@@ -25,24 +25,24 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
@@ -189,6 +189,7 @@
     <ClCompile Include="..\sktoolslib\CmdLineParser.cpp" />
     <ClCompile Include="..\sktoolslib\hyperlink.cpp" />
     <ClCompile Include="..\sktoolslib\Registry.cpp" />
+    <ClCompile Include="..\sktoolslib\UnicodeUtils.cpp" />
     <ClCompile Include="AboutPage.cpp" />
     <ClCompile Include="DataBar.cpp" />
     <ClCompile Include="DetailPage.cpp" />
@@ -204,12 +205,14 @@
     <ClCompile Include="TrafficPage.cpp" />
     <ClCompile Include="TrafficView.cpp" />
     <ClCompile Include="trafficwatch.cpp" />
+    <ClCompile Include="Util.cpp" />
     <ClCompile Include="winproc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\sktoolslib\CmdLineParser.h" />
     <ClInclude Include="..\sktoolslib\hyperlink.h" />
     <ClInclude Include="..\sktoolslib\Registry.h" />
+    <ClInclude Include="..\sktoolslib\UnicodeUtils.h" />
     <ClInclude Include="AboutPage.h" />
     <ClInclude Include="DataBar.h" />
     <ClInclude Include="DetailPage.h" />

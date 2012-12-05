@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 #include "trafficwatch.h"
 #include "CmdLineParser.h"
 #include "Registry.h"
-
+#include "UnicodeUtils.h"
 
 //private message for the taskbar
 extern UINT TaskbarCallbackMsg;
@@ -77,7 +77,7 @@ BOOL CTrafficwatchApp::InitInstance()
     WSADATA WinsockData;
     if( WSAStartup(MAKEWORD(2,2), &WinsockData) != 0)
     {
-        AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
+        AfxMessageBox(_T("This program requires Winsock 2.x"), MB_ICONHAND );
         return FALSE;   //quit program
     }
 
@@ -87,7 +87,7 @@ BOOL CTrafficwatchApp::InitInstance()
         // list all available adapters (this starts the NPF service which is what we want)
         if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
         {
-            AfxMessageBox(errbuf);
+            AfxMessageBox(CUnicodeUtils::StdGetUnicode(errbuf).c_str());
             return FALSE;
         }
         pcap_freealldevs(alldevs);
@@ -98,7 +98,7 @@ BOOL CTrafficwatchApp::InitInstance()
         // list all available adapters (this starts the NPF service which is what we want)
         if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, &alldevs, errbuf) == -1)
         {
-            AfxMessageBox(errbuf);
+            AfxMessageBox(CUnicodeUtils::StdGetUnicode(errbuf).c_str());
             return FALSE;
         }
         pcap_freealldevs(alldevs);
@@ -139,7 +139,7 @@ BOOL CTrafficwatchApp::InitInstance()
 
     if (m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, M_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
     {
-        AfxMessageBox( "could not create window", MB_OK | MB_ICONHAND );
+        AfxMessageBox( _T("could not create window"), MB_OK | MB_ICONHAND );
         return FALSE;   //quit program
     }
 

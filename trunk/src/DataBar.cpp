@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -462,13 +462,13 @@ void CDataBar::DrawText(CDC *pDC, const CRect rect)
 
     if (bVertical)
     {
-        m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, "Courier New");
+        m_fontText.CreateFont(rect.Width(), 0, 900, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, _T("Courier New"));
         x = rect.left;
         y = (rect.Height()-(pDC->GetTextExtent(m_text)).cy)/2 + (pDC->GetTextExtent(m_text)).cy;
     }
     else
     {
-        m_fontText.CreateFont(rect.Width(), 0, 0, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, "Courier New");
+        m_fontText.CreateFont(rect.Width(), 0, 0, 0, FW_DONTCARE, false, false,0,0,0,CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,DEFAULT_PITCH, _T("Courier New"));
         x = (rect.Width()-(pDC->GetTextExtent(m_text)).cx)/2 + (pDC->GetTextExtent(m_text)).cx;
         y = rect.top;
     }

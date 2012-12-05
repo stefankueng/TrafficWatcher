@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -159,7 +159,7 @@ BOOL COptionsPage::OnKillActive()
     HKEY hKey;
     LONG lnRes;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     DWORD value, valuesize;
     valuesize = sizeof(value);
@@ -168,23 +168,23 @@ BOOL COptionsPage::OnKillActive()
     {
         value = m_dlSpeed;
         valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, "dlSpeed", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+        RegSetValueEx(hKey, _T("dlSpeed"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
         value = m_ulSpeed;
         valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, "ulSpeed", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+        RegSetValueEx(hKey, _T("ulSpeed"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
 
         value = m_dlSpeedLAN;
         valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, "dlSpeedlan", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+        RegSetValueEx(hKey, _T("dlSpeedlan"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
         value = m_ulSpeedLAN;
         valuesize = sizeof(valuesize);
-        RegSetValueEx(hKey, "ulSpeedlan", 0, REG_DWORD, (unsigned char *)&value, valuesize);
+        RegSetValueEx(hKey, _T("ulSpeedlan"), 0, REG_DWORD, (unsigned char *)&value, valuesize);
 
         value = m_cAdapter.GetCurSel();
         if (value != CB_ERR)
         {
             CString adapterDesc = m_pTheApp->m_wnd.m_ipStat.GetDescription(value);
-            RegSetValueEx(hKey, "adapter", 0, REG_SZ, (unsigned char *)(LPCTSTR)adapterDesc, adapterDesc.GetLength());
+            RegSetValueEx(hKey, _T("adapter"), 0, REG_SZ, (unsigned char *)(LPCTSTR)adapterDesc, adapterDesc.GetLength());
         }
         RegCloseKey(hKey);
     }
@@ -195,7 +195,7 @@ BOOL COptionsPage::OnKillActive()
         int cursel = m_cAdapter.GetCurSel();
         if ((cursel!=CB_ERR)&&(m_pTheApp->m_wnd.m_ipStat.init(cursel) == FALSE))
         {
-            AfxMessageBox("could not open Adapter!");
+            AfxMessageBox(_T("could not open Adapter!"));
         }
     }
 
@@ -211,7 +211,7 @@ DWORD   COptionsPage::GetRegValue(CString entry)
     HKEY hKey;
     LONG lnRes;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
     if (lnRes == ERROR_SUCCESS)
@@ -232,7 +232,7 @@ DWORD   COptionsPage::GetRegValue(CString entry)
 DWORD   COptionsPage::GetUploadSpeed()
 {
     DWORD temp;
-    temp = GetRegValue("ulSpeed");
+    temp = GetRegValue(_T("ulSpeed"));
     switch ((int)temp)
     {
     case 0:
@@ -258,7 +258,7 @@ DWORD   COptionsPage::GetUploadSpeed()
 DWORD   COptionsPage::GetDownloadSpeed()
 {
     DWORD temp;
-    temp = GetRegValue("dlSpeed");
+    temp = GetRegValue(_T("dlSpeed"));
     switch ((int)temp)
     {
     case 0:
@@ -284,7 +284,7 @@ DWORD   COptionsPage::GetDownloadSpeed()
 DWORD   COptionsPage::GetUploadSpeedLAN()
 {
     DWORD temp;
-    temp = GetRegValue("ulSpeedlan");
+    temp = GetRegValue(_T("ulSpeedlan"));
     switch ((int)temp)
     {
     case 0:
@@ -310,7 +310,7 @@ DWORD   COptionsPage::GetUploadSpeedLAN()
 DWORD   COptionsPage::GetDownloadSpeedLAN()
 {
     DWORD temp;
-    temp = GetRegValue("dlSpeedlan");
+    temp = GetRegValue(_T("dlSpeedlan"));
     switch ((int)temp)
     {
     case 0:

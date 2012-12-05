@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -101,7 +101,7 @@ BOOL CMainSheet::OnInitDialog()
     GetDlgItem( IDCANCEL )->ShowWindow( FALSE );
 
 
-    m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, "Arial");
+    m_fontLogo.CreateFont(24, 0, 0, 0, FW_BOLD, true, false,0,0,0,0,0,0, _T("Arial"));
 
 
     HICON m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -142,7 +142,7 @@ void CMainSheet::LoadWindowPosition(CRect *rc)
     HKEY hKey;
     LONG lnRes;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     lnRes = RegOpenKeyEx(HKEY_CURRENT_USER, key, 0, KEY_READ, &hKey);
     if (lnRes == ERROR_SUCCESS)
@@ -150,7 +150,7 @@ void CMainSheet::LoadWindowPosition(CRect *rc)
         DWORD valuesize;
         ULONG type;
         valuesize = sizeof(CRect);
-        RegQueryValueEx(hKey, "windowpos", 0, &type, (unsigned char *)rc, &valuesize);
+        RegQueryValueEx(hKey, _T("windowpos"), 0, &type, (unsigned char *)rc, &valuesize);
     }
     RegCloseKey(hKey);
 }
@@ -159,7 +159,7 @@ void CMainSheet::SaveWindowPosition(CRect *rc)
 {
     HKEY hKey;
     CString key;
-    key = "SOFTWARE\\";
+    key = _T("SOFTWARE\\");
     key += LPCTSTR( M_APPNAME );
     DWORD value, valuesize;
     valuesize = sizeof(value);
@@ -167,7 +167,7 @@ void CMainSheet::SaveWindowPosition(CRect *rc)
     if (lnRes == ERROR_SUCCESS)
     {
         valuesize = sizeof(CRect);
-        RegSetValueEx(hKey, "windowpos", 0, REG_BINARY, (unsigned char *)rc, valuesize);
+        RegSetValueEx(hKey, _T("windowpos"), 0, REG_BINARY, (unsigned char *)rc, valuesize);
     }
     RegCloseKey(hKey);
 }

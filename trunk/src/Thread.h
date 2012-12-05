@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008 - Stefan Kueng
+// Copyright (C) 2008, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -70,6 +70,11 @@ public:
          * Default Constructor
          */
         CThread()
+            : m_hThread(NULL)
+            , m_pParent(NULL)
+            , m_dwTID(0)
+            , m_dwExitCode(0)
+            , m_runthread(FALSE)
         {
             m_pThreadFunction = CThread::EntryPoint;
         }

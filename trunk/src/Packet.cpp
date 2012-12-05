@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -18,6 +18,7 @@
 //
 #include "stdafx.h"
 #include "Packet.h"
+#include "UnicodeUtils.h"
 
 CPacket::~CPacket()
 {
@@ -45,7 +46,7 @@ BOOL CPacket::init()
         {
             Adapters[nAdapterCount].AdapterDescription = pAdInfo->Description;
             Adapters[nAdapterCount].AdapterString = pAdInfo->AdapterName;
-            Adapters[nAdapterCount].AdapterString = "\\Device\\NPF_" + Adapters[nAdapterCount].AdapterString;
+            Adapters[nAdapterCount].AdapterString = _T("\\Device\\NPF_") + Adapters[nAdapterCount].AdapterString;
             Adapters[nAdapterCount].Type = pAdInfo->Type;
             if (pAdInfo->AddressLength != 0)
             {
@@ -54,21 +55,21 @@ BOOL CPacket::init()
                 for (int i = 0; i < (int)Adapters[nAdapterCount].AddressLength; i++)
                 {
                     CString temp;
-                    temp.Format(" %02X", pAdInfo->Address[i]);
+                    temp.Format(_T(" %02X"), pAdInfo->Address[i]);
                     Adapters[nAdapterCount].Address += temp;
                 }
             }
             Adapters[nAdapterCount].ip4_str = pAdInfo->IpAddressList.IpAddress.String;
-            Adapters[nAdapterCount].ip4 = inet_addr(Adapters[nAdapterCount].ip4_str);
+            Adapters[nAdapterCount].ip4 = inet_addr(CUnicodeUtils::StdGetUTF8((LPCWSTR)Adapters[nAdapterCount].ip4_str).c_str());
             Adapters[nAdapterCount].mask_str = pAdInfo->IpAddressList.IpMask.String;
-            Adapters[nAdapterCount].mask = inet_addr(Adapters[nAdapterCount].mask_str);
+            Adapters[nAdapterCount].mask = inet_addr(CUnicodeUtils::StdGetUTF8((LPCWSTR)Adapters[nAdapterCount].mask_str).c_str());
             Adapters[nAdapterCount].gateway_str = pAdInfo->GatewayList.IpAddress.String;
             nAdapterCount++;
         } while ((pAdInfo = pAdInfo->Next) != NULL);
     }
     else
     {
-        AfxMessageBox("could not obtain info about adapters!");
+        AfxMessageBox(_T("could not obtain info about adapters!"));
     }
     delete pAdInfo;
 
@@ -216,7 +217,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
 
             if (timeout != 201)
             {
-                AfxMessageBox(errbuf);
+                AfxMessageBox(CUnicodeUtils::StdGetUnicode(errbuf).c_str());
                 return FALSE;
             }
         }
@@ -229,7 +230,7 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
     for(d=alldevs; d; d=d->next)
     {
         // +8 to skip the rpcap:// part of the string
-        if (Adapters[i].AdapterString.Compare(d->name+8) == 0)
+        if (Adapters[i].AdapterString.Compare(CUnicodeUtils::StdGetUnicode(d->name+8).c_str()) == 0)
         {
             pcapAdapterNr = count;
         }

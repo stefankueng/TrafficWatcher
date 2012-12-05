@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008-2009 - Stefan Kueng
+// Copyright (C) 2008-2009, 2012 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -29,6 +29,11 @@ static char THIS_FILE[]=__FILE__;
 #define STAT_FILE_VER       1
 
 CIPStat::CIPStat()
+    : ethernet(NULL)
+    , ip(NULL)
+    , ip6(NULL)
+    , tcp(NULL)
+    , tcp6(NULL)
 {
     m_sent.Clear();
     m_received.Clear();
