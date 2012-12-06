@@ -16,10 +16,10 @@
 // along with this program; if not, write to the Free Software Foundation,
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
+
 #include "stdafx.h"
 #include "Util.h"
 #include "Globals.h"
 
 CRegDWORD CUtil::regbits(L"SOFTWARE\\" M_APPNAME L"\\bits");
 CRegDWORD CUtil::regiec(L"SOFTWARE\\" M_APPNAME L"\\iec");
-
