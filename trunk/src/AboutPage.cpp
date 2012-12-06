@@ -23,9 +23,6 @@
 #include "trafficwatch.h"
 #include "AboutPage.h"
 #include "version.h"
-// compiler error because of missing version.h file?
-// run the NAnt build script to generate the version.h file from the version.in
-// file. Or at least copy the file version.in to version.h
 
 
 IMPLEMENT_DYNAMIC(CAboutPage, CPropertyPage)
