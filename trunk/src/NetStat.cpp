@@ -34,6 +34,7 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 
 CNetStat::CNetStat()
+    : threadactive(FALSE)
 {
 }
 
