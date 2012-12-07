@@ -114,7 +114,7 @@ BOOL COptionsPage::OnKillActive()
     if (m_autostart)
     {
         TCHAR szFilePath[512];
-        GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
+        GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, _countof(szFilePath) );
 
         if (CString(regRun).Compare(szFilePath))
         {

@@ -42,7 +42,7 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
     HMODULE hDll = NULL;
     char szDbgHelpPath[MAX_PATH];
 
-    if (GetModuleFileName( NULL, szDbgHelpPath, MAX_PATH ))
+    if (GetModuleFileName( NULL, szDbgHelpPath, _countof(szDbgHelpPath) ))
     {
         char *pSlash = _tcsrchr( szDbgHelpPath, '\\' );
         if (pSlash)
@@ -69,7 +69,7 @@ LONG MiniDumper::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
             char szScratch [MAX_PATH];
 
             // work out a good place for the dump file
-            if (!GetTempPath( MAX_PATH, szDumpPath ))
+            if (!GetTempPath( _countof(szDumpPath), szDumpPath ))
                 _tcscpy( szDumpPath, "c:\\temp\\" );
 
             _tcscat( szDumpPath, m_szAppName );

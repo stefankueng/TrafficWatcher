@@ -187,11 +187,11 @@ BOOL CPacket::Open(int i, DWORD /*bufsize*/, DWORD /*kernelbuf*/, BOOL /*promisc
         {
             // maybe the npf service isn't running yet
             // start our own exe with elevated privileges to get the service started
-            TCHAR szFilePath[MAX_PATH*2] = {0};
-            int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, sizeof( szFilePath ) );
+            TCHAR szFilePath[MAX_PATH * 2] = {0};
+            int len = GetModuleFileName( AfxGetInstanceHandle( ), szFilePath, _countof(szFilePath) );
 
             int timeout = 0;
-            if (len < (MAX_PATH*2))
+            if (len < (_countof(szFilePath)))
             {
                 SHELLEXECUTEINFO TempInfo = {0};
                 TempInfo.cbSize = sizeof(SHELLEXECUTEINFO);
