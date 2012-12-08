@@ -107,6 +107,7 @@ BOOL CHistoryPage::OnKillActive()
     // TODO: Add your specialized code here and/or call the base class
     return CPropertyPage::OnKillActive();
 }
+
 void CHistoryPage::OnPaint()
 {
     CPropertyPage::OnPaint();

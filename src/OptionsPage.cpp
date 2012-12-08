@@ -191,7 +191,7 @@ BOOL COptionsPage::OnKillActive()
 }
 
 
-DWORD   COptionsPage::GetUploadSpeed()
+DWORD COptionsPage::GetUploadSpeed()
 {
     DWORD temp;
     temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulspeed");
@@ -217,7 +217,7 @@ DWORD   COptionsPage::GetUploadSpeed()
     //return 32;
 }
 
-DWORD   COptionsPage::GetDownloadSpeed()
+DWORD COptionsPage::GetDownloadSpeed()
 {
     DWORD temp;
     temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlspeed");
@@ -243,7 +243,7 @@ DWORD   COptionsPage::GetDownloadSpeed()
     //return 32;
 }
 
-DWORD   COptionsPage::GetUploadSpeedLAN()
+DWORD COptionsPage::GetUploadSpeedLAN()
 {
     DWORD temp;
     temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\ulspeedlan");
@@ -269,7 +269,7 @@ DWORD   COptionsPage::GetUploadSpeedLAN()
     //return 1280;
 }
 
-DWORD   COptionsPage::GetDownloadSpeedLAN()
+DWORD COptionsPage::GetDownloadSpeedLAN()
 {
     DWORD temp;
     temp = CRegDWORD(L"SOFTWARE\\" M_APPNAME L"\\dlspeedlan");
