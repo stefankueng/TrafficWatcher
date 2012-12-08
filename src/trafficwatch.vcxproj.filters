@@ -66,9 +66,6 @@
     <ClCompile Include="..\sktoolslib\CmdLineParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sktoolslib\Registry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\sktoolslib\hyperlink.cpp">
       <Filter>sktoolslib</Filter>
     </ClCompile>
@@ -77,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="Util.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sktoolslib\Registry.cpp">
+      <Filter>sktoolslib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,13 +137,13 @@
     <ClInclude Include="..\sktoolslib\CmdLineParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sktoolslib\Registry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\sktoolslib\hyperlink.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
     <ClInclude Include="..\sktoolslib\UnicodeUtils.h">
+      <Filter>sktoolslib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\sktoolslib\Registry.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
   </ItemGroup>
