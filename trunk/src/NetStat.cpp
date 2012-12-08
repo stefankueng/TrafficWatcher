@@ -42,7 +42,7 @@ CNetStat::~CNetStat()
 {
 }
 
-BOOL    CNetStat::initialize()
+BOOL CNetStat::initialize()
 {
     unsigned int        rbuf;           //just a dummy
     DWORD               dwBytesRet;
@@ -108,7 +108,7 @@ BOOL    CNetStat::initialize()
 
 BOOL CNetStat::GetPacket(WSABUF *wbuf)
 {
-    DWORD         dwBytesRet=0,dwFlags=0;
+    DWORD   dwBytesRet=0, dwFlags=0;
 
 
     if(SOCKET_ERROR==WSARecv(sock,wbuf,1,&dwBytesRet,&dwFlags,NULL,NULL))
@@ -186,7 +186,7 @@ BOOL CNetStat::GetAdapterList(SOCKET_ADDRESS_LIST *slist)
     return 1;
 }
 
-UINT    sniff(LPVOID pParam)
+UINT sniff(LPVOID pParam)
 {
     CNetStat* pNetStat = (CNetStat*)pParam;
 

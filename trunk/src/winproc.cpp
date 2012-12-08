@@ -303,7 +303,7 @@ void CWinproc::OnTimer(UINT_PTR nIDEvent)
 }
 
 
-HICON   CWinproc::GetTaskBarIcon()
+HICON CWinproc::GetTaskBarIcon()
 {
     if (m_TaskBarIcon == 0)
     {
