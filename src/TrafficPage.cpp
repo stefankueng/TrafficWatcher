@@ -90,26 +90,26 @@ BOOL CTrafficPage::OnInitDialog()
     m_dl_bar.SetShowMaximum();
     m_dl_bar.SetMaximumTime(50);
     m_dl_bar.SetColor(COLORDOWN);
-    m_dl_bar.SetFontColor(RGB(255, 0, 0));
+    m_dl_bar.SetFontColor(RGB(0, 0, 0));
     m_ul_bar.SetAnimated();
     m_ul_bar.SetMaximumTime();
     m_ul_bar.SetShowMaximum();
     m_ul_bar.SetMaximumTime(50);
     m_ul_bar.SetColor(COLORUP);
-    m_ul_bar.SetFontColor(RGB(255, 0, 0));
+    m_ul_bar.SetFontColor(RGB(0, 0, 0));
 
     m_dl_barlan.SetAnimated();
     m_dl_barlan.SetMaximumTime();
     m_dl_barlan.SetShowMaximum();
     m_dl_barlan.SetMaximumTime(50);
     m_dl_barlan.SetColor(COLORDOWNLAN);
-    m_dl_barlan.SetFontColor(RGB(255, 0, 0));
+    m_dl_barlan.SetFontColor(RGB(0, 0, 0));
     m_ul_barlan.SetAnimated();
     m_ul_barlan.SetMaximumTime();
     m_ul_barlan.SetShowMaximum();
     m_ul_barlan.SetMaximumTime(50);
     m_ul_barlan.SetColor(COLORUPLAN);
-    m_ul_barlan.SetFontColor(RGB(255, 0, 0));
+    m_ul_barlan.SetFontColor(RGB(0, 0, 0));
 
 
     if (m_pTheApp->m_wnd.m_ipStat.GetActiveAdapterNumber() > (-1))
