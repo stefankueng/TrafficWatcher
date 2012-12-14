@@ -19,21 +19,12 @@
 
 #pragma once
 
-#ifndef WINVER
-#   define WINVER 0x0501
-#endif
+// Including SDKDDKVer.h defines the highest available Windows platform.
 
-#ifndef _WIN32_WINNT
-#   define _WIN32_WINNT 0x0501
-#endif
+// If you wish to build your application for a previous Windows platform, include WinSDKVer.h and
+// set the _WIN32_WINNT macro to the platform you wish to support before including SDKDDKVer.h.
 
-#ifndef _WIN32_WINDOWS
-#   define _WIN32_WINDOWS 0x0501
-#endif
-
-#ifndef _WIN32_IE
-#   define _WIN32_IE 0x0700
-#endif
+#include <SDKDDKVer.h>
 
 #pragma comment(linker, "\"/manifestdependency:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
