@@ -32,6 +32,8 @@ static char THIS_FILE[] = __FILE__;
 
 
 UINT TaskbarCallbackMsg = RegisterWindowMessage(L"NPSTaskbarMsg");
+static UINT WM_TASKBARCREATED = RegisterWindowMessage(_T("TaskbarCreated"));
+CWinproc::PFNCHANGEWINDOWMESSAGEFILTEREX CWinproc::m_pChangeWindowMessageFilter = NULL;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -70,6 +72,7 @@ BEGIN_MESSAGE_MAP(CWinproc, CWnd)
     ON_WM_CLOSE()
     ON_WM_TIMER()
     ON_REGISTERED_MESSAGE(TaskbarCallbackMsg, OnTaskbarNotify)
+    ON_REGISTERED_MESSAGE(WM_TASKBARCREATED, OnTaskbarCreated)
 END_MESSAGE_MAP()
 
 
@@ -83,6 +86,20 @@ END_MESSAGE_MAP()
 // initializes SNMP and the system tray icon
 void CWinproc::StartUp( )
 {
+    // On Vista, the message TasbarCreated may be blocked by the message filter.
+    // We try to change the filter here to get this message through. If even that
+    // fails, then we can't do much about it and the task bar icon won't show up again.
+    HMODULE hLib = LoadLibrary(_T("user32.dll"));
+    if (hLib)
+    {
+        m_pChangeWindowMessageFilter = (CWinproc::PFNCHANGEWINDOWMESSAGEFILTEREX)GetProcAddress(hLib, "ChangeWindowMessageFilterEx");
+        if (m_pChangeWindowMessageFilter)
+        {
+            (*m_pChangeWindowMessageFilter)(GetSafeHwnd(), WM_TASKBARCREATED, MSGFLT_ALLOW, NULL);
+            (*m_pChangeWindowMessageFilter)(GetSafeHwnd(), WM_SETTINGCHANGE, MSGFLT_ALLOW, NULL);
+        }
+    }
+
     CRegString regAdapter(L"SOFTWARE\\" M_APPNAME L"\\adapter");
     CString sAdapter = regAdapter;
     if (!sAdapter.IsEmpty())
@@ -250,6 +267,14 @@ LRESULT CWinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
             break;
 
     }
+    return 0;
+}
+
+LRESULT CWinproc::OnTaskbarCreated( WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(wParam);
+    UNREFERENCED_PARAMETER(lParam);
+    StartUp();
     return 0;
 }
 

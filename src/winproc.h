@@ -25,6 +25,9 @@
 #include "IPStat.h"
 #include "Filter.h"
 
+#include <shellapi.h>
+#include <shlwapi.h>
+#include <commctrl.h>
 
 #define IDT_STATISTICS 103
 
@@ -37,16 +40,22 @@
  */
 class CWinproc : public CWnd
 {
-// Construction
 public:
     CWinproc();
+    virtual ~CWinproc();
     void StartUp( );
     LRESULT OnTaskbarNotify( WPARAM wParam, LPARAM lParam );
+    LRESULT OnTaskbarCreated( WPARAM wParam, LPARAM lParam );
     void UpdateTrayIcon( HICON hIcon );
     void ShowDialog( );
     void ShowView( );
 
-// Attributes
+protected:
+    afx_msg void OnClose();
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
+    DECLARE_MESSAGE_MAP()
+
+    // Attributes
 public:
     CMainSheet* m_pDialog;
     CTrafficView* m_pTView;
@@ -75,11 +84,6 @@ protected:
     ICONINFO    m_TaskBarIconInfo;
     CBitmap     m_bmpIcon;
 
-public:
-    virtual ~CWinproc();
-
-protected:
-    afx_msg void OnClose();
-    afx_msg void OnTimer(UINT_PTR nIDEvent);
-    DECLARE_MESSAGE_MAP()
+    typedef BOOL(__stdcall *PFNCHANGEWINDOWMESSAGEFILTEREX)(HWND hWnd, UINT message, DWORD dwFlag, PCHANGEFILTERSTRUCT pChangeFilterStruct);
+    static PFNCHANGEWINDOWMESSAGEFILTEREX m_pChangeWindowMessageFilter;
 };
