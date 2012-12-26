@@ -44,8 +44,8 @@ CWinproc::CWinproc()
     , m_pDialog(NULL)
     , m_pTView(NULL)
 {
-    ZeroMemory( &m_TaskBarIconInfo, sizeof( m_TaskBarIconInfo ) );
-    ZeroMemory( &m_SystemTray, sizeof( m_SystemTray ) );
+    SecureZeroMemory( &m_TaskBarIconInfo, sizeof( m_TaskBarIconInfo ) );
+    SecureZeroMemory( &m_SystemTray, sizeof( m_SystemTray ) );
     m_bView = TRUE;
 }
 
