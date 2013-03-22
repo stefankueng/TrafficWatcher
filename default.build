@@ -1,62 +1,62 @@
 <?xml version="1.0"?>
 <project name="TrafficWatcher" default="build">
-    <!-- the signinfo.txt file has to contain one line with parameters for signtool.exe,
-         for example:
-         /t "url/to/timestamp/server" /q
-    -->
-    <loadfile file="signinfo.txt" property="signinfo" failonerror="false" />
+  <!-- the signinfo.txt file has to contain one line with parameters for signtool.exe,
+     for example:
+     /t "url/to/timestamp/server" /q
+  -->
+  <loadfile file="signinfo.txt" property="signinfo" failonerror="false" />
 
-    <target name="build" depends="VSNET">
-        <!-- run SubWCRev to get the revision of the working copy -->
-        <exec program="SubWCRev.exe">
-            <arg value="." />
-            <arg value="src/version.in" />
-            <arg value="src/version.h" />
-        </exec>
+  <target name="build" depends="VSNET">
+    <!-- run SubWCRev to get the revision of the working copy -->
+    <exec program="SubWCRev.exe">
+      <arg value="." />
+      <arg value="src/version.in" />
+      <arg value="src/version.h" />
+    </exec>
 
-        <exec program="devenv.com" >
-            <arg value="trafficwatch.sln" />
-            <arg value="/rebuild" />
-            <arg value="Debug|win32" />
-        </exec>
-        <exec program="devenv.com" >
-            <arg value="trafficwatch.sln" />
-            <arg value="/rebuild" />
-            <arg value="Release|Win32" />
-        </exec>
+    <exec program="devenv.com" >
+      <arg value="trafficwatch.sln" />
+      <arg value="/rebuild" />
+      <arg value="Debug|win32" />
+    </exec>
+    <exec program="devenv.com" >
+      <arg value="trafficwatch.sln" />
+      <arg value="/rebuild" />
+      <arg value="Release|Win32" />
+    </exec>
 
-        <exec program="devenv.com" >
-            <arg value="trafficwatch.sln" />
-            <arg value="/rebuild" />
-            <arg value="Debug|x64" />
-        </exec>
-        <exec program="devenv.com" >
-            <arg value="trafficwatch.sln" />
-            <arg value="/rebuild" />
-            <arg value="Release|x64" />
-        </exec>
+    <exec program="devenv.com" >
+      <arg value="trafficwatch.sln" />
+      <arg value="/rebuild" />
+      <arg value="Debug|x64" />
+    </exec>
+    <exec program="devenv.com" >
+      <arg value="trafficwatch.sln" />
+      <arg value="/rebuild" />
+      <arg value="Release|x64" />
+    </exec>
 
-        <if test="${file::exists('signinfo.txt')}">
-            <exec program="signtool">
-                <arg value="sign" />
-                <arg value="${signinfo}" />
-                <arg value="bin\Release\Win32\trafficwatch.exe" />
-            </exec>
-        </if>
-        <if test="${file::exists('signinfo.txt')}">
-            <exec program="signtool">
-                <arg value="sign" />
-                <arg value="${signinfo}" />
-                <arg value="bin\Release\x64\trafficwatch.exe" />
-            </exec>
-        </if>
+    <if test="${file::exists('signinfo.txt')}">
+      <exec program="signtool">
+        <arg value="sign" />
+        <arg value="${signinfo}" />
+        <arg value="bin\Release\Win32\trafficwatch.exe" />
+      </exec>
+    </if>
+    <if test="${file::exists('signinfo.txt')}">
+      <exec program="signtool">
+        <arg value="sign" />
+        <arg value="${signinfo}" />
+        <arg value="bin\Release\x64\trafficwatch.exe" />
+      </exec>
+    </if>
 
-    </target>
+  </target>
 
-    <target name="VSNET" description="Checks if the env variables for VS2012 are set">
-        <if test="${not environment::variable-exists('VCINSTALLDIR')}">
-            <fail>You must first call "%VS110COMNTOOLS%\vsvars32.bat"</fail>
-        </if>
-    </target>
+  <target name="VSNET" description="Checks if the env variables for VS2012 are set">
+    <if test="${not environment::variable-exists('VCINSTALLDIR')}">
+      <fail>You must first call "%VS110COMNTOOLS%\vsvars32.bat"</fail>
+    </if>
+  </target>
 
 </project>
