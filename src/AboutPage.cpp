@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008, 2012 - Stefan Kueng
+// Copyright (C) 2008, 2012-2013 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -53,7 +53,7 @@ BOOL CAboutPage::OnInitDialog()
     CPropertyPage::OnInitDialog();
 
     m_VersionString.Format(L"Version %d.%d.%d.%d", VER_MAJOR, VER_MINOR, VER_MICRO, VER_REVISION);
-    m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_WEBLINK, L"http://tools.tortoisesvn.net");
+    m_webLink.ConvertStaticToHyperlink(m_hWnd, IDC_WEBLINK, L"http://stefanstools.sourceforge.net");
     m_sourceLink.ConvertStaticToHyperlink(m_hWnd, IDC_SOURCECODELINK, L"http://code.google.com/p/trafficwatcher/source/browse");
 
     UpdateData(FALSE);
