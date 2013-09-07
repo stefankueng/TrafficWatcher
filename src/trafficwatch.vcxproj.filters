@@ -13,9 +13,6 @@
       <UniqueIdentifier>{320e2a43-4104-45e0-ae39-500cd77cb698}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Scripts">
-      <UniqueIdentifier>{d535d05c-843b-4ad1-918e-65d7b5f1b2b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sktoolslib">
       <UniqueIdentifier>{0d7051c0-3d13-4045-b2ef-3f78d0f09057}</UniqueIdentifier>
     </Filter>
@@ -63,19 +60,19 @@
     <ClCompile Include="winproc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sktoolslib\CmdLineParser.cpp">
+    <ClCompile Include="..\ext\sktoolslib\CmdLineParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sktoolslib\hyperlink.cpp">
+    <ClCompile Include="..\ext\sktoolslib\hyperlink.cpp">
       <Filter>sktoolslib</Filter>
     </ClCompile>
-    <ClCompile Include="..\sktoolslib\UnicodeUtils.cpp">
+    <ClCompile Include="..\ext\sktoolslib\UnicodeUtils.cpp">
       <Filter>sktoolslib</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\sktoolslib\Registry.cpp">
+    <ClCompile Include="..\ext\sktoolslib\Registry.cpp">
       <Filter>sktoolslib</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,16 +131,16 @@
     <ClInclude Include="winproc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sktoolslib\CmdLineParser.h">
+    <ClInclude Include="..\ext\sktoolslib\CmdLineParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\sktoolslib\hyperlink.h">
+    <ClInclude Include="..\ext\sktoolslib\hyperlink.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
-    <ClInclude Include="..\sktoolslib\UnicodeUtils.h">
+    <ClInclude Include="..\ext\sktoolslib\UnicodeUtils.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
-    <ClInclude Include="..\sktoolslib\Registry.h">
+    <ClInclude Include="..\ext\sktoolslib\Registry.h">
       <Filter>sktoolslib</Filter>
     </ClInclude>
   </ItemGroup>
@@ -157,9 +154,7 @@
     <None Include="res\trafficwatch.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\default.build">
-      <Filter>Scripts</Filter>
-    </None>
+    <None Include="..\default.build" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="trafficwatch.rc">
