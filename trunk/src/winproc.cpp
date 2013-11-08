@@ -102,10 +102,10 @@ void CWinproc::StartUp( )
 
     CRegString regAdapter(L"SOFTWARE\\" M_APPNAME L"\\adapter");
     CString sAdapter = regAdapter;
+	m_ipStat.init(-1);
     if (!sAdapter.IsEmpty())
     {
         DWORD value = (DWORD)-1;
-        m_ipStat.init(value);
         for (int i=0; i<m_ipStat.GetNumberOfAdapters(); i++)
         {
             if (m_ipStat.GetDescription(i).Compare(sAdapter) == 0)
