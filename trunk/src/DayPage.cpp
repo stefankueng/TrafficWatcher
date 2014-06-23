@@ -1,6 +1,6 @@
 // TrafficWatcher - a network speed monitor
 
-// Copyright (C) 2008, 2012 - Stefan Kueng
+// Copyright (C) 2008, 2012, 2014 - Stefan Kueng
 
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -187,10 +187,9 @@ void CHistoryPage::DrawDayDiagram(int day)
     CBrush br(::GetSysColor(COLOR_3DFACE));
     dc.FillRect(rect, &br);
 
-    DWORD64 temp;
     for (int i=0; i<dayrange; i++)
     {
-        temp = m_pTheApp->m_wnd.m_ipStat.GetTotal(today.GetDay());
+        DWORD64 temp = m_pTheApp->m_wnd.m_ipStat.GetTotal(today.GetDay());
         rect.top = rectClient.top + int( ( (float)rectClient.Height() * (CUtil::int64_to_float(maxval) - CUtil::int64_to_float(temp))) / CUtil::int64_to_float(maxval) );
         rect.left = rectClient.right - (((i+1)*(rectClient.Width()) / dayrange));
         rect.right = rectClient.right - (((i)*(rectClient.Width()) / dayrange));
@@ -241,10 +240,9 @@ void CHistoryPage::DrawMonthDiagram(int month)
     CBrush br(::GetSysColor(COLOR_3DFACE));
     dc.FillRect(rect, &br);
 
-    DWORD64 temp;
     for (int i=0; i<12; i++)
     {
-        temp = m_pTheApp->m_wnd.m_ipStat.GetTotalMonth(monthnum);
+        DWORD64 temp = m_pTheApp->m_wnd.m_ipStat.GetTotalMonth(monthnum);
         rect.top = rectClient.top + int(((float)rectClient.Height() * (CUtil::int64_to_float(maxval) - CUtil::int64_to_float(temp))) / CUtil::int64_to_float(maxval));
         rect.left = rectClient.right - (((i+1)*(rectClient.Width()) / 12));
         rect.right = rectClient.right - (((i)*(rectClient.Width()) / 12));
