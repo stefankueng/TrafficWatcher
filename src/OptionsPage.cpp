@@ -23,6 +23,8 @@
 #include "Util.h"
 #include "Registry.h"
 
+#include <VersionHelpers.h>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -126,10 +128,7 @@ BOOL COptionsPage::OnKillActive()
                 int ret = AfxMessageBox(L"To start TrafficWatcher automatically, it is recommended\nto also start the NPF service automatically.\nDo you want to set the NPF service to start automatically?", MB_ICONQUESTION|MB_YESNOCANCEL);
                 if (ret == IDYES)
                 {
-                    OSVERSIONINFO osinfo = {0};
-                    osinfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-                    GetVersionEx(&osinfo);
-                    if (osinfo.dwMajorVersion >= 6)
+                    if (IsWindowsVistaOrGreater())
                     {
                         // if Vista
                         SHELLEXECUTEINFO TempInfo = {0};
