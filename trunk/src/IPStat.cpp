@@ -91,19 +91,18 @@ void CIPStat::AnalyzePackets(const UCHAR *buffer, const UCHAR * /*packet*/)
 
     if (htons(ethernet->ether_type) == 0x86dd)  // IPv6
     {
-        ULONG len;
-        len = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
-        if (len > 10000 )
-            len = htons((u_short)len);
+        ULONG llen = ip6->ip6_ctlun.ip6_un1.ip6_un1_plen;
+        if (llen > 10000 )
+            llen = htons((u_short)llen);
         SOCKADDRIPV6 * sock6 = (SOCKADDRIPV6 *)&Adapters[nActiveAdapter].ip6;
         // assume for now that ipv6 is only used inside the LAN
         if (memcmp(ip6->ip6_src.u.Byte, sock6->sa_data, 16) == 0)
         {
-            m_sentLAN.AddDataTCP((tcp6->th_dport), (tcp6->th_sport), len);
+            m_sentLAN.AddDataTCP((tcp6->th_dport), (tcp6->th_sport), llen);
         }
         else if (memcmp(ip6->ip6_dst.u.Byte, sock6->sa_data, 16) == 0)
         {
-            m_receivedLAN.AddDataTCP((tcp6->th_sport), (tcp6->th_dport), len);
+            m_receivedLAN.AddDataTCP((tcp6->th_sport), (tcp6->th_dport), llen);
         }
     }
     else if (htons(ethernet->ether_type) == 0x0800) // IPv4

@@ -75,14 +75,14 @@ private: //members
 #pragma pack(1)
 
     /// structure of the ethernet packet header
-    typedef struct sniff_ethernet
+    struct sniff_ethernet
     {
         u_char ether_dhost[ETHER_ADDR_LEN]; ///<Destination host address
         u_char ether_shost[ETHER_ADDR_LEN]; ///<Source host address
         u_short ether_type;                 ///<IP? ARP? RARP? etc
     };
     /// structure of the ip packet header
-    typedef struct sniff_ip
+    struct sniff_ip
     {
         u_char ip_hl:4,                     ///<header length
         ip_v:4;                             ///<version
@@ -100,7 +100,7 @@ private: //members
         struct in_addr ip_src,ip_dst;       ///<source and dest address
     };
 
-    typedef struct sniff_ip6
+    struct sniff_ip6
     {
         union
         {
@@ -118,7 +118,7 @@ private: //members
     };
 
     /// structure of the tcp packet header
-    typedef struct sniff_tcp
+    struct sniff_tcp
     {
         u_short th_sport;                   ///<source port
         u_short th_dport;                   ///<destination port
@@ -141,7 +141,7 @@ private: //members
         u_short th_urp;                     ///<urgent pointer
     };
 
-    typedef struct SOCKADDRIPV6
+    struct SOCKADDRIPV6
     {
         __int64 sa_family;      // address family
         unsigned char sa_data[16];
